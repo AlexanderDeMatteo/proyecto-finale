@@ -1,4 +1,5 @@
 const getState = ({ getStore, getActions, setStore }) => {
+	const API_URL = process.env.BACKEND_URL;
 	return {
 		store: {
 			message: null,
@@ -19,6 +20,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
+			},
+
+			registerUser: async (data) => {
+				let response = await fetch(`${API_URL}/api/sign-up`, {
+					method: "POST",
+					// mode: "no-cors",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(data),
+				});
+				if (response.status == 200) {
+					let data = await response.json();
+					localStorage.setItem("token", data.token);
+					return true;
+				} else return false;
 			},
 
 			getMessage: () => {
