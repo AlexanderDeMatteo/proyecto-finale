@@ -7,20 +7,58 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
+		<div>
+			<div id="caja_arriba">
+				<div id="carrusel">
+
+					<div id="enunciado">
+						<h1>texto elocuente sobre lo que me de la gana</h1>
+						<p>lalalalalalalalalalalalalalallalalalalalalal</p>
+						<a id="boton" class="btn btn-primary" href="#" role="button" >Registrate ahora</a>
+					</div>
+
+					<div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="false">
+
+						<div className="carousel-inner">
+							<div className="carousel-item active">
+								<img src="https://img.freepik.com/vector-gratis/salud-mental-entendiendo-vector-cerebral_53876-79084.jpg?size=338&ext=jpg&ga=GA1.2.1846917735.1655248269" className="d-block w-50px h-70px" alt="..." />
+								<div className="carousel-caption d-none d-md-block">
+									<h5></h5>
+									<p></p>
+								</div>
+							</div>
+							<div className="carousel-item">
+								<img src="https://img.freepik.com/foto-gratis/terapeuta-mujer-tiro-medio-portapapeles-invitando-al-paciente-gabinete_23-2148759114.jpg?size=626&ext=jpg&ga=GA1.2.1846917735.1655248269" className="d-block w-50px h-70px" alt="..." />
+								<div className="carousel-caption d-none d-md-block">
+									<h5></h5>
+									<p></p>
+								</div>
+							</div>
+							<div className="carousel-item">
+								<img src="https://img.freepik.com/foto-gratis/psicologo-sexo-femenino-amistoso-que-coloca-su-oficina-tablero-lapiz_23-2148026256.jpg?size=626&ext=jpg&ga=GA1.2.1846917735.1655248269" className="d-block w-50px h-70px" alt="..." />
+								<div className="carousel-caption d-none d-md-block">
+									<h5></h5>
+									<p></p>
+								</div>
+							</div>
+						</div>
+						<button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+							<span className="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span className="visually-hidden">Previous</span>
+						</button>
+						<button className="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+							<span className="carousel-control-next-icon" aria-hidden="true"></span>
+							<span className="visually-hidden">Next</span>
+						</button>
+					</div>
+				</div>
 			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
-					Read documentation
-				</a>
-			</p>
-		</div>
+			<div id="caja_abajo">
+
+			</div>
+
+
+
+		</div >
 	);
 };
