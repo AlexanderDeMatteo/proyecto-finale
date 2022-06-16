@@ -2,8 +2,9 @@ import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
-import "../../styles/signup.css";
-export const Login = () => {
+
+
+export const SignIn = () => {
     const { store, actions } = useContext(Context);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -21,7 +22,7 @@ export const Login = () => {
             email: email,
             password: password,
         };
-        if (await actions.registerUser(data)) {
+        if (actions.loginUser(data)) {
             history.push("/private");
         } else {
             alert("Credenciales Invalidas");
@@ -38,7 +39,7 @@ export const Login = () => {
                                 <div className="row justify-content-center">
                                     <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                                         <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                                            Sign up
+                                            Sign Up
                                         </p>
 
                                         <form className="mx-1 mx-md-4">
@@ -129,7 +130,7 @@ export const Login = () => {
                                                     onClick={handleSubmit}
                                                     disabled={
                                                         errors.email ||
-                                                        errors.password || !name.length > 0 ||
+                                                        errors.password ||
                                                         !email.length > 0 ||
                                                         !password.length > 0
                                                     }
@@ -137,9 +138,7 @@ export const Login = () => {
                                                     Login
                                                 </button>
                                             </div>
-                                            <Link className="m-auto" to={"/login"}>
-                                                Si ya tienes cuenta, inicia sesion
-                                            </Link>
+
                                         </form>
                                     </div>
                                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
@@ -156,7 +155,7 @@ export const Login = () => {
                 </div>
             </div>
             {localStorage.getItem("token") != undefined && (
-                <Redirect to={"/private"}></Redirect>
+                <Redirect to={"/paginaPrincipal"}></Redirect>
             )}
         </section>
     );

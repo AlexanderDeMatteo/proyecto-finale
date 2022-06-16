@@ -36,6 +36,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} else return false;
 			},
 
+			loginUser: async (data) => {
+				let response = await fetch(`${API_URL}/api/sign-in`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(data),
+				});
+				if (response.status == 200) {
+					let data = await response.json();
+					localStorage.setItem("token", data.token);
+					return true;
+				} else return false;
+			},
 			getMessage: () => {
 				// fetching data from the backend
 				fetch(process.env.BACKEND_URL + "/api/hello")

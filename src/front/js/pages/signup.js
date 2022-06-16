@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/signup.css";
+
 export const SignUp = () => {
 	const { store, actions } = useContext(Context);
 	const [name, setName] = useState("");
@@ -229,7 +230,7 @@ export const SignUp = () => {
 				</div>
 			</div>
 			{localStorage.getItem("token") != undefined && (
-				<Redirect to={"/private"}></Redirect>
+				<Redirect to={"/paginaPrincipal"}></Redirect>
 			)}
 		</section>
 	);
