@@ -10,8 +10,9 @@ import { PaginaPrincipal } from "./pages/paginaPrincipal";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
+import { Navbar2 } from "./component/navbar_2";
 import { Footer } from "./component/footer";
-
+import "../styles/layout.css"
 
 //create your first component
 const Layout = () => {
@@ -35,7 +36,14 @@ const Layout = () => {
 							<SignIn />
 						</Route>
 						<Route exact path="/paginaPrincipal">
-							<PaginaPrincipal />
+							<div className="box" >
+								<div>
+									<Navbar2 />
+								</div>
+								<div>
+									<PaginaPrincipal />
+								</div>
+							</div>
 						</Route>
 						<Route>
 							<h1>Not found!</h1>
