@@ -14,7 +14,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			userData: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -48,6 +49,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return true;
 				} else return false;
 			},
+
+			// userData: async () => {
+			// 	getUserData: async () => {
+			// 		const store = getStore()
+			// 		let response = await fetch(`${store.API_URL}`);
+			// 		if (response.ok) {
+			// 			let body = await response.json()
+			// 			setStore({ UserData: body.results })
+			// 		}
+			// 	},
+			// },
+
 			getMessage: () => {
 				// fetching data from the backend
 				fetch(process.env.BACKEND_URL + "/api/hello")

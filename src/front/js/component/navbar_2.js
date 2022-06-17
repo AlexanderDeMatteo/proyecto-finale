@@ -9,6 +9,7 @@ export const Navbar2 = () => {
             <a class="nav-link active" aria-current="page" href="#">Perfil</a>
             <a class="nav-link" href="#">Sesiones Online</a>
             <a class="nav-link" href="#">Agenda del dia</a>
+            <a class="nav-link" href="#">Contactos personales</a>
             <a class="nav-link" href="#">Configuracion</a>
             <p>Administración</p>
             <li class="nav-item dropdown" id="hola">

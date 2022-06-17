@@ -11,6 +11,7 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Navbar2 } from "./component/navbar_2";
+import { Navbar3 } from "./component/navbar3";
 import { Footer } from "./component/footer";
 import "../styles/layout.css"
 
@@ -24,18 +25,22 @@ const Layout = () => {
 		<div>
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					<Navbar />
+					{/* <Navbar /> */}
 					<Switch>
 						<Route exact path="/">
+							<Navbar />
 							<Home />
 						</Route>
 						<Route exact path="/signup">
+							<Navbar />
 							<SignUp />
 						</Route>
 						<Route exact path="/signin">
+							<Navbar />
 							<SignIn />
 						</Route>
 						<Route exact path="/paginaPrincipal">
+							<Navbar3 />
 							<div className="box" >
 								<div>
 									<Navbar2 />

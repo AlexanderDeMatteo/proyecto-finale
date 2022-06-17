@@ -23,7 +23,7 @@ export const SignIn = () => {
             password: password,
         };
         if (actions.loginUser(data)) {
-            history.push("/private");
+            history.push("/paginaPrincipal");
         } else {
             alert("Credenciales Invalidas");
         }
