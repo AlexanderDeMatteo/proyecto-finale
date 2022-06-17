@@ -75,6 +75,14 @@ def handle_userData():
     user = User.query.filter_by(**data_decode).first()
     return jsonify(user_serializado), 200
 
+@api.route("/user-data", methods=['GET'])
+@jwt_required()
+def handle_user_data():
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(id=current_user).one_or_none()
+    if user is None:
+        return jsonify({"message":"Usuario no encontrado"}), 404
+    return jsonify(user.serialize()), 200
 
 #     @app.route('/personajes', methods=['GET'])
 # def listapersonajes():

@@ -1,8 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../../styles/navbar3.css"
 
 export const Navbar3 = () => {
+    const history = useHistory()
+
+
+
     return (
         <nav id="menu" className="nav justify-content">
             <a className="nav-link active" aria-current="page" href="/">logo</a>
@@ -21,7 +25,10 @@ export const Navbar3 = () => {
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">status</a></li>
                     <li><a class="dropdown-item" href="#">Facturacion</a></li>
-                    <li><a class="dropdown-item" href="#">log out</a></li>
+                    <li><a onClick={(e) => {
+                        localStorage.removeItem("token");
+                        history.push("/signin")
+                    }} class="dropdown-item" href="#">log out</a></li>
                 </ul>
             </li>
         </nav>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
@@ -6,9 +6,11 @@ import { Navbar } from "../component/navbar";
 import "../../styles/paginaPrincipal.css"
 
 export const PaginaPrincipal = () => {
-
+    const API_URL = process.env.BACKEND_URL;
     const [show, setShow] = useState(true);
-    const [profileUser, setProfile] = useState({ nombre: "alex" });
+    const [profileUser, setProfile] = useState({ name: "", email: "", area_de_especialidad: "", hubicacion: "", telefono: "" });
+
+
 
 
     function Editar() {
@@ -18,10 +20,7 @@ export const PaginaPrincipal = () => {
 
 
     function handleChange(event) {
-        event.persist();
-        console.log(profileUser)
         setProfile(prevFormData => {
-
             return {
                 ...prevFormData,
                 [event.target.name]: event.target.value
@@ -29,13 +28,36 @@ export const PaginaPrincipal = () => {
         })
     }
 
+    const handle_user_data = async () => {
+        let response = await fetch(`${API_URL}/api/user-data`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+            // body: JSON.stringify([])
+        });
+
+        if (response.ok) {
+            let body = await response.json()
+            setProfile(body)
+            console.log(body)
+        }
+    }
+
+    useEffect(() => {
+        handle_user_data();
+    }, []);
+
+
+
     return (
         <div className="box3">
             <section >
                 <div className="container py-5">
                     {/* <div className="row">
                         <div className="col">
-                            <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 mb-4">
+                        <nav aria-label="breadcrumb" className="bg-light rounded-3 p-3 mb-4">
                                 <ol className="breadcrumb mb-0">
                                     <li className="breadcrumb-item"><a href="#">Home</a></li>
                                     <li className="breadcrumb-item"><a href="#">User</a></li>
@@ -51,9 +73,9 @@ export const PaginaPrincipal = () => {
                                 <div className="card-body text-center">
                                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
                                         className="rounded-circle img-fluid" />
-                                    <h5 className="my-3">John Smith</h5>
-                                    <p className="text-muted mb-1">Full Stack Developer</p>
-                                    <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                                    <h5 className="my-3">{profileUser.name}</h5>
+                                    <p className="text-muted mb-1">{profileUser.area_de_especialidad}</p>
+                                    <p className="text-muted mb-4">{profileUser.hubicacion}</p>
                                     <div className="d-flex justify-content-center mb-2">
                                         <button type="button" className="btn btn-primary">Follow</button>
                                         <button type="button" className="btn btn-outline-primary ms-1">Message</button>
@@ -96,7 +118,7 @@ export const PaginaPrincipal = () => {
                                         </div>
                                         <div className="col-sm-9">
 
-                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="nombre" value={profileUser.nombre} /> : <p className="text-muted mb-0">{profileUser.nombre}</p>}
+                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="name" value={profileUser.name} /> : <p className="text-muted mb-0">{profileUser.name}</p>}
                                             {/* <buttom name='aaa' onClick={Editapapi} /> */}
                                             <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
@@ -107,35 +129,38 @@ export const PaginaPrincipal = () => {
                                             <p className="mb-0">Email</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="nombre" value={profileUser.email} /> : <p className="text-muted mb-0">{profileUser.email}</p>}
+                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="email" value={profileUser.email} /> : <p className="text-muted mb-0">{profileUser.email}</p>}
                                             <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
                                     <hr />
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <p className="mb-0">Phone</p>
+                                            <p className="mb-0">Area de Especialidad</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            <p className="text-muted mb-0">(097) 234-5678</p>
+                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="area_de_especialidad" value={profileUser.area_de_especialidad} /> : <p className="text-muted mb-0">{profileUser.area_de_especialidad}</p>}
+                                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
                                     <hr />
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <p className="mb-0">Mobile</p>
+                                            <p className="mb-0">Estado/provincia</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            <p className="text-muted mb-0">(098) 765-4321</p>
+                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="hubicacion" value={profileUser.hubicacion} /> : <p className="text-muted mb-0">{profileUser.hubicacion}</p>}
+                                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
                                     <hr />
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <p className="mb-0">Address</p>
+                                            <p className="mb-0">Telefono</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            <p className="text-muted mb-0">Bay Area, San Francisco, CA</p>
+                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="telefono" value={profileUser.telefono} /> : <p className="text-muted mb-0">{profileUser.telefono}</p>}
+                                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
                                 </div>
