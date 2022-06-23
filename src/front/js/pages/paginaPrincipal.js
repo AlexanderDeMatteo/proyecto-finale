@@ -8,7 +8,7 @@ import "../../styles/paginaPrincipal.css"
 export const PaginaPrincipal = () => {
     const API_URL = process.env.BACKEND_URL;
     const [show, setShow] = useState(true);
-    const [profileUser, setProfile] = useState({ name: "", email: "", area_de_especialidad: "", hubicacion: "", telefono: "" });
+    const [profileUser, setProfile] = useState({});
 
 
 
@@ -20,7 +20,6 @@ export const PaginaPrincipal = () => {
 
 
     function handleChange(event) {
-        console.log(event)
         event.persist()
         setProfile(prevFormData => {
             return {
@@ -43,10 +42,27 @@ export const PaginaPrincipal = () => {
         if (response.ok) {
             let body = await response.json()
             setProfile(body)
-            console.log("aaaaaaaaaaaaaaaaaaaaaaa")
-            console.log(body)
         }
     }
+
+    const guardar = async () => {
+        delete profileUser.email
+        delete profileUser.id
+        delete profileUser.status
+        console.log(profileUser)
+        const response = await fetch(`${API_URL}/api/user-data`, {
+            method: "PUT",
+            body: JSON.stringify(profileUser),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
+        });
+        if (response.ok) {
+            alert("datos actualizados");
+        }
+    };
+
 
     useEffect(() => {
         handle_user_data();
@@ -122,7 +138,6 @@ export const PaginaPrincipal = () => {
                                         <div className="col-sm-9">
 
                                             {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="name" value={profileUser.name} /> : <p className="text-muted mb-0">{profileUser.name}</p>}
-                                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
                                     <hr />
@@ -132,7 +147,6 @@ export const PaginaPrincipal = () => {
                                         </div>
                                         <div className="col-sm-9">
                                             {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="last_name" value={profileUser.last_name} /> : <p className="text-muted mb-0">{profileUser.last_name}</p>}
-                                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
                                     <hr />
@@ -141,8 +155,7 @@ export const PaginaPrincipal = () => {
                                             <p className="mb-0">Email</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="email" value={profileUser.email} /> : <p className="text-muted mb-0">{profileUser.email}</p>}
-                                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
+                                            <p name="email" value={profileUser.email} className="text-muted mb-0">{profileUser.email}</p>
                                         </div>
                                     </div>
                                     <hr />
@@ -152,7 +165,6 @@ export const PaginaPrincipal = () => {
                                         </div>
                                         <div className="col-sm-9">
                                             {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="area_de_especialidad" value={profileUser.area_de_especialidad} /> : <p className="text-muted mb-0">{profileUser.area_de_especialidad}</p>}
-                                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
                                     <hr />
@@ -162,52 +174,55 @@ export const PaginaPrincipal = () => {
                                         </div>
                                         <div className="col-sm-9">
                                             {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="numero_telefonico" value={profileUser.numero_telefonico} /> : <p className="text-muted mb-0">{profileUser.numero_telefonico}</p>}
-                                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div className="row">
+                                        <div className="col-sm-3">
+                                            <p className="mb-0">numero de FPV</p>
+                                        </div>
+                                        <div className="col-sm-9">
+                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="numero_fpv" value={profileUser.numero_fpv} /> : <p className="text-muted mb-0">{profileUser.numero_fpv}</p>}
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div className="row">
+                                        <div className="col-sm-3">
+                                            <p className="mb-0">pais</p>
+                                        </div>
+                                        <div className="col-sm-9">
+                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="pais" value={profileUser.pais} /> : <p className="text-muted mb-0">{profileUser.pais}</p>}
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div className="row">
+                                        <div className="col-sm-3">
+                                            <p className="mb-0">ciudad</p>
+                                        </div>
+                                        <div className="col-sm-9">
+                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="ciudad" value={profileUser.ciudad} /> : <p className="text-muted mb-0">{profileUser.ciudad}</p>}
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div className="row">
+                                        <div className="col-sm-3">
+                                            <p className="mb-0">status</p>
+                                        </div>
+                                        <div className="col-sm-9">
+                                            <p name="status" value={profileUser.status} className="text-muted mb-0">{profileUser.status}</p>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div className="row">
+                                        <div className="col-sm-9">
+                                            <button id="boton1" onClick={guardar} type="button" className="btn btn-primary">guardar</button>
+                                            <button id="boton2" onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-sm-3">
-                                    <p className="mb-0">numero de FPV</p>
-                                </div>
-                                <div className="col-sm-9">
-                                    {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="numero_fpv" value={profileUser.numero_fpv} /> : <p className="text-muted mb-0">{profileUser.numero_fpv}</p>}
-                                    <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-sm-3">
-                            <p className="mb-0">pais</p>
-                        </div>
-                        <div className="col-sm-9">
-                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="pais" value={profileUser.pais} /> : <p className="text-muted mb-0">{profileUser.pais}</p>}
-                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className="row">
-                        <div className="col-sm-3">
-                            <p className="mb-0">ciudad</p>
-                        </div>
-                        <div className="col-sm-9">
-                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="ciudad" value={profileUser.ciudad} /> : <p className="text-muted mb-0">{profileUser.ciudad}</p>}
-                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className="row">
-                        <div className="col-sm-3">
-                            <p className="mb-0">status</p>
-                        </div>
-                        <div className="col-sm-9">
-                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="status" value={profileUser.status} /> : <p className="text-muted mb-0">{profileUser.status}</p>}
-                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
-                        </div>
-                    </div>
-                    <hr />
                     <div className="row">
                         <div className="col-md-6">
                             <div className="card mb-4 mb-md-0">

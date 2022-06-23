@@ -50,7 +50,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} else return false;
 			},
 
+			// handle_user_upgrade: async () => {
+			// 	let response = await fetch(`${API_URL}/api/user-data`, {
+			// 		method: 'PUT',
+			// 		headers: {
+			// 			"Content-Type": "application/json",
+			// 			Authorization: `Bearer ${localStorage.getItem("token")}`
+			// 		},
+			// 		body: JSON.stringify([])
+			// 	});
 
+			// 	if (response.ok) {
+			// 		console.log(data)
+			// 		if (response.status == 200) {
+			// 			let body = await response.json()
+			// 			return true;
+			// 		} else return false;)
+			// 	}
+			// },
 
 			// 	handleList: async (e) => {
 			// 	if (e.key === "Enter" && addTodolist != "") {
