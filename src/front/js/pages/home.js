@@ -14,7 +14,7 @@ export const Home = () => {
 					<div id="enunciado">
 						<h1>texto elocuente sobre lo que me de la gana</h1>
 						<p>lalalalalalalalalalalalalalallalalalalalalal</p>
-						<a id="boton" class="btn btn-primary" href="/signup" role="button" >Registrate ahora</a>
+						<a id="boton" className="btn btn-primary" href="/signup" role="button" >Registrate ahora</a>
 					</div>
 
 					<div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="false">

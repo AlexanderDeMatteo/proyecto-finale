@@ -22,13 +22,13 @@ export const Navbar3 = () => {
                         alt="Sample image"
                     />
                 </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">status</a></li>
-                    <li><a class="dropdown-item" href="#">Facturacion</a></li>
+                <ul className="dropdown-menu">
+                    <li><a className="dropdown-item" href="#">status</a></li>
+                    <li><a className="dropdown-item" href="#">Facturacion</a></li>
                     <li><a onClick={(e) => {
                         localStorage.removeItem("token");
                         history.push("/signin")
-                    }} class="dropdown-item" href="#">log out</a></li>
+                    }} className="dropdown-item" href="#">log out</a></li>
                 </ul>
             </li>
         </nav>

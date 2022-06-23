@@ -20,6 +20,8 @@ export const PaginaPrincipal = () => {
 
 
     function handleChange(event) {
+        console.log(event)
+        event.persist()
         setProfile(prevFormData => {
             return {
                 ...prevFormData,
@@ -41,6 +43,7 @@ export const PaginaPrincipal = () => {
         if (response.ok) {
             let body = await response.json()
             setProfile(body)
+            console.log("aaaaaaaaaaaaaaaaaaaaaaa")
             console.log(body)
         }
     }
@@ -114,12 +117,21 @@ export const PaginaPrincipal = () => {
                                 <div className="card-body">
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <p className="mb-0">Full Name</p>
+                                            <p className="mb-0">Name</p>
                                         </div>
                                         <div className="col-sm-9">
 
-                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="name" value={profileUser.name} /> : <p className="text-muted mb-0">{profileUser.name}</p>}
-                                            {/* <buttom name='aaa' onClick={Editapapi} /> */}
+                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="name" value={profileUser.name} /> : <p className="text-muted mb-0">{profileUser.name}</p>}
+                                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div className="row">
+                                        <div className="col-sm-3">
+                                            <p className="mb-0">lastname</p>
+                                        </div>
+                                        <div className="col-sm-9">
+                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="last_name" value={profileUser.last_name} /> : <p className="text-muted mb-0">{profileUser.last_name}</p>}
                                             <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
@@ -129,7 +141,7 @@ export const PaginaPrincipal = () => {
                                             <p className="mb-0">Email</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="email" value={profileUser.email} /> : <p className="text-muted mb-0">{profileUser.email}</p>}
+                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="email" value={profileUser.email} /> : <p className="text-muted mb-0">{profileUser.email}</p>}
                                             <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
@@ -139,17 +151,7 @@ export const PaginaPrincipal = () => {
                                             <p className="mb-0">Area de Especialidad</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="area_de_especialidad" value={profileUser.area_de_especialidad} /> : <p className="text-muted mb-0">{profileUser.area_de_especialidad}</p>}
-                                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div className="row">
-                                        <div className="col-sm-3">
-                                            <p className="mb-0">Estado/provincia</p>
-                                        </div>
-                                        <div className="col-sm-9">
-                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="hubicacion" value={profileUser.hubicacion} /> : <p className="text-muted mb-0">{profileUser.hubicacion}</p>}
+                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="area_de_especialidad" value={profileUser.area_de_especialidad} /> : <p className="text-muted mb-0">{profileUser.area_de_especialidad}</p>}
                                             <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
@@ -159,84 +161,123 @@ export const PaginaPrincipal = () => {
                                             <p className="mb-0">Telefono</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            {show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="telefono" value={profileUser.telefono} /> : <p className="text-muted mb-0">{profileUser.telefono}</p>}
+                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="numero_telefonico" value={profileUser.numero_telefonico} /> : <p className="text-muted mb-0">{profileUser.numero_telefonico}</p>}
                                             <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-6">
-                                    <div className="card mb-4 mb-md-0">
-                                        <div className="card-body">
-                                            <p className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status
-                                            </p>
-                                            <p className="mb-1" >Web Design</p>
-                                            <div className="progress rounded" >
-                                                <div className="progress-bar" role="progressbar" aria-valuenow="80"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p className="mt-4 mb-1" >Website Markup</p>
-                                            <div className="progress rounded" >
-                                                <div className="progress-bar" role="progressbar" aria-valuenow="72"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p className="mt-4 mb-1" >One Page</p>
-                                            <div className="progress rounded" >
-                                                <div className="progress-bar" role="progressbar" aria-valuenow="89"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p className="mt-4 mb-1" >Mobile Template</p>
-                                            <div className="progress rounded" >
-                                                <div className="progress-bar" role="progressbar" aria-valuenow="55"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p className="mt-4 mb-1" >Backend API</p>
-                                            <div className="progress rounded mb-2" >
-                                                <div className="progress-bar" role="progressbar" aria-valuenow="66"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
+                                <div className="col-sm-3">
+                                    <p className="mb-0">numero de FPV</p>
+                                </div>
+                                <div className="col-sm-9">
+                                    {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="numero_fpv" value={profileUser.numero_fpv} /> : <p className="text-muted mb-0">{profileUser.numero_fpv}</p>}
+                                    <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm-3">
+                            <p className="mb-0">pais</p>
+                        </div>
+                        <div className="col-sm-9">
+                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="pais" value={profileUser.pais} /> : <p className="text-muted mb-0">{profileUser.pais}</p>}
+                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
+                        </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                        <div className="col-sm-3">
+                            <p className="mb-0">ciudad</p>
+                        </div>
+                        <div className="col-sm-9">
+                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="ciudad" value={profileUser.ciudad} /> : <p className="text-muted mb-0">{profileUser.ciudad}</p>}
+                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
+                        </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                        <div className="col-sm-3">
+                            <p className="mb-0">status</p>
+                        </div>
+                        <div className="col-sm-9">
+                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="status" value={profileUser.status} /> : <p className="text-muted mb-0">{profileUser.status}</p>}
+                            <button onClick={Editar} type="button" className="btn btn-primary">Editar</button>
+                        </div>
+                    </div>
+                    <hr />
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="card mb-4 mb-md-0">
+                                <div className="card-body">
+                                    <p className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status
+                                    </p>
+                                    <p className="mb-1" >Web Design</p>
+                                    <div className="progress rounded" >
+                                        <div className="progress-bar" role="progressbar" aria-valuenow="80"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p className="mt-4 mb-1" >Website Markup</p>
+                                    <div className="progress rounded" >
+                                        <div className="progress-bar" role="progressbar" aria-valuenow="72"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p className="mt-4 mb-1" >One Page</p>
+                                    <div className="progress rounded" >
+                                        <div className="progress-bar" role="progressbar" aria-valuenow="89"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p className="mt-4 mb-1" >Mobile Template</p>
+                                    <div className="progress rounded" >
+                                        <div className="progress-bar" role="progressbar" aria-valuenow="55"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p className="mt-4 mb-1" >Backend API</p>
+                                    <div className="progress rounded mb-2" >
+                                        <div className="progress-bar" role="progressbar" aria-valuenow="66"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
-                                <div className="col-md-6">
-                                    <div className="card mb-4 mb-md-0">
-                                        <div className="card-body">
-                                            <p className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status
-                                            </p>
-                                            <p className="mb-1" >Web Design</p>
-                                            <div className="progress rounded" >
-                                                <div className="progress-bar" role="progressbar" aria-valuenow="80"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p className="mt-4 mb-1" >Website Markup</p>
-                                            <div className="progress rounded" >
-                                                <div className="progress-bar" role="progressbar" aria-valuenow="72"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p className="mt-4 mb-1" >One Page</p>
-                                            <div className="progress rounded" >
-                                                <div className="progress-bar" role="progressbar" aria-valuenow="89"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p className="mt-4 mb-1" >Mobile Template</p>
-                                            <div className="progress rounded" >
-                                                <div className="progress-bar" role="progressbar" aria-valuenow="55"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <p className="mt-4 mb-1" >Backend API</p>
-                                            <div className="progress rounded mb-2" >
-                                                <div className="progress-bar" role="progressbar" aria-valuenow="66"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="card mb-4 mb-md-0">
+                                <div className="card-body">
+                                    <p className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status
+                                    </p>
+                                    <p className="mb-1" >Web Design</p>
+                                    <div className="progress rounded" >
+                                        <div className="progress-bar" role="progressbar" aria-valuenow="80"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p className="mt-4 mb-1" >Website Markup</p>
+                                    <div className="progress rounded" >
+                                        <div className="progress-bar" role="progressbar" aria-valuenow="72"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p className="mt-4 mb-1" >One Page</p>
+                                    <div className="progress rounded" >
+                                        <div className="progress-bar" role="progressbar" aria-valuenow="89"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p className="mt-4 mb-1" >Mobile Template</p>
+                                    <div className="progress rounded" >
+                                        <div className="progress-bar" role="progressbar" aria-valuenow="55"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <p className="mt-4 mb-1" >Backend API</p>
+                                    <div className="progress rounded mb-2" >
+                                        <div className="progress-bar" role="progressbar" aria-valuenow="66"
+                                            aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
+            </section >
+        </div >
     );
 };

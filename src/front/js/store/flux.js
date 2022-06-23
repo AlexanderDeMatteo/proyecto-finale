@@ -26,10 +26,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			registerUser: async (data) => {
 				let response = await fetch(`${API_URL}/api/sign-up`, {
 					method: "POST",
-					// mode: "no-cors",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(data),
 				});
+				console.log(data)
 				if (response.status == 200) {
 					let data = await response.json();
 					localStorage.setItem("token", data.token);
@@ -50,7 +50,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} else return false;
 			},
 
-			
+
+
+			// 	handleList: async (e) => {
+			// 	if (e.key === "Enter" && addTodolist != "") {
+			// 		let newTask = [...todoList, { label: e.target.value, done: false }];
+			// 		const response = await fetch(apiUrl, {
+			// 			method: "PUT",
+			// 			body: JSON.stringify(newTask),
+			// 			headers: {
+			// 				"Content-Type": "application/json",
+			// 			},
+			// 		});
+			// 		setAddTodolist("");
+			// 		if (response.ok) {
+			// 			getTodoList();
+			// 		}
+			// 	}
+			// };
+
 
 			// userData: async () => {
 			// 	getUserData: async () => {

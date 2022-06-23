@@ -67,22 +67,32 @@ def handle_private():
     current_user = get_jwt_identity()
     return jsonify(current_user), 200
 
-@api.route("/paginaPrincipal",methods=["POST", "GET"])
-@jwt_required()
-def handle_userData():
-    data = request.data
-    data_decode = json.loads(data)
-    user = User.query.filter_by(**data_decode).first()
-    return jsonify(user_serializado), 200
 
-@api.route("/user-data", methods=['GET'])
+@api.route("/user-data", methods=['GET','PUT'])
 @jwt_required()
 def handle_user_data():
-    current_user = get_jwt_identity()
-    user = User.query.filter_by(id=current_user).one_or_none()
-    if user is None:
-        return jsonify({"message":"Usuario no encontrado"}), 404
-    return jsonify(user.serialize()), 200
+    if request.method == 'GET':
+        current_user = get_jwt_identity()
+        user = User.query.filter_by(id=current_user).one_or_none()
+        if user is None:
+            return jsonify({"message":"Usuario no encontrado"}), 404
+        return jsonify(user.serialize()), 200
+    if request.method == 'PUT':
+        current_user = get_jwt_identity()
+        data = request.data
+        data_decode = json.loads(data)
+        updateUser = User.query.get(current_user)
+        updateUser.update(**data_decode)
+        response_body = {
+            "message": "Usuario actualizado con exito",}
+        return jsonify(response_body), 200
+
+
+
+
+
+
+
 
 #     @app.route('/personajes', methods=['GET'])
 # def listapersonajes():
