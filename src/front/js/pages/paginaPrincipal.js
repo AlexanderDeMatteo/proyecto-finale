@@ -9,8 +9,13 @@ export const PaginaPrincipal = () => {
     const API_URL = process.env.BACKEND_URL;
     const [show, setShow] = useState(true);
     const [profileUser, setProfile] = useState({});
+    const [modal, setmodal] = useState()
 
 
+
+    function handleModal() {
+        show.modal
+    }
 
 
     function Editar() {
@@ -90,8 +95,9 @@ export const PaginaPrincipal = () => {
                         <div className="col-lg-4">
                             <div className="card mb-4">
                                 <div className="card-body text-center">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-                                        className="rounded-circle img-fluid" />
+                                    <button><a href="imagenes.js"></a></button>
+                                    {/* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                                        className="rounded-circle img-fluid" /> */}
                                     <h5 className="my-3">{profileUser.name}</h5>
                                     <p className="text-muted mb-1">{profileUser.area_de_especialidad}</p>
                                     <p className="text-muted mb-4">{profileUser.hubicacion}</p>
