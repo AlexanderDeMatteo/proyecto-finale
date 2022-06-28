@@ -29,7 +29,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(data),
 				});
-				console.log(data)
 				if (response.status == 200) {
 					let data = await response.json();
 					localStorage.setItem("token", data.token);
@@ -43,7 +42,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(data),
 				});
-				console.log(data)
 				if (response.status == 200) {
 					let data = await response.json();
 					localStorage.setItem("token", data.token);
@@ -61,7 +59,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 				});
 				let data = await response.json();
-				console.log("esta es mi data privada", data)
 			},
 
 			// handle_user_upgrade: async () => {

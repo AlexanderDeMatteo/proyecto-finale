@@ -27,7 +27,6 @@ export const SignIn = () => {
         } else {
             alert("Credenciales Invalidas");
         }
-        console.log(data)
     };
 
     return (

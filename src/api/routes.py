@@ -64,8 +64,9 @@ def handle_login():
 @api.route("/private",methods=["POST"])
 @jwt_required()
 def handle_private():
-    current_user = get_jwt_identity()
-    return jsonify(current_user.serialize),200
+    current_id_user = get_jwt_identity()
+    current_user = User.query.get(current_id_user)
+    return jsonify(current_user.serialize()),200
 
 
 @api.route("/user-data", methods=['GET','PUT'])

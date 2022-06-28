@@ -16,7 +16,6 @@ export const PaginaPrincipal = () => {
 
     useEffect(() => {
         actions.privateData()
-        console.log(actions.privateData())
     }, [])
 
 
@@ -62,7 +61,6 @@ export const PaginaPrincipal = () => {
         delete profileUser.email
         delete profileUser.id
         delete profileUser.status
-        console.log(profileUser)
         const response = await fetch(`${API_URL}/api/user-data`, {
             method: "PUT",
             body: JSON.stringify(profileUser),
@@ -73,6 +71,8 @@ export const PaginaPrincipal = () => {
         });
         if (response.ok) {
             alert("datos actualizados");
+            handle_user_data()
+
         }
     };
 
