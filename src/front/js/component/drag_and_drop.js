@@ -1,8 +1,45 @@
 import { func } from "prop-types";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/drag_and_drop.css"
 
 export const Drag_and_drop = () => {
+    const [media, setMedia] = useState("")
+    const [urlMedia, setUrlMedia] = useState("")
+    useEffect(() => {
+        if (media != "") uploadFile()
+
+
+    }, [media])
+
+    async function uploadFile() {
+        let YOUR_CLOUD_NAME = "alexander0201";
+        let YOUR_UNSIGNED_UPLOAD_PRESET = "zkvkmknt";
+
+        let POST_URL =
+            "https://api.cloudinary.com/v1_1/" + YOUR_CLOUD_NAME + "/auto/upload";
+
+        let formData = new FormData();
+        formData.append("file", media)
+        formData.append("cloud_name", YOUR_CLOUD_NAME);
+        formData.append("upload_preset", YOUR_UNSIGNED_UPLOAD_PRESET);
+
+        try {
+            const response = await fetch(POST_URL, {
+                method: "POST",
+                body: formData
+            });
+            if (response.ok) {
+                const body = await response.json()
+                console.log(body)
+                setUrlMedia(body.url)
+            }
+        } catch (error) {
+            document.querySelector(`#${id} .status-text`
+            ).innerHTML = `<span className="failure">el archivo no pudo subirse...`;
+        }
+    };
+
+
     window.onload = () => {
 
         const dropArea = document.querySelector(".drop-area");
@@ -80,7 +117,7 @@ export const Drag_and_drop = () => {
 
 
                 fileReader.readAsDataURL(file)
-                uploadFile(file, id);
+                // uploadFile(file, id);
 
             } else {
                 //no es un archivo valido
@@ -88,6 +125,10 @@ export const Drag_and_drop = () => {
             }
         }
     }
+
+
+
+
 
 
     // function uploadFile(file) {
@@ -120,7 +161,7 @@ export const Drag_and_drop = () => {
                     <h2>Arrastra y suelta imagenes</h2>
                     <span>0</span>
                     <button>selecciona tus archivos</button>
-                    <input type="file" name="" id="input-file" hidden multiple />
+                    <input type="file" name="" id="input-file" value={media} onChange={(e) => setMedia(e.target.files[0])} hidden multiple />
                 </div>
                 <div id="preview"></div>
             </div>

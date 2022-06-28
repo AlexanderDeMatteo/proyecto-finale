@@ -6,7 +6,8 @@ from api.models import db, User
 from api.utils import generate_sitemap, APIException
 import json
 from flask_cors import CORS, cross_origin
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager, create_refresh_token
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager, create_refresh_token, get_jwt, set_access_cookies
+from datetime import timedelta
 
 api = Blueprint('api', __name__)
 
@@ -54,10 +55,9 @@ def handle_login():
         return jsonify(response_body), 400
     else :
         access_token = create_access_token(identity=user.id)
-        refresh_token = create_refresh_token(identity=user.id)
         response_body = {
             "message": "usuario logeado con exito",
-            "token":access_token, "refresh_token":refresh_token
+            "token":access_token
         }
         return jsonify(response_body), 200
 
@@ -66,7 +66,9 @@ def handle_login():
 def handle_private():
     current_id_user = get_jwt_identity()
     current_user = User.query.get(current_id_user)
+    print(current_id_user)
     return jsonify(current_user.serialize()),200
+    print(current_id_user)
 
 
 @api.route("/user-data", methods=['GET','PUT'])
@@ -87,13 +89,20 @@ def handle_user_data():
         response_body = {
             "message": "Usuario actualizado con exito",}
         return jsonify(response_body), 200
+        
 
-@api.route("/refresh", methods=["POST"])
-@jwt_required(refresh=True)
-def refresh():
-    current_user = get_jwt_identity()
-    access_token = create_access_token(identity=current_user)
-    return jsonify(access_token=access_token)
+@api.route("/protected")
+@jwt_required()
+def protected():
+    return jsonify(foo="bar")
+
+
+# @api.route("/refresh", methods=["POST"])
+# @jwt_required(refresh=True)
+# def refresh():
+#     current_user = get_jwt_identity()
+#     access_token = create_access_token(identity=current_user)
+#     return jsonify(access_token=access_token)
 
 
 

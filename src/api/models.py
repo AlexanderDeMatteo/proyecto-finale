@@ -14,6 +14,9 @@ class User(db.Model):
     pais = db.Column(db.String(120), unique=False, nullable=True)
     ciudad = db.Column(db.String(120), unique=False, nullable=True)
     status = db.Column(db.Boolean(), unique=False, nullable=True)
+    twitter = db.Column(db.String(25), unique=True, nullable=True)
+    facebook = db.Column(db.String(25), unique=True, nullable=True)
+    instagram = db.Column(db.String(25), unique=True, nullable=True)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __init__(self,name,email,password):
@@ -36,7 +39,10 @@ class User(db.Model):
             "area_de_especialidad" : self.area_de_especialidad,
             "pais" : self.pais,
             "ciudad" : self.ciudad,
-            "status" : self.status
+            "status" : self.status,
+            "facebook": self.facebook,
+            "twitter": self.twitter,
+            "instagram": self.instagram
 
 
 
@@ -44,7 +50,7 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-    def update(self, name,last_name, numero_telefonico, numero_fpv, area_de_especialidad, pais, ciudad):
+    def update(self, name,last_name, numero_telefonico, numero_fpv, area_de_especialidad, pais, ciudad, instagram, twitter, facebook):
 
         self.name=name
         self.last_name=last_name
@@ -53,6 +59,9 @@ class User(db.Model):
         self.area_de_especialidad=area_de_especialidad
         self.pais=pais
         self.ciudad=ciudad
+        self.instagram=instagram
+        self.facebook=facebook
+        self.twitter=twitter
         db.session.commit()
         return(True)
 

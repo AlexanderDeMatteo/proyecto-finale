@@ -45,7 +45,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (response.status == 200) {
 					let data = await response.json();
 					localStorage.setItem("token", data.token);
-					localStorage.setItem("refreshToken", data.refresh_token);
+					// setTimeout(function () {
+					// 	localStorage.remove("token");
+					// }, 1000 * 60 * 60); //Ejecutar despues de una hora
+					// console.log(setTimeout())
 					return true;
 				} else return false;
 			},
@@ -59,6 +62,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 				});
 				let data = await response.json();
+
 			},
 
 			// handle_user_upgrade: async () => {
