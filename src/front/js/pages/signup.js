@@ -28,7 +28,7 @@ export const SignUp = () => {
 			password: password,
 		};
 		if (await actions.registerUser(data)) {
-			history.push("/private");
+			history.push("/paginaPrincipal");
 		} else {
 			alert("EL USUARIO YA ESTA CREADO INTENTE DE NUEVO");
 		}
@@ -230,7 +230,7 @@ export const SignUp = () => {
 				</div>
 			</div>
 			{localStorage.getItem("token") != undefined && (
-				<Redirect to={"/paginaPrincipal"}></Redirect>
+				<Redirect to={"/login"}></Redirect>
 			)}
 		</section>
 	);

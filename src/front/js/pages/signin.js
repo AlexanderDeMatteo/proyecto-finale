@@ -17,16 +17,17 @@ export const SignIn = () => {
 
     const history = useHistory();
 
-    const handleSubmit = () => {
+    const handlelogin = async () => {
         let data = {
             email: email,
             password: password,
         };
-        if (actions.loginUser(data)) {
+        if (await actions.loginUser(data)) {
             history.push("/paginaPrincipal");
         } else {
             alert("Credenciales Invalidas");
         }
+        console.log(data)
     };
 
     return (
@@ -70,7 +71,7 @@ export const SignIn = () => {
                                                     />
                                                     {errors.email && (
                                                         <div className="text-warning">
-                                                            Correo invalido perro de awa
+                                                            Correo invalido
                                                         </div>
                                                     )}
                                                 </div>
@@ -113,13 +114,6 @@ export const SignIn = () => {
                                                             }}
                                                         ></button>
                                                     </div>
-                                                    {errors.password && (
-                                                        <div className="text-warning">
-                                                            recuerda que debe tener al menos 8 caracteres 1
-                                                            letra minuscula 1 letra mayuscula 1 numero y un
-                                                            caracter especial perro
-                                                        </div>
-                                                    )}
                                                 </div>
                                             </div>
 
@@ -127,7 +121,7 @@ export const SignIn = () => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-primary btn-lg"
-                                                    onClick={handleSubmit}
+                                                    onClick={handlelogin}
                                                     disabled={
                                                         errors.email ||
                                                         errors.password ||

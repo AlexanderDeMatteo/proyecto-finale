@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
-import { Imagenes } from "./component/imagenes";
+import { Drag_and_drop } from "./component/drag_and_drop";
 import { SignUp } from "./pages/signup";
 import { SignIn } from "./pages/signin";
 import { PaginaPrincipal } from "./pages/paginaPrincipal";
@@ -51,7 +51,7 @@ const Layout = () => {
 							</div>
 						</Route>
 						<Route exact path="/imagen">
-							<Imagenes />
+							<Drag_and_drop />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

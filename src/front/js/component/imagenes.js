@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../../styles/imagenes.css"
+import { Drag_and_drop } from "../component/drag_and_drop"
 
 export const Imagenes = () => {
 
@@ -9,17 +10,15 @@ export const Imagenes = () => {
 
         <>
             <header id="header" className="header">
-                <a href="#modal" className="cta">dame click</a>
+                <a href="#modal" className="cta">cambiar imagen de perfil</a>
             </header>
 
             <section id="modal" className="modal">
                 <div className="modal_container">
                     <figure className="modal_picture">
-                        <img src="" class="modal_img" />
+                        <img src="" className="modal_img" />
                     </figure>
-                    <h2 className="modal_title"> hola soy tu modal
-                        <span className="modal_title--bolt">alex</span>
-                    </h2>
+                    <Drag_and_drop />
 
                     <p className="modal_paragraph">lorem20</p>
 

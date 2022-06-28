@@ -4,12 +4,20 @@ import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Navbar } from "../component/navbar";
 import "../../styles/paginaPrincipal.css"
+import { Imagenes } from "../component/imagenes"
 
 export const PaginaPrincipal = () => {
     const API_URL = process.env.BACKEND_URL;
     const [show, setShow] = useState(true);
     const [profileUser, setProfile] = useState({});
     const [modal, setmodal] = useState()
+    const history = useHistory()
+    const { actions } = useContext(Context)
+
+    useEffect(() => {
+        actions.privateData()
+        console.log(actions.privateData())
+    }, [])
 
 
 
@@ -95,12 +103,12 @@ export const PaginaPrincipal = () => {
                         <div className="col-lg-4">
                             <div className="card mb-4">
                                 <div className="card-body text-center">
-                                    <button><a href="imagenes.js"></a></button>
-                                    {/* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-                                        className="rounded-circle img-fluid" /> */}
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                                        className="rounded-circle img-fluid" />
                                     <h5 className="my-3">{profileUser.name}</h5>
                                     <p className="text-muted mb-1">{profileUser.area_de_especialidad}</p>
                                     <p className="text-muted mb-4">{profileUser.hubicacion}</p>
+                                    <Imagenes />
                                     <div className="d-flex justify-content-center mb-2">
                                         <button type="button" className="btn btn-primary">Follow</button>
                                         <button type="button" className="btn btn-outline-primary ms-1">Message</button>
@@ -298,6 +306,8 @@ export const PaginaPrincipal = () => {
                         </div>
                     </div>
                 </div>
+                {/* {localStorage.getItem("token") === undefined (<Redirect to={"/signin"}></Redirect>
+                )} */}
             </section >
         </div >
     );
