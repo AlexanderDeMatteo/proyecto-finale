@@ -9,8 +9,10 @@ export const SignUp = () => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [numero_fpv, setNumero_fpv] = useState("");
 	const [repeat, setRepeat] = useState("");
 	const [check, setCheck] = useState(false);
+	const [check_fpv, setCheckfpv] = useState(false);
 	const [errors, setErrors] = useState({
 		email: false,
 		password: false,
@@ -22,11 +24,31 @@ export const SignUp = () => {
 	const history = useHistory();
 
 	const handleSubmit = async () => {
-		let data = {
-			name: name,
-			email: email,
-			password: password,
-		};
+		let data = {};
+
+		if (check_fpv) {
+
+			data.name = name,
+				data.email = email,
+				data.password = password,
+				data.numero_fpv = numero_fpv,
+				data.is_psicologo = check_fpv
+		} else {
+			data.name = name,
+				data.email = email,
+				data.password = password,
+				data.numero_fpv = numero_fpv,
+				data.is_psicologo = check_fpv
+		}
+
+		// let data = {
+		// 	name: name,
+		// 	email: email,
+		// 	password: password,
+		// 	numero_fpv: numero_fpv,
+		// };
+		console.log(data)
+		console.log("aaaaaaaaaaaaaaaaa")
 		if (await actions.registerUser(data)) {
 			history.push("/paginaPrincipal");
 		} else {
@@ -107,34 +129,43 @@ export const SignUp = () => {
 													>
 														Password
 													</label>
-													<div className="d-flex">
+													<div className="d-flex col-9">
 														<input
 															type={showPassword ? "text" : "password"}
 															id="form3Example4c"
 															className="form-control"
-															onChange={(e) => setPassword(e.target.value)}
-															onBlur={(e) => {
-																let regex =
-																	/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-																if (regex.test(password)) {
-																	setErrors({ ...errors, password: false });
-																} else {
-																	setErrors({ ...errors, password: true });
-																}
-															}}
-														/>
-														<button
-															className={
-																showPassword
-																	? "fa fa-eye-slash"
-																	: "fa fa-eye password-icon"
-															}
+															onChange={(e) => setPassword(e.target.value)} />
+														<i className="fa fa-eye password-icon iconpass2"
 															onClick={(e) => {
 																e.preventDefault();
 																setShowPassword(!showPassword);
 															}}
-														></button>
+														/>
+														{/* // onBlur={(e) => {
+															let regex =
+															/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+															if (regex.test(password)) {
+																setErrors({ ...errors, password: false });
+															} else {
+																setErrors({ ...errors, password: true });
+															}
+														}} */}
+
+
 													</div>
+													{/* <i
+														className={
+															showPassword
+																? "fa fa-eye password-icon iconpass2"
+																: ""
+														}
+														onClick={(e) => {
+															e.preventDefault();
+															setShowPassword(!showPassword);
+														}}
+
+													></i> */}
+
 													{errors.password && (
 														<div className="text-warning">
 															recuerda que debe tener al menos 8 caracteres 1
@@ -175,6 +206,48 @@ export const SignUp = () => {
 												</div>
 											</div>
 
+											{
+												check_fpv ? <div className="d-flex flex-row align-items-center mb-4">
+													<i className="fas fa-key fa-lg me-3 fa-fw"></i>
+													<div className="form-outline flex-fill mb-0">
+														<label
+															className="form-label"
+															htmlFor="form3Example4cd"
+														>
+															Codigo FPV
+														</label>
+														<input
+															type="code"
+															id="form5Example5cd"
+															className="form-control"
+															onChange={(e) => setNumero_fpv(e.target.value)}
+														/>
+
+													</div>
+												</div> : <i></i>
+											}
+
+
+
+											<div className="form-check d-flex justify-content-center mb-5">
+												<input
+													className="form-check-input me-2"
+													type="checkbox"
+													value={check_fpv}
+													id="form2Example3c"
+													onChange={(e) => setCheckfpv(!check_fpv)}
+												/>
+												<label
+													className="form-check-label"
+													htmlFor="form2Example3"
+												>
+													Eres Psicologo?
+													<a href="#!"></a>
+												</label>
+
+											</div>
+
+
 											<div className="form-check d-flex justify-content-center mb-5">
 												<input
 													className="form-check-input me-2"
@@ -190,7 +263,10 @@ export const SignUp = () => {
 													I agree all statements in{" "}
 													<a href="#!">Terms of service</a>
 												</label>
+
 											</div>
+
+
 
 											<div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
 												<button

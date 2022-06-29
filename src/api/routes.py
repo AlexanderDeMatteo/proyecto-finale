@@ -61,14 +61,14 @@ def handle_login():
         }
         return jsonify(response_body), 200
 
-@api.route("/private",methods=["POST"])
-@jwt_required()
-def handle_private():
-    current_id_user = get_jwt_identity()
-    current_user = User.query.get(current_id_user)
-    print(current_id_user)
-    return jsonify(current_user.serialize()),200
-    print(current_id_user)
+# @api.route("/private",methods=["POST"])
+# @jwt_required()
+# def handle_private():
+#     current_id_user = get_jwt_identity()
+#     current_user = User.query.get(current_id_user)
+#     print(current_id_user)
+#     return jsonify(current_user.serialize()),200
+#     print(current_id_user)
 
 
 @api.route("/user-data", methods=['GET','PUT'])

@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/navbar2.css"
+import { Context } from "../store/appContext";
 
 export const Navbar2 = () => {
+    const { store } = useContext(Context)
     return (
         <nav className="nav flex-column" id="box2">
             <p>Personal</p>
             <a className="nav-link active" aria-current="page" href="#">Perfil</a>
             <a className="nav-link" href="#">Sesiones Online</a>
-            <a className="nav-link" href="#">Agenda del dia</a>
+            {store.userData.is_psicologo ? <a className="nav-link" href="#">Agenda del dia</a> : ""}
             <a className="nav-link" href="#">Contactos personales</a>
             <a className="nav-link" href="#">Configuracion</a>
             <p>Administración</p>

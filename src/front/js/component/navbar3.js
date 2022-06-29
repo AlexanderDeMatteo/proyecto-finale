@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "../../styles/navbar3.css"
+import { Context } from "../store/appContext";
 
 export const Navbar3 = () => {
     const history = useHistory()
+    const { store } = useContext(Context)
 
 
 
@@ -12,7 +14,7 @@ export const Navbar3 = () => {
             <a className="nav-link active" aria-current="page" href="/">logo</a>
             <a className="nav-link" href="#">servicios</a>
             <a className="nav-link" href="#">about us</a>
-            <a className="nav-link" href="/signup">market place</a>
+            {store.userData.is_psicologo ? <a className="nav-link" href="/signup">market place</a> : ""}
             <a className="nav-link" href="/signup">noticias</a>
             <li className="nav-item dropdown" id="hola">
                 <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">

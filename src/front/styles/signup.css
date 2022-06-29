@@ -2,3 +2,10 @@
   height: 625px;
   width: 700px;
 }
+.iconpass2 {
+  top: 371px;
+  right: 40%;
+  cursor: pointer;
+  color: gray;
+  z-index: 9999;
+}
