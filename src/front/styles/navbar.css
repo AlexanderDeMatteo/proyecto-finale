@@ -1,3 +1,16 @@
+#avatar {
+  height: 60px;
+  width: 60px;
+  border-radius: 500px;
+}
 #menu {
-  height: 50px;
+  height: 65px;
+  background-color: whitesmoke;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#hola {
+  margin-top: -15px;
 }

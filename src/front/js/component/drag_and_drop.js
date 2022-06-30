@@ -40,91 +40,91 @@ export const Drag_and_drop = () => {
     };
 
 
-    window.onload = () => {
+    // window.onload = () => {
 
-        const dropArea = document.querySelector(".drop-area");
-        const dragText = dropArea.querySelector("h2");
-        const button = dropArea.querySelector("button");
-        const input = dropArea.querySelector("#input-file");
-        let files;
+    //     const dropArea = document.querySelector(".drop-area");
+    //     const dragText = dropArea.querySelector("h2");
+    //     const button = dropArea.querySelector("button");
+    //     const input = dropArea.querySelector("#input-file");
+    //     let files;
 
-        button.addEventListener("click", (e) => {
-            input.click();
-        });
+    //     button.addEventListener("click", (e) => {
+    //         input.click();
+    //     });
 
-        input.addEventListener("change", (e) => {
-            files = this.files;
-            dropArea.classList.add("active");
-            showFiles(files);
-            dropArea.classList.remove("active");
-        });
+    //     input.addEventListener("change", (e) => {
+    //         files = this.files;
+    //         dropArea.classList.add("active");
+    //         showFiles(files);
+    //         dropArea.classList.remove("active");
+    //     });
 
-        dropArea.addEventListener("dragover", (e) => {
-            e.preventDefault();
-            dropArea.classList.add("active");
-            dragText.textContent = "suelta para subir los archivos";
-        });
+    //     dropArea.addEventListener("dragover", (e) => {
+    //         e.preventDefault();
+    //         dropArea.classList.add("active");
+    //         dragText.textContent = "suelta para subir los archivos";
+    //     });
 
-        dropArea.addEventListener("dragleave", (e) => {
-            e.preventDefault();
-            dropArea.classList.remove("active");
-            dragText.textContent = "arrastra y suelta imagenes";
-        });
+    //     dropArea.addEventListener("dragleave", (e) => {
+    //         e.preventDefault();
+    //         dropArea.classList.remove("active");
+    //         dragText.textContent = "arrastra y suelta imagenes";
+    //     });
 
-        dropArea.addEventListener("drop", (e) => {
-            e.preventDefault();
-            files = e.dataTransfer.files;
-            showFiles(files);
-            dropArea.classList.remove("active");
-            dragText.textContent = "arrastra y suelta imagenes";
-        });
+    // dropArea.addEventListener("drop", (e) => {
+    //     e.preventDefault();
+    //     files = e.dataTransfer.files;
+    //     showFiles(files);
+    //     dropArea.classList.remove("active");
+    //     dragText.textContent = "arrastra y suelta imagenes";
+    // });
 
-        function showFiles(files) {
-            if (files.length == undefined) {
-                processFile(files);
-            } else {
-                for (const file of files) {
-                    processFile(file);
-                }
-            }
-        }
+    //     function showFiles(files) {
+    //         if (files.length == undefined) {
+    //             processFile(files);
+    //         } else {
+    //             for (const file of files) {
+    //                 processFile(file);
+    //             }
+    //         }
+    //     }
 
-        function processFile(file) {
-            const docType = file.type;
-            const validExtensions = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
+    //     function processFile(file) {
+    //         const docType = file.type;
+    //         const validExtensions = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif']
 
-            if (validExtensions.includes(docType)) {
-                //archivo valido
-                const fileReader = new FileReader();
-                const id = `file-${Math.random().toString(32).substring(7)}`;
+    //         if (validExtensions.includes(docType)) {
+    //             //archivo valido
+    //             const fileReader = new FileReader();
+    //             const id = `file-${Math.random().toString(32).substring(7)}`;
 
-                fileReader.addEventListener('load', e => {
-                    const fileUrl = fileReader.result;
-                    const image = `
-                    <div id="${id}" className="file-container">
-                        <img src="${fileUrl}" alt="${file.name}" width="50">
-                        <div className="status">
-                            <span>${file.name}</pan>
-                            <span className="status-text">
-                                Loading...
-                            <span/>
-                        </div>
-                    <div/>
-                    `;
-                    const html = document.querySelector('#preview').innerHTML;
-                    document.querySelector('#preview').innerHTML = image + html;
-                });
+    //             fileReader.addEventListener('load', e => {
+    //                 const fileUrl = fileReader.result;
+    //                 const image = `
+    //                 <div id="${id}" className="file-container">
+    //                     <img src="${fileUrl}" alt="${file.name}" width="50">
+    //                     <div className="status">
+    //                         <span>${file.name}</pan>
+    //                         <span className="status-text">
+    //                             Loading...
+    //                         <span/>
+    //                     </div>
+    //                 <div/>
+    //                 `;
+    //                 const html = document.querySelector('#preview').innerHTML;
+    //                 document.querySelector('#preview').innerHTML = image + html;
+    //             });
 
 
-                fileReader.readAsDataURL(file)
-                // uploadFile(file, id);
+    //             fileReader.readAsDataURL(file)
+    //             // uploadFile(file, id);
 
-            } else {
-                //no es un archivo valido
-                alert('no es un archivo valido')
-            }
-        }
-    }
+    //         } else {
+    //             //no es un archivo valido
+    //             alert('no es un archivo valido')
+    //         }
+    //     }
+    // }
 
 
 
@@ -159,11 +159,13 @@ export const Drag_and_drop = () => {
             <div className="caja-drop-area">
                 <div className="drop-area">
                     <h2>Arrastra y suelta imagenes</h2>
-                    <span>0</span>
+                    {/* <span>0</span> */}
                     <button>selecciona tus archivos</button>
-                    <input type="file" name="" id="input-file" value={media} onChange={(e) => setMedia(e.target.files[0])} hidden multiple />
+                    <input type="file" name="" id="input-file" onDrop={(e) => setMedia(e.target.files[0])} onChange={(e) => setMedia(e.target.files[0])} hidden multiple />
                 </div>
-                <div id="preview"></div>
+                <div id="preview">
+                    {urlMedia && <img width={50} height={50} src={urlMedia} />}
+                </div>
             </div>
 
 

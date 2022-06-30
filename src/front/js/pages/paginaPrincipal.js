@@ -14,6 +14,7 @@ export const PaginaPrincipal = () => {
     const history = useHistory()
     const { actions, store } = useContext(Context)
 
+
     useEffect(() => {
         // actions.privateData()
         actions.handle_user_data();
@@ -162,7 +163,7 @@ export const PaginaPrincipal = () => {
                                             <p className="mb-0">Email</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            <p name="email" value={profileUser.email} className="text-muted mb-0">{profileUser.email}</p>
+                                            <p name="email" value={store.userData.email} className="text-muted mb-0">{store.userData.email}</p>
                                         </div>
                                     </div>
                                     <hr />
@@ -171,6 +172,7 @@ export const PaginaPrincipal = () => {
                                             <p className="mb-0">Area de Especialidad</p>
                                         </div>
                                         <div className="col-sm-9">
+                                            {store.userData.is_psicologo ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="area_de_especialidad" value={store.userData.area_de_especialidad} /> : ""}
                                             {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="area_de_especialidad" value={store.userData.area_de_especialidad} /> : <p className="text-muted mb-0">{store.userData.area_de_especialidad}</p>}
                                         </div>
                                     </div>

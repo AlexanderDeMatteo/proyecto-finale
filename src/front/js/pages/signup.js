@@ -129,11 +129,20 @@ export const SignUp = () => {
 													>
 														Password
 													</label>
-													<div className="d-flex col-9">
+													<div className="d-flex col-12">
 														<input
 															type={showPassword ? "text" : "password"}
 															id="form3Example4c"
 															className="form-control"
+															onBlur={(e) => {
+																let regex =
+																	/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+																if (regex.test(password)) {
+																	setErrors({ ...errors, password: false });
+																} else {
+																	setErrors({ ...errors, password: true });
+																}
+															}}
 															onChange={(e) => setPassword(e.target.value)} />
 														<i className="fa fa-eye password-icon iconpass2"
 															onClick={(e) => {
@@ -141,15 +150,7 @@ export const SignUp = () => {
 																setShowPassword(!showPassword);
 															}}
 														/>
-														{/* // onBlur={(e) => {
-															let regex =
-															/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-															if (regex.test(password)) {
-																setErrors({ ...errors, password: false });
-															} else {
-																setErrors({ ...errors, password: true });
-															}
-														}} */}
+
 
 
 													</div>
@@ -189,7 +190,6 @@ export const SignUp = () => {
 														type="password"
 														id="form3Example4cd"
 														className="form-control"
-														onChange={(e) => setRepeat(e.target.value)}
 														onBlur={(e) => {
 															if (repeat !== password) {
 																setErrors({ ...errors, repeat: true });
@@ -197,7 +197,14 @@ export const SignUp = () => {
 																setErrors({ ...errors, repeat: false });
 															}
 														}}
+														onChange={(e) => setRepeat(e.target.value)} />
+													<i className="fa fa-eye password-icon iconpass2"
+														onClick={(e) => {
+															e.preventDefault();
+															setShowPassword(!showPassword);
+														}}
 													/>
+
 													{errors.repeat && (
 														<div className="text-warning">
 															contraseña diferente perro de awa
@@ -304,10 +311,12 @@ export const SignUp = () => {
 						</div>
 					</div>
 				</div>
-			</div>
-			{localStorage.getItem("token") != undefined && (
-				<Redirect to={"/login"}></Redirect>
-			)}
-		</section>
+			</div >
+			{
+				localStorage.getItem("token") != undefined && (
+					<Redirect to={"/login"}></Redirect>
+				)
+			}
+		</section >
 	);
 };
