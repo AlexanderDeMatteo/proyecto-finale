@@ -47,6 +47,7 @@ class User(db.Model):
             "twitter": self.twitter,
             "instagram": self.instagram,
             "is_psicologo": self.is_psicologo
+            
 
 
 

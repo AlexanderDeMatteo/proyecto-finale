@@ -15,7 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			userData: {}
+			userData: {},
+			userPsicologos: {}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -78,6 +79,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (response.ok) {
 					let body = await response.json()
 					setStore({ userData: body })
+
+				}
+			},
+
+			handle_user_psicologo: async () => {
+				let response = await fetch(`${API_URL}/api/user-psicologo-data`, {
+					method: 'GET',
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${localStorage.getItem("token")}`
+					},
+					// body: JSON.stringify([])
+				});
+
+				if (response.ok) {
+					let body = await response.json()
+					setStore({ userPsicologos: body })
 
 				}
 			},

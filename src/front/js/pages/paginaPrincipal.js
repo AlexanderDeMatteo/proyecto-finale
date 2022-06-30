@@ -18,7 +18,6 @@ export const PaginaPrincipal = () => {
     useEffect(() => {
         // actions.privateData()
         actions.handle_user_data();
-        console.log(actions, "Aaaaaaaaaaaaaaaaaaaa")
     }, [])
 
 
@@ -167,16 +166,15 @@ export const PaginaPrincipal = () => {
                                         </div>
                                     </div>
                                     <hr />
-                                    <div className="row">
+                                    {store.userData.is_psicologo ? <div className="row">
                                         <div className="col-sm-3">
                                             <p className="mb-0">Area de Especialidad</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            {store.userData.is_psicologo ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="area_de_especialidad" value={store.userData.area_de_especialidad} /> : ""}
                                             {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="area_de_especialidad" value={store.userData.area_de_especialidad} /> : <p className="text-muted mb-0">{store.userData.area_de_especialidad}</p>}
                                         </div>
-                                    </div>
-                                    <hr />
+                                    </div> : ""}
+                                    {store.userData.is_psicologo ? <hr /> : ""}
                                     <div className="row">
                                         <div className="col-sm-3">
                                             <p className="mb-0">Telefono</p>

@@ -96,6 +96,20 @@ def handle_user_data():
 def protected():
     return jsonify(foo="bar")
 
+@api.route("/user-psicologo-data", methods=['GET'])
+@jwt_required()
+def handle_user_psicologo():
+    if request.method == 'GET':
+        users = User.query.filter_by(is_psicologo=True).all()
+        lista_psico = []
+        for usuario in users:
+            lista_psico.append(usuario.serialize())
+        
+        if users is None:
+            return jsonify({"message":"Usuario no encontrado"}), 404
+        else: 
+            return jsonify(lista_psico), 200
+
 
 # @api.route("/refresh", methods=["POST"])
 # @jwt_required(refresh=True)
