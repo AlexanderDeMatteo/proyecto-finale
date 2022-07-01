@@ -17,81 +17,87 @@ export const Buscador_de_psicologos = () => {
                 <p>"hola</p>
 
                 <div className="boxBuscador">
-                    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
-                    <div class="content">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-4"><a href="#custom-modal" class="btn btn-custom waves-effect waves-light mb-4" data-animation="fadein" data-plugin="custommodal" data-overlayspeed="200" data-overlaycolor="#36404a"><i class="mdi mdi-plus"></i> Add Member</a></div>
-                                {/* <!-- end col --> */}
-                            </div>
-                            {/* <!-- end row --> */}
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="text-center card-box">
-                                        <div class="member-card pt-2 pb-2">
-                                            <div class="thumb-lg member-thumb mx-auto"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="rounded-circle img-thumbnail" alt="profile-image" /></div>
-                                            <div class="">
-                                                <h4>Freddie J. Plourde</h4>
-                                                <p class="text-muted">@Founder <span>| </span><span><a href="#" class="text-pink">websitename.com</a></span></p>
+                    <div className="container py-5 h-100">
+                        <div className="row d-flex align-items-center h-100">
+                            <div className="col col-md-9 col-lg-7 col-xl-5">
+                                <div className="card">
+                                    {/* style="border-radius: 15px; background-color: #93e2bb;" */}
+                                    <div className="card-body p-4 text-black">
+                                        <div>
+                                            <h6 className="mb-4">Exquisite hand henna tattoo</h6>
+                                            <div className="d-flex align-items-center justify-content-between mb-3">
+                                                <p className="small mb-0"><i className="far fa-clock me-2"></i>3 hrs</p>
+                                                <p className="fw-bold mb-0">$90</p>
                                             </div>
-                                            <ul class="social-links list-inline">
-                                                <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                                                <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                                                <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="" data-original-title="Skype"><i class="fa fa-skype"></i></a></li>
-                                            </ul>
-                                            <button type="button" class="btn btn-primary mt-3 btn-rounded waves-effect w-md waves-light">Message Now</button>
-                                            <div class="mt-4">
-                                                <div class="row">
-                                                    <div class="col-4">
-                                                        <div class="mt-3">
-                                                            <h4>2563</h4>
-                                                            <p class="mb-0 text-muted">Wallets Balance</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <div class="mt-3">
-                                                            <h4>6952</h4>
-                                                            <p class="mb-0 text-muted">Income amounts</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4">
-                                                        <div class="mt-3">
-                                                            <h4>1125</h4>
-                                                            <p class="mb-0 text-muted">Total Transactions</p>
-                                                        </div>
-                                                    </div>
+                                        </div>
+                                        <div className="d-flex align-items-center mb-4">
+                                            <div className="flex-shrink-0">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp"
+                                                    alt="Generic placeholder image" className="img-fluid rounded-circle border border-dark border-3"
+                                                />
+                                            </div>
+                                            <div className="flex-grow-1 ms-3">
+                                                <div className="d-flex flex-row align-items-center mb-2">
+                                                    <p className="mb-0 me-2">@sheisme</p>
+                                                    <ul className="mb-0 list-unstyled d-flex flex-row">
+                                                        <li>
+                                                            <i className="fas fa-star fa-xs"></i>
+                                                        </li>
+                                                        <li>
+                                                            <i className="fas fa-star fa-xs"></i>
+                                                        </li>
+                                                        <li>
+                                                            <i className="fas fa-star fa-xs"></i>
+                                                        </li>
+                                                        <li>
+                                                            <i className="fas fa-star fa-xs"></i>
+                                                        </li>
+                                                        <li>
+                                                            <i className="fas fa-star fa-xs"></i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <button type="button" className="btn btn-outline-dark btn-rounded btn-sm"
+                                                        data-mdb-ripple-color="dark">+ Follow</button>
+                                                    <button type="button" className="btn btn-outline-dark btn-rounded btn-sm"
+                                                        data-mdb-ripple-color="dark">See profile</button>
+                                                    <button type="button" className="btn btn-outline-dark btn-floating btn-sm"
+                                                        data-mdb-ripple-color="dark"><i className="fas fa-comment"></i></button>
                                                 </div>
                                             </div>
                                         </div>
+                                        <hr />
+                                        <p className="my-4 pb-1">52 comments</p>
+                                        <button type="button" className="btn btn-success btn-rounded btn-block btn-lg"><i
+                                            className="far fa-clock me-2"></i>Book now</button>
                                     </div>
                                 </div>
                             </div>
-                            {/* <!-- end row --> */}
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="text-right">
-                                        <ul class="pagination pagination-split mt-0 float-right">
-                                            <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span> <span class="sr-only">Previous</span></a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span> <span class="sr-only">Next</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            {/* <!-- end row --> */}
                         </div>
-                        {/* <!-- container --> */}
+                    </div>
+                    {/* <!-- end row --> */}
+                    {/* <!-- end row --> */}
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="text-right">
+                                <ul className="pagination pagination-split mt-0 float-right">
+                                    <li className="page-item"><a className="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span> <span className="sr-only">Previous</span></a></li>
+                                    <li className="page-item active"><a className="page-link" href="#">1</a></li>
+                                    <li className="page-item"><a className="page-link" href="#">2</a></li>
+                                    <li className="page-item"><a className="page-link" href="#">3</a></li>
+                                    <li className="page-item"><a className="page-link" href="#">4</a></li>
+                                    <li className="page-item"><a className="page-link" href="#">5</a></li>
+                                    <li className="page-item"><a className="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span> <span className="sr-only">Next</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
 
 
                 </div>
-
-
             </div>
+
 
 
 

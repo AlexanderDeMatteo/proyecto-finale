@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Navbar } from "../component/navbar";
 import "../../styles/paginaPrincipal.css"
 import { Imagenes } from "../component/imagenes"
+import { uploadFile } from "../component/drag_and_drop"
 
 export const PaginaPrincipal = () => {
     const API_URL = process.env.BACKEND_URL;
@@ -104,7 +104,8 @@ export const PaginaPrincipal = () => {
                         <div className="col-lg-4">
                             <div className="card mb-4">
                                 <div className="card-body text-center">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                                    {/* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" */}
+                                    <img src="" alt="avatar"
                                         className="rounded-circle img-fluid" />
                                     <h5 className="my-3">{store.userData.name} {store.userData.last_name}</h5>
                                     <p className="text-muted mb-1">{store.userData.area_de_especialidad}</p>
