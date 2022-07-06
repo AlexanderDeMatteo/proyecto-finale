@@ -17,6 +17,8 @@ class User(db.Model):
     twitter = db.Column(db.String(25), unique=True, nullable=True)
     facebook = db.Column(db.String(25), unique=True, nullable=True)
     instagram = db.Column(db.String(25), unique=True, nullable=True)
+    profile_picture = db.Column(db.String(500), unique=False, nullable=True)
+    monto = db.Column(db.String(25), unique=False, nullable=True)
     is_psicologo = db.Column(db.Boolean(), unique=False, nullable=True)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
@@ -46,8 +48,10 @@ class User(db.Model):
             "facebook": self.facebook,
             "twitter": self.twitter,
             "instagram": self.instagram,
-            "is_psicologo": self.is_psicologo
-            
+            "is_psicologo": self.is_psicologo,
+            "profile_picture": self.profile_picture,
+            "monto": self.monto
+
 
 
 
@@ -55,7 +59,7 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-    def update(self, name,last_name, numero_telefonico, area_de_especialidad, pais, ciudad, instagram, twitter, facebook):
+    def update(self, name,last_name, numero_telefonico, area_de_especialidad, pais, ciudad, instagram, twitter, facebook, monto):
 
         self.name=name
         self.last_name=last_name
@@ -66,6 +70,7 @@ class User(db.Model):
         self.instagram=instagram
         self.facebook=facebook
         self.twitter=twitter
+        self.monto=monto
         db.session.commit()
         return(True)
 

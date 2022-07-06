@@ -50,7 +50,7 @@ export const SignUp = () => {
 		console.log(data)
 		console.log("aaaaaaaaaaaaaaaaa")
 		if (await actions.registerUser(data)) {
-			history.push("/paginaPrincipal");
+			history.push("/Perfil");
 		} else {
 			alert("EL USUARIO YA ESTA CREADO INTENTE DE NUEVO");
 		}

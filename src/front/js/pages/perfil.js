@@ -5,10 +5,15 @@ import { Navbar } from "../component/navbar";
 import "../../styles/paginaPrincipal.css"
 import { Imagenes } from "../component/imagenes"
 import { uploadFile } from "../component/drag_and_drop"
+import Planilla from "../component/auto"
+import { Receptor_planillas } from "../component/receptor_planillas"
 
-export const PaginaPrincipal = () => {
+export const Perfil = () => {
     const API_URL = process.env.BACKEND_URL;
     const [show, setShow] = useState(true);
+    const [lista, setLista] = useState({
+        la_lista: []
+    });
     const [profileUser, setProfile] = useState({});
     const [modal, setmodal] = useState()
     const history = useHistory()
@@ -44,6 +49,27 @@ export const PaginaPrincipal = () => {
         // })
     }
 
+    // function onDeleter(event, value) {
+    //     console.log(event.getEventModifierState)
+    //     console.log(value)
+    //     // lista.push({ title: value.title, year: value.year })
+    //     // setLista([])
+
+
+    // }
+
+    const onDeleter = (e, value) => {
+        e.preventDefault()
+        let element = lista.la_lista.filter((name) => name !== value);
+        console.log(element, "Line 64")
+        setLista(prevLista => {
+            return {
+                la_lista: element
+
+            }
+        })
+    };
+
     // const handle_user_data = async () => {
     //     let response = await fetch(`${API_URL}/api/user-data`, {
     //         method: 'GET',
@@ -63,6 +89,7 @@ export const PaginaPrincipal = () => {
     // }
 
     const guardar = async () => {
+        delete store.userData.profile_picture
         delete store.userData.email
         delete store.userData.id
         delete store.userData.status
@@ -82,7 +109,26 @@ export const PaginaPrincipal = () => {
         }
     };
 
+    function handleSelect(event, value) {
+        // lista.push({ title: value.title, year: value.year })
+        console.log(lista, "Line 109")
+        console.log(lista.la_lista, "Line 110")
+        // setLista(lista)
+        // this.forceUpdate()
+        let esto = lista.la_lista
+        if (value != null) {
+            esto.push({ title: value.title, year: value.year })
+            console.log(esto, "Line 115")
+            setLista(prevLista => {
+                return {
+                    la_lista: esto
 
+                }
+            });
+        }
+
+
+    }
 
     return (
         <div className="box3">
@@ -105,7 +151,7 @@ export const PaginaPrincipal = () => {
                             <div className="card mb-4">
                                 <div className="card-body text-center">
                                     {/* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" */}
-                                    <img src="" alt="avatar"
+                                    <img src={store.userData.profile_picture ? store.userData.profile_picture : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"} alt="avatar" id="avatar_perfil"
                                         className="rounded-circle img-fluid" />
                                     <h5 className="my-3">{store.userData.name} {store.userData.last_name}</h5>
                                     <p className="text-muted mb-1">{store.userData.area_de_especialidad}</p>
@@ -176,6 +222,15 @@ export const PaginaPrincipal = () => {
                                         </div>
                                     </div> : ""}
                                     {store.userData.is_psicologo ? <hr /> : ""}
+                                    {store.userData.is_psicologo ? <div className="row">
+                                        <div className="col-sm-3">
+                                            <p className="mb-0">Monto de la consulta</p>
+                                        </div>
+                                        <div className="col-sm-9">
+                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="monto" value={store.userData.monto} /> : <p className="text-muted mb-0">{store.userData.monto}</p>}
+                                        </div>
+                                    </div> : ""}
+                                    <hr />
                                     <div className="row">
                                         <div className="col-sm-3">
                                             <p className="mb-0">Telefono</p>
@@ -235,66 +290,14 @@ export const PaginaPrincipal = () => {
                         <div className="col-md-6">
                             <div className="card mb-4 mb-md-0">
                                 <div className="card-body">
-                                    <p className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status
-                                    </p>
-                                    <p className="mb-1" >Web Design</p>
-                                    <div className="progress rounded" >
-                                        <div className="progress-bar" role="progressbar" aria-valuenow="80"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <p className="mt-4 mb-1" >Website Markup</p>
-                                    <div className="progress rounded" >
-                                        <div className="progress-bar" role="progressbar" aria-valuenow="72"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <p className="mt-4 mb-1" >One Page</p>
-                                    <div className="progress rounded" >
-                                        <div className="progress-bar" role="progressbar" aria-valuenow="89"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <p className="mt-4 mb-1" >Mobile Template</p>
-                                    <div className="progress rounded" >
-                                        <div className="progress-bar" role="progressbar" aria-valuenow="55"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <p className="mt-4 mb-1" >Backend API</p>
-                                    <div className="progress rounded mb-2" >
-                                        <div className="progress-bar" role="progressbar" aria-valuenow="66"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                    <Planilla lista={top100Films} cambio={handleSelect} />
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className="card mb-4 mb-md-0">
                                 <div className="card-body">
-                                    <p className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status
-                                    </p>
-                                    <p className="mb-1" >Web Design</p>
-                                    <div className="progress rounded" >
-                                        <div className="progress-bar" role="progressbar" aria-valuenow="80"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <p className="mt-4 mb-1" >Website Markup</p>
-                                    <div className="progress rounded" >
-                                        <div className="progress-bar" role="progressbar" aria-valuenow="72"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <p className="mt-4 mb-1" >One Page</p>
-                                    <div className="progress rounded" >
-                                        <div className="progress-bar" role="progressbar" aria-valuenow="89"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <p className="mt-4 mb-1" >Mobile Template</p>
-                                    <div className="progress rounded" >
-                                        <div className="progress-bar" role="progressbar" aria-valuenow="55"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <p className="mt-4 mb-1" >Backend API</p>
-                                    <div className="progress rounded mb-2" >
-                                        <div className="progress-bar" role="progressbar" aria-valuenow="66"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                    {lista.la_lista.length > 0 ? <Receptor_planillas cambio={onDeleter} lista={lista.la_lista} /> : ""}
                                 </div>
                             </div>
                         </div>
@@ -306,3 +309,14 @@ export const PaginaPrincipal = () => {
         </div >
     );
 };
+
+
+const top100Films = [
+    { title: 'The Shawshank Redemption', year: 1994 },
+    { title: 'The Godfather', year: 1972 },
+    { title: 'The Godfather: Part II', year: 1974 },
+    { title: 'The Dark Knight', year: 2008 },
+    { title: '12 Angry Men', year: 1957 },
+    { title: "Schindler's List", year: 1993 },
+    { title: 'Pulp Fiction', year: 1994 },
+];

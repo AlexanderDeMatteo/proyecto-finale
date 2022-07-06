@@ -4,15 +4,10 @@
 .boxBuscador {
   background-color: aqua;
   width: 1049px;
-  display: flex;
 }
 .card {
   border-radius: 15px;
   background-color: #93e2bb;
-  display: block;
-}
-img {
-  width: 70px;
 }
 ul {
   color: #1b7b2c;

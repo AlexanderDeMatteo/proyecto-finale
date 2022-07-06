@@ -1,9 +1,56 @@
 import React, { useState, useContext, useEffect } from "react";
 import "../../styles/imagenes.css"
-import { Drag_and_drop } from "../component/drag_and_drop"
+import { Context } from "../store/appContext";
+
 
 export const Imagenes = () => {
+    const { actions } = useContext(Context)
+    const [media, setMedia] = useState("")
+    const [urlMedia, setUrlMedia] = useState("")
+    useEffect(() => {
+        if (media != "") uploadFile()
 
+
+    }, [media])
+
+    async function uploadFile() {
+        let YOUR_CLOUD_NAME = "alexander0201";
+        let YOUR_UNSIGNED_UPLOAD_PRESET = "zkvkmknt";
+
+        let POST_URL =
+            "https://api.cloudinary.com/v1_1/" + YOUR_CLOUD_NAME + "/auto/upload";
+
+        let formData = new FormData();
+        formData.append("file", media)
+        formData.append("cloud_name", YOUR_CLOUD_NAME);
+        formData.append("upload_preset", YOUR_UNSIGNED_UPLOAD_PRESET);
+
+        try {
+            const response = await fetch(POST_URL, {
+                method: "POST",
+                body: formData
+            });
+            if (response.ok) {
+                const body = await response.json()
+                console.log(body)
+                //funcion al flux
+                setUrlMedia(body.url)
+            }
+        } catch (error) {
+            document.querySelector(`#${id} .status-text`
+            ).innerHTML = `<span className="failure">el archivo no pudo subirse...`;
+        }
+    };
+    const handlePicture = () => {
+        actions.picture_profile(urlMedia)
+    }
+
+    window.onload = () => {
+
+        document.getElementById('get_file').onclick = function () {
+            document.getElementById('my_file').click();
+        };
+    }
     return (
 
 
@@ -18,11 +65,25 @@ export const Imagenes = () => {
                     <figure className="modal_picture">
                         <img src="" className="modal_img" />
                     </figure>
-                    <Drag_and_drop />
+                    <div className="caja-drop-area">
+                        <div className="drop-area">
+                            <h2>Arrastra y suelta imagenes</h2>
+                            {/* <span>0</span> */}
+                            <input type="button" id="get_file" value="selecionar imagen" />
+                            <input type="file" name="" id="my_file" onChange={(e) => setMedia(e.target.files[0])} />
+                        </div>
+                        <div id="preview">
+                            {urlMedia && <img width={50} height={50} src={urlMedia} />}
+                        </div>
+                    </div>
 
                     <p className="modal_paragraph">lorem20</p>
 
                     <a href="#header" className="modal_close">cerrar</a>
+
+                    <a href="#header" className="modal_close" onClick=
+                        {handlePicture}
+                    >guardar</a>
 
                 </div>
             </section>

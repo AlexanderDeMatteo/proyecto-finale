@@ -1,0 +1,10 @@
+#imagen_card {
+  height: 80px;
+  width: 80px;
+}
+
+#card-box {
+  height: 400px;
+  width: 350px;
+  padding: 0;
+}

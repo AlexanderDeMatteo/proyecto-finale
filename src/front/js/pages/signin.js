@@ -23,7 +23,7 @@ export const SignIn = () => {
             password: password,
         };
         if (await actions.loginUser(data)) {
-            history.push("/paginaPrincipal");
+            history.push("/Perfil");
         } else {
             alert("Credenciales Invalidas");
         }

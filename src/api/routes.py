@@ -90,6 +90,19 @@ def handle_user_data():
             "message": "Usuario actualizado con exito",}
         return jsonify(response_body), 200
         
+@api.route("/user-profile-picture", methods=['PUT'])
+@jwt_required()
+def handle_user_picture():
+    current_user = get_jwt_identity()
+    data = request.data
+    data_decode = json.loads(data)
+    updateUser = User.query.get(current_user)
+    print(data_decode)
+    updateUser.profile_picture = data_decode
+    db.session.commit()
+    response_body = {
+        "message": "Usuario actualizo foto con exito",}
+    return jsonify(response_body), 200
 
 @api.route("/protected")
 @jwt_required()

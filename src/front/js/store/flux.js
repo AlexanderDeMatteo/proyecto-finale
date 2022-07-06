@@ -16,7 +16,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			],
 			userData: {},
-			userPsicologos: {}
+			userPsicologos: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -106,6 +106,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore(prev => ({
 					...prev, userProp
 				}))
+			},
+
+			picture_profile: async (data) => {
+				let response = await fetch(`${API_URL}/api/user-profile-picture`, {
+					method: 'put',
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${localStorage.getItem("token")}`
+					},
+					body: JSON.stringify(data)
+				});
+				if (response.ok) {
+					getActions().handle_user_data()
+				}
+
 			},
 
 			// handle_user_upgrade: async () => {

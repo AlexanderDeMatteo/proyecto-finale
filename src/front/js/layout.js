@@ -6,7 +6,7 @@ import { Home } from "./pages/home";
 import { Drag_and_drop } from "./component/drag_and_drop";
 import { SignUp } from "./pages/signup";
 import { SignIn } from "./pages/signin";
-import { PaginaPrincipal } from "./pages/paginaPrincipal";
+import { Perfil } from "./pages/perfil";
 import injectContext from "./store/appContext";
 import { Buscador_de_psicologos } from "./pages/buscador_de_psicologos";
 
@@ -40,14 +40,14 @@ const Layout = () => {
 							{/* <Navbar /> */}
 							<SignIn />
 						</Route>
-						<Route exact path="/paginaPrincipal">
+						<Route exact path="/perfil">
 							{/* <Navbar3 /> */}
 							<div className="box" >
 								<div id="navbar2">
 									<Navbar2 />
 								</div>
 								<div id="pagina central">
-									<PaginaPrincipal />
+									<Perfil />
 								</div>
 							</div>
 						</Route>
