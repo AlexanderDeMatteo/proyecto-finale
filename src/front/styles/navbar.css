@@ -4,13 +4,29 @@
   border-radius: 500px;
 }
 #menu {
-  height: 65px;
-  background-color: whitesmoke;
+  height: 75px;
+  background-color: white;
   padding: 10px;
-  width: 1049px;
+
   display: flex;
   justify-content: space-between;
+  margin: 0;
 }
 #hola {
-  margin-top: -15px;
+  margin-top: -25px;
+  margin-left: 140px;
+  margin-right: 0;
+}
+li {
+  text-decoration: none;
+}
+.dropdown-item {
+  text-decoration: none;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+#nav-item {
+  margin-left: 140px;
 }

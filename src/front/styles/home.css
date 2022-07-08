@@ -8,6 +8,7 @@
 #caja_arriba {
   background: rgba(255, 255, 255, 0.822);
   height: 800px;
+  width: 1200;
 }
 
 .carousel,

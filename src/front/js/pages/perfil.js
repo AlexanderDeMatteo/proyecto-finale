@@ -5,7 +5,7 @@ import { Navbar } from "../component/navbar";
 import "../../styles/paginaPrincipal.css"
 import { Imagenes } from "../component/imagenes"
 import { uploadFile } from "../component/drag_and_drop"
-import Planilla from "../component/auto"
+import Planilla from "../component/selector"
 import { Receptor_planillas } from "../component/receptor_planillas"
 
 export const Perfil = () => {
@@ -117,7 +117,7 @@ export const Perfil = () => {
         // this.forceUpdate()
         let esto = lista.la_lista
         if (value != null) {
-            esto.push({ title: value.title, year: value.year })
+            esto.push({ title: value.title })
             console.log(esto, "Line 115")
             setLista(prevLista => {
                 return {
@@ -230,7 +230,7 @@ export const Perfil = () => {
                                             {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="monto" value={store.userData.monto} /> : <p className="text-muted mb-0">{store.userData.monto}</p>}
                                         </div>
                                     </div> : ""}
-                                    <hr />
+                                    {store.userData.is_psicologo ? <hr /> : ""}
                                     <div className="row">
                                         <div className="col-sm-3">
                                             <p className="mb-0">Telefono</p>
@@ -242,13 +242,13 @@ export const Perfil = () => {
                                     <hr />
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <p className="mb-0">Numero de FPV</p>
+                                            {store.userData.is_psicologo ? <p className="mb-0">Numero de FPV</p> : ""}
                                         </div>
                                         <div className="col-sm-9">
                                             <p name="email" value={store.userData.numero_fpv} className="text-muted mb-0">{store.userData.numero_fpv}</p>
                                         </div>
                                     </div>
-                                    <hr />
+                                    {store.userData.is_psicologo ? <hr /> : ""}
                                     <div className="row">
                                         <div className="col-sm-3">
                                             <p className="mb-0">Pais</p>
@@ -286,8 +286,8 @@ export const Perfil = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col-md-6">
+                    {store.userData.is_psicologo ? <div className="row" id="selector">
+                        <div className="col-md-6" >
                             <div className="card mb-4 mb-md-0">
                                 <div className="card-body">
                                     <Planilla lista={top100Films} cambio={handleSelect} />
@@ -301,7 +301,7 @@ export const Perfil = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> : ""}
                 </div>
                 {localStorage.getItem("token") == undefined && (<Redirect to={"/signin"}></Redirect>
                 )}
@@ -312,11 +312,11 @@ export const Perfil = () => {
 
 
 const top100Films = [
-    { title: 'The Shawshank Redemption', year: 1994 },
-    { title: 'The Godfather', year: 1972 },
-    { title: 'The Godfather: Part II', year: 1974 },
-    { title: 'The Dark Knight', year: 2008 },
-    { title: '12 Angry Men', year: 1957 },
-    { title: "Schindler's List", year: 1993 },
-    { title: 'Pulp Fiction', year: 1994 },
+    { title: 'psicologia gestal' },
+    { title: 'psicologia humanista' },
+    { title: 'psicoanalisis' },
+    { title: 'psicologia sistemica' },
+    { title: 'psicologia cognitivo conductual' },
+    { title: "constelaciones familiares" },
+    { title: 'psicologia organizacional' },
 ];

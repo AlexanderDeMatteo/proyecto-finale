@@ -47,8 +47,8 @@ export const Imagenes = () => {
 
     window.onload = () => {
 
-        document.getElementById('get_file').onclick = function () {
-            document.getElementById('my_file').click();
+        document.getElementById('agregarFoto').onclick = function () {
+            document.getElementById('miFoto').click();
         };
     }
     return (
@@ -67,17 +67,17 @@ export const Imagenes = () => {
                     </figure>
                     <div className="caja-drop-area">
                         <div className="drop-area">
-                            <h2>Arrastra y suelta imagenes</h2>
+                            <h2></h2>
                             {/* <span>0</span> */}
-                            <input type="button" id="get_file" value="selecionar imagen" />
-                            <input type="file" name="" id="my_file" onChange={(e) => setMedia(e.target.files[0])} />
+                            <input type="button" id="agregarFoto" value="selecionar imagen" />
+                            <input type="file" name="" id="miFoto" onChange={(e) => setMedia(e.target.files[0])} />
                         </div>
                         <div id="preview">
                             {urlMedia && <img width={50} height={50} src={urlMedia} />}
                         </div>
                     </div>
 
-                    <p className="modal_paragraph">lorem20</p>
+                    <p className="modal_paragraph">selecciona tu imagen de perfil</p>
 
                     <a href="#header" className="modal_close">cerrar</a>
 

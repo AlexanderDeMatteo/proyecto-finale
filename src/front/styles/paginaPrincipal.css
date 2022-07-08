@@ -1,10 +1,16 @@
 .box3 {
-  background-color: aliceblue;
-  width: 1049px;
+  background-color: whitesmoke;
+  width: 1089px;
 }
 #boton1 {
   margin-left: 40%;
 }
 #boton2 {
   margin-left: 10%;
+}
+#selector {
+  margin-top: 10px;
+}
+.card-body {
+  display: block;
 }

@@ -8,7 +8,7 @@ export const Home = () => {
 
 	return (
 		<div>
-			<div id="caja_arriba">
+			<div >
 				<div id="carrusel">
 
 					<div id="enunciado">
@@ -21,7 +21,8 @@ export const Home = () => {
 
 						<div className="carousel-inner">
 							<div className="carousel-item active">
-								<img src="https://img.freepik.com/vector-gratis/salud-mental-entendiendo-vector-cerebral_53876-79084.jpg?size=338&ext=jpg&ga=GA1.2.1846917735.1655248269" className="d-block w-50px h-70px" alt="..." />
+								{/* <img src="https://img.freepik.com/vector-gratis/salud-mental-entendiendo-vector-cerebral_53876-79084.jpg?size=338&ext=jpg&ga=GA1.2.1846917735.1655248269" className="d-block w-50px h-70px" alt="..." /> */}
+								<img src="https://img.freepik.com/foto-gratis/psicologo-sexo-femenino-amistoso-que-coloca-su-oficina-tablero-lapiz_23-2148026256.jpg?size=626&ext=jpg&ga=GA1.2.1846917735.1655248269" className="d-block w-50px h-70px" alt="..." />
 								<div className="carousel-caption d-none d-md-block">
 									<h5></h5>
 									<p></p>
@@ -35,7 +36,7 @@ export const Home = () => {
 								</div>
 							</div>
 							<div className="carousel-item">
-								<img src="https://img.freepik.com/foto-gratis/psicologo-sexo-femenino-amistoso-que-coloca-su-oficina-tablero-lapiz_23-2148026256.jpg?size=626&ext=jpg&ga=GA1.2.1846917735.1655248269" className="d-block w-50px h-70px" alt="..." />
+								<img src="https://img.freepik.com/vector-gratis/salud-mental-entendiendo-vector-cerebral_53876-79084.jpg?size=338&ext=jpg&ga=GA1.2.1846917735.1655248269" className="d-block w-50px h-70px" alt="..." />
 								<div className="carousel-caption d-none d-md-block">
 									<h5></h5>
 									<p></p>

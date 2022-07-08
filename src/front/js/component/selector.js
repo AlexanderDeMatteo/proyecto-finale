@@ -34,7 +34,7 @@ export default function Planilla(value_lista) {
                 id="disable-close-on-select"
                 disableCloseOnSelect
                 renderInput={(params) => (
-                    <TextField {...params} label="hola yolfrank" variant="standard" />
+                    <TextField {...params} label="seleccion de tags" variant="standard" />
                 )}
             />
         </Stack>

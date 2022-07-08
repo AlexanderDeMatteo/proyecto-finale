@@ -17,14 +17,14 @@ export const Navbar = () => {
 
 	return (
 		<nav id="menu" className="navbar navbar-expand-sm nav justify-content-center">
-			<NavLink className="nav-link" to="/">logo</NavLink>
-			<NavLink className="nav-link" to="/servicios">servicios</NavLink>
-			<NavLink className="nav-link" to="/about_us">about us</NavLink>
-			{!localStorage.getItem("token") ? <NavLink className="nav-link"
+			<NavLink className="nav-link" id="nav-item" to="/">logo</NavLink>
+			<NavLink className="nav-link" id="nav-item" to="/servicios">servicios</NavLink>
+			<NavLink className="nav-link" id="nav-item" to="/about_us">about us</NavLink>
+			{!localStorage.getItem("token") ? <NavLink className="nav-link" id="nav-item"
 				to="/signup">registro</NavLink> : ""}
-			{!localStorage.getItem("token") ? <NavLink className="nav-link" to="/signin">login</NavLink> : ""}
-			{store.userData.is_psicologo && !localStorage.getItem("token") ? <NavLink className="nav-link" to="/market_place">market place</NavLink> : ""}
-			<NavLink className="nav-link" to="/noticias">noticias</NavLink>
+			{!localStorage.getItem("token") ? <NavLink className="nav-link" id="nav-item" to="/signin">login</NavLink> : ""}
+			{!localStorage.getItem("token") && store.userData.is_psicologo ? <NavLink className="nav-link" to="/market_place">market place</NavLink> : ""}
+			<NavLink className="nav-link" id="nav-item" to="/noticias">noticias</NavLink>
 
 			{localStorage.getItem("token") ?
 				<li className="nav-item dropdown" id="hola">

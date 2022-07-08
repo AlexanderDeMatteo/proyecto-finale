@@ -4,7 +4,20 @@
 }
 
 #card-box {
-  height: 400px;
-  width: 350px;
+  height: 390px;
+  width: 340px;
   padding: 0;
+  margin-left: 30px;
+  margin-right: -10px;
+}
+.card {
+  border-radius: 15px;
+  background-color: rgba(196, 227, 233, 0.795);
+}
+ul {
+  color: rgba(220, 231, 233, 0.87);
+}
+#boton_agendar {
+  background-color: rgba(47, 47, 201, 0.74);
+  border-color: rgba(47, 47, 201, 0.74);
 }

@@ -1,14 +1,8 @@
 .boxPrincipal {
-  background-color: blue;
+  background-color: rgba(0, 0, 255, 0.205);
 }
 .boxBuscador {
-  background-color: aqua;
-  width: 1049px;
-}
-.card {
-  border-radius: 15px;
-  background-color: #93e2bb;
-}
-ul {
-  color: #1b7b2c;
+  background-color: whitesmoke;
+  width: 1089px;
+  display: block;
 }

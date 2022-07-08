@@ -88,8 +88,9 @@ export const Card = ({
                 <button
                   type="button"
                   className="btn btn-success btn-rounded btn-block btn-lg"
+                  id="boton_agendar"
                 >
-                  <i className="far fa-clock me-2"></i>Book now
+                  <i className="far fa-clock me-2"></i>Agenda tu cita
                 </button>
               </div>
             </div>

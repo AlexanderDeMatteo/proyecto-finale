@@ -1,6 +1,6 @@
 import { func } from "prop-types";
 import React, { useState, useEffect } from "react";
-import "../../styles/drag_and_drop.css"
+
 
 export const Drag_and_drop = () => {
     const [media, setMedia] = useState("")

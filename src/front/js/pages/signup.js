@@ -37,7 +37,7 @@ export const SignUp = () => {
 			data.name = name,
 				data.email = email,
 				data.password = password,
-				data.numero_fpv = numero_fpv,
+				data.numero_fpv = null,
 				data.is_psicologo = check_fpv
 		}
 

@@ -11,8 +11,7 @@ import injectContext from "./store/appContext";
 import { Buscador_de_psicologos } from "./pages/buscador_de_psicologos";
 
 import { Navbar } from "./component/navbar";
-import { Navbar2 } from "./component/navbar_2";
-import { Navbar3 } from "./component/navbar3";
+import { Sidebar } from "./component/sidebar";
 import { Footer } from "./component/footer";
 import "../styles/layout.css"
 
@@ -44,7 +43,7 @@ const Layout = () => {
 							{/* <Navbar3 /> */}
 							<div className="box" >
 								<div id="navbar2">
-									<Navbar2 />
+									<Sidebar />
 								</div>
 								<div id="pagina central">
 									<Perfil />
@@ -54,7 +53,7 @@ const Layout = () => {
 						<Route exact path="/buscador">
 							<div className="box" >
 								<div id="navbar2">
-									<Navbar2 />
+									<Sidebar />
 								</div>
 								<div id="pagina central">
 									<Buscador_de_psicologos />
