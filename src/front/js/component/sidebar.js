@@ -31,7 +31,7 @@ export const Sidebar = () => {
             <p>Navega</p>
             <a className="nav-link" href="#">Noticias</a>
             {store.userData.is_psicologo ? <a className="nav-link" href="#">Buscador de colegas</a> : <a className="nav-link" href="/buscador">Buscador de psicologos</a>}
-            {store.userData.is_psicologo ? <a className="nav-link" href="#">market place</a> : ""}
+            {store.userData.is_psicologo ? <a className="nav-link" href="#">Mercado</a> : ""}
 
 
         </nav>

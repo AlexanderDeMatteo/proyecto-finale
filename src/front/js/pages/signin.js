@@ -90,7 +90,6 @@ export const SignIn = () => {
                                                             type={showPassword ? "text" : "password"}
                                                             id="form3Example4c"
                                                             className="form-control"
-                                                            onChange={(e) => setPassword(e.target.value)}
                                                             onBlur={(e) => {
                                                                 let regex =
                                                                     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -100,18 +99,14 @@ export const SignIn = () => {
                                                                     setErrors({ ...errors, password: true });
                                                                 }
                                                             }}
-                                                        />
-                                                        <button
-                                                            className={
-                                                                showPassword
-                                                                    ? "fa fa-eye-slash"
-                                                                    : "fa fa-eye password-icon"
-                                                            }
+                                                            onChange={(e) => setPassword(e.target.value)} />
+                                                        <i className="fa fa-eye password-icon iconpass2" id="ojitos"
                                                             onClick={(e) => {
                                                                 e.preventDefault();
                                                                 setShowPassword(!showPassword);
                                                             }}
-                                                        ></button>
+                                                        />
+
                                                     </div>
                                                 </div>
                                             </div>

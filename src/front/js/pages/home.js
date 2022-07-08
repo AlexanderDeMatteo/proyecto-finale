@@ -12,9 +12,9 @@ export const Home = () => {
 				<div id="carrusel">
 
 					<div id="enunciado">
-						<h1>texto elocuente sobre lo que me de la gana</h1>
-						<p>lalalalalalalalalalalalalalallalalalalalalal</p>
-						<a id="boton" className="btn btn-primary" href="/signup" role="button" >Registrate ahora</a>
+						<h1>VIVE LA NATURALEZA TRANSFORMADORA DEL PODER HUMANO</h1>
+						<p>Crece, desarróllate y muévete hacia delante junto a los mejores psicologos de Venezuela, en línea.</p>
+						<a id="boton" className="btn btn-primary" href="/signup" role="button" >Empieza Ahora</a>
 					</div>
 
 					<div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="false">

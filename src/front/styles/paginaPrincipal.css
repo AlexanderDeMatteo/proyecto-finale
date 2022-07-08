@@ -14,3 +14,7 @@
 .card-body {
   display: block;
 }
+#avatar_perfil {
+  width: 261px;
+  height: 277px;
+}

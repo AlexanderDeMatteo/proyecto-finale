@@ -14,8 +14,10 @@
 }
 #hola {
   margin-top: -25px;
-  margin-left: 140px;
+  float: right;
   margin-right: 0;
+  height: 50px;
+  max-height: 60px;
 }
 li {
   text-decoration: none;
@@ -28,5 +30,4 @@ a {
   color: black;
 }
 #nav-item {
-  margin-left: 140px;
 }

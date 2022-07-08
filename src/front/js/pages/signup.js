@@ -47,8 +47,6 @@ export const SignUp = () => {
 		// 	password: password,
 		// 	numero_fpv: numero_fpv,
 		// };
-		console.log(data)
-		console.log("aaaaaaaaaaaaaaaaa")
 		if (await actions.registerUser(data)) {
 			history.push("/Perfil");
 		} else {
@@ -198,7 +196,7 @@ export const SignUp = () => {
 															}
 														}}
 														onChange={(e) => setRepeat(e.target.value)} />
-													<i className="fa fa-eye password-icon iconpass2"
+													<i className="fa fa-eye password-icon iconpass2" id="ojitos"
 														onClick={(e) => {
 															e.preventDefault();
 															setShowPassword(!showPassword);

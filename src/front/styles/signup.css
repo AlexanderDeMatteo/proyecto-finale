@@ -9,3 +9,8 @@
   color: gray;
   z-index: 9999;
 }
+#ojitos {
+  padding-top: 10px;
+  padding-right: 20px;
+  position: absolute;
+}

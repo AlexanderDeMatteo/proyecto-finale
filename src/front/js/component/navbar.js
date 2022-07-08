@@ -17,14 +17,14 @@ export const Navbar = () => {
 
 	return (
 		<nav id="menu" className="navbar navbar-expand-sm nav justify-content-center">
-			<NavLink className="nav-link" id="nav-item" to="/">logo</NavLink>
-			<NavLink className="nav-link" id="nav-item" to="/servicios">servicios</NavLink>
-			<NavLink className="nav-link" id="nav-item" to="/about_us">about us</NavLink>
+			<NavLink className="nav-link" id="nav-item" to="/">Logo</NavLink>
+			<NavLink className="nav-link" id="nav-item" to="/servicios">Servicios</NavLink>
+			<NavLink className="nav-link" id="nav-item" to="/about_us">About Us</NavLink>
 			{!localStorage.getItem("token") ? <NavLink className="nav-link" id="nav-item"
 				to="/signup">registro</NavLink> : ""}
-			{!localStorage.getItem("token") ? <NavLink className="nav-link" id="nav-item" to="/signin">login</NavLink> : ""}
-			{!localStorage.getItem("token") && store.userData.is_psicologo ? <NavLink className="nav-link" to="/market_place">market place</NavLink> : ""}
-			<NavLink className="nav-link" id="nav-item" to="/noticias">noticias</NavLink>
+			{!localStorage.getItem("token") ? <NavLink className="nav-link" id="nav-item" to="/signin">Login</NavLink> : ""}
+			{/* {!localStorage.getItem("token") && store.userData.is_psicologo ? <NavLink className="nav-link" to="/market_place">Mercado</NavLink> : ""} */}
+			<NavLink className="nav-link" id="nav-item" to="/noticias">Noticias</NavLink>
 
 			{localStorage.getItem("token") ?
 				<li className="nav-item dropdown" id="hola">
@@ -39,13 +39,13 @@ export const Navbar = () => {
 							alt="Sample image" />}
 					</a>
 					<ul className="dropdown-menu">
-						<li className="dropdown-item"><NavLink to="/perfil">perfil</NavLink></li>
-						<li className="dropdown-item"><NavLink to="/status">status</NavLink></li>
-						<li className="dropdown-item"><NavLink to="/facturacion">facturacion</NavLink></li>
+						<li className="dropdown-item"><NavLink to="/perfil">Perfil</NavLink></li>
+						<li className="dropdown-item"><NavLink to="/status">Status</NavLink></li>
+						<li className="dropdown-item"><NavLink to="/facturacion">Facturacion</NavLink></li>
 						<li onClick={(e) => {
 							localStorage.removeItem("token");
 							setIsLogOut(true)
-						}} className="dropdown-item">log out</li>
+						}} className="dropdown-item">Log Out</li>
 					</ul>
 				</li>
 				: ""}

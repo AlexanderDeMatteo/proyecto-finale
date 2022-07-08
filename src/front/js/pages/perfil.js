@@ -267,15 +267,15 @@ export const Perfil = () => {
                                         </div>
                                     </div>
                                     <hr />
-                                    <div className="row">
+                                    {store.userData.is_psicologo ? <div className="row">
                                         <div className="col-sm-3">
                                             <p className="mb-0">Status</p>
                                         </div>
                                         <div className="col-sm-9">
                                             <p name="status" value={store.userData.status} className="text-muted mb-0">{store.userData.status}</p>
                                         </div>
-                                    </div>
-                                    <hr />
+                                    </div> : ""}
+                                    {store.userData.is_psicologo ? <hr /> : ""}
                                     <div className="row">
                                         <div className="col-sm-9">
                                             <button id="boton1" onClick={guardar} type="button" className="btn btn-primary">guardar</button>
