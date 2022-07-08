@@ -45,12 +45,12 @@ export const Imagenes = () => {
         actions.picture_profile(urlMedia)
     }
 
-    window.onload = () => {
+    // window.onload = () => {
 
-        document.getElementById('agregarFoto').onclick = function () {
-            document.getElementById('miFoto').click();
-        };
-    }
+    //     document.getElementById('agregarFoto').onclick = function () {
+    //         document.getElementById('miFoto').click();
+    //     };
+    // }
     return (
 
 
@@ -68,9 +68,12 @@ export const Imagenes = () => {
                     <div className="caja-drop-area">
                         <div className="drop-area">
                             <h2></h2>
-                            {/* <span>0</span> */}
-                            <input type="button" id="agregarFoto" value="selecionar imagen" />
-                            <input type="file" name="" id="miFoto" onChange={(e) => setMedia(e.target.files[0])} />
+                            <label for="img" class="agregarFoto">Seleccionar Imagen</label>
+                            <input type="file" id="img" style={{ display: "none" }} onChange={(e) => setMedia(e.target.files[0])} />
+                            {/* <button type="button" id="agregarFoto" >
+                                <p>Seleccionar Imagen</p>
+                                <input type="file" name="" id="miFoto" onChange={(e) => setMedia(e.target.files[0])} />
+                            </button> */}
                         </div>
                         <div id="preview">
                             {urlMedia && <img width={50} height={50} src={urlMedia} />}

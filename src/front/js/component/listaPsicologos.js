@@ -10,15 +10,15 @@ export const PsicologoCards = (data) => {
   console.table(store.userPsicologos)
   return (
     <div className="row" id="overflow">
-      {store.userPsicologos.map((esto, index) => {
+      {store.userPsicologos.map((vistaPsicologo, index) => {
         return (
           <Card
             key={index}
-            area_de_especialidad={esto.area_de_especialidad}
-            name={esto.name}
-            lastname={esto.lastname}
-            precio_consulta={esto.monto}
-            profile_picture={esto.profile_picture}
+            area_de_especialidad={vistaPsicologo.area_de_especialidad}
+            name={vistaPsicologo.name}
+            last_name={vistaPsicologo.last_name}
+            precio_consulta={vistaPsicologo.monto}
+            profile_picture={vistaPsicologo.profile_picture}
             colSpacing="col-4"
           />
         );

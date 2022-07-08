@@ -4,7 +4,7 @@ import "../../styles/card.css"
 
 export const Card = ({
   name,
-  lastname,
+  last_name,
   profile_picture,
   area_de_especialidad,
   precio_consulta,
@@ -38,7 +38,7 @@ export const Card = ({
                   <div className="flex-grow-1 ms-3">
                     <div className="d-flex flex-row align-items-center mb-2">
                       <p className="mb-0 me-2">
-                        {name} {lastname}
+                        {name} {last_name}
                       </p>
                       <ul className="mb-0 list-unstyled d-flex flex-row">
                         <li>
@@ -106,6 +106,6 @@ Card.propTypes = {
   colSpacing: PropTypes.string,
   precio_consulta: PropTypes.number,
   name: PropTypes.string,
-  lastname: PropTypes.string,
+  last_name: PropTypes.string,
   profile_picture: PropTypes.string,
 };

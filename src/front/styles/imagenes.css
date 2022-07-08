@@ -75,13 +75,15 @@
   line-height: 1.5;
 }
 .modal_close {
-  display: inline-block;
-  border: 1px solid #333;
-  padding: 1em 2em;
-  text-decoration: none;
-  font-weight: 700;
-  color: #333;
-  border-radius: 2em;
+  background: #f9f9f9;
+  border: 5px solid rgba(8, 166, 240, 0.959);
+  padding: 15px;
+  border-radius: 5px;
+  margin: 10px;
+  cursor: pointer;
+  color: rgba(8, 166, 240, 0.959);
+  font-weight: bold;
+  padding-top: 8px;
 }
 
 @media (max-width: 600px) {
@@ -153,16 +155,19 @@
 }
 
 #miFoto {
-  display: none;
+  visibility: hidden;
+  width: 70%;
 }
 
-#agregarFoto {
+.agregarFoto {
   background: #f9f9f9;
-  border: 5px solid #88c;
+  border: 5px solid rgba(8, 166, 240, 0.959);
   padding: 15px;
   border-radius: 5px;
   margin: 10px;
   cursor: pointer;
+  color: rgba(8, 166, 240, 0.959);
+  font-weight: bold;
 }
 
 /* .page {

@@ -115,13 +115,13 @@ export const Perfil = () => {
         console.log(lista.la_lista, "Line 110")
         // setLista(lista)
         // this.forceUpdate()
-        let esto = lista.la_lista
+        let vistaPsicologo = lista.la_lista
         if (value != null) {
-            esto.push({ title: value.title })
-            console.log(esto, "Line 115")
+            vistaPsicologo.push({ title: value.title })
+            console.log(vistaPsicologo, "Line 115")
             setLista(prevLista => {
                 return {
-                    la_lista: esto
+                    la_lista: vistaPsicologo
 
                 }
             });

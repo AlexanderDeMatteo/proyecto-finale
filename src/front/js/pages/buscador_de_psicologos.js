@@ -14,7 +14,7 @@ export const Buscador_de_psicologos = () => {
 
         <>
             <div className="boxPrincipal">
-                <p>"hola</p>
+                <p>Encuentra tu psicologo ideal</p>
 
                 <div className="boxBuscador">
                     <PsicologoCards data={aja} />

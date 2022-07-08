@@ -17,7 +17,7 @@ export const Navbar = () => {
 
 	return (
 		<nav id="menu" className="navbar navbar-expand-sm nav justify-content-center">
-			<NavLink className="nav-link" id="nav-item" to="/">Logo</NavLink>
+			<NavLink className="nav-link" id="nav-item" to="/">Home</NavLink>
 			<NavLink className="nav-link" id="nav-item" to="/servicios">Servicios</NavLink>
 			<NavLink className="nav-link" id="nav-item" to="/about_us">About Us</NavLink>
 			{!localStorage.getItem("token") ? <NavLink className="nav-link" id="nav-item"
