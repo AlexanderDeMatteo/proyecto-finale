@@ -28,7 +28,7 @@ class User(db.Model):
         self.password=password
         self.numero_fpv=numero_fpv
         self.is_active=True
-        self.is_psicologo=is_psicologo
+        self.is_psicologo=False
 
     def __repr__(self):
         return f'<User {self.email}>'
