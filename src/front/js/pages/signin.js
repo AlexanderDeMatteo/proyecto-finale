@@ -92,7 +92,7 @@ export const SignIn = () => {
                                                             className="form-control"
                                                             onBlur={(e) => {
                                                                 let regex =
-                                                                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                                                                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
                                                                 if (regex.test(password)) {
                                                                     setErrors({ ...errors, password: false });
                                                                 } else {

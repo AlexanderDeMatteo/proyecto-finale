@@ -12,7 +12,7 @@ export const Home = () => {
 				<div id="carrusel">
 
 					<div id="enunciado">
-						<h1>Bienvenidos a PsicologiaGlobal</h1>
+						<h1>Bienvenidos a RedesConscientes</h1>
 						{/* <h2>VIVE LA NATURALEZA TRANSFORMADORA DEL PODER HUMANO</h2> */}
 						<h2>Vive la naturaleza transformadora del poder humano</h2>
 						<p>Crece, desarróllate y muévete hacia delante junto a los mejores psicologos de Venezuela, en línea.</p>
