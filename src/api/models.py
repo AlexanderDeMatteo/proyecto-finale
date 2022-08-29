@@ -19,7 +19,7 @@ class User(db.Model):
     instagram = db.Column(db.String(25), unique=True, nullable=True)
     profile_picture = db.Column(db.String(500), unique=False, nullable=True)
     monto = db.Column(db.String(25), unique=False, nullable=True)
-    is_psicologo = db.Column(db.Boolean(), unique=False, nullable=False)
+    is_psicologo = db.Column(db.Boolean(), unique=False, nullable=True)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __init__(self,name,email,password,numero_fpv, is_psicologo ):
@@ -28,7 +28,7 @@ class User(db.Model):
         self.password=password
         self.numero_fpv=numero_fpv
         self.is_active=True
-        self.is_psicologo=False
+        self.is_psicologo=is_psicologo
 
     def __repr__(self):
         return f'<User {self.email}>'
