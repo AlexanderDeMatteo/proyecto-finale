@@ -68,7 +68,7 @@ export const Imagenes = () => {
                     <div className="caja-drop-area">
                         <div className="drop-area">
                             <h2></h2>
-                            <label for="img" class="agregarFoto">Seleccionar Imagen</label>
+                            <label for="img" className="agregarFoto">Seleccionar Imagen</label>
                             <input type="file" id="img" style={{ display: "none" }} onChange={(e) => setMedia(e.target.files[0])} />
                             {/* <button type="button" id="agregarFoto" >
                                 <p>Seleccionar Imagen</p>
