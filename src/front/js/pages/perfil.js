@@ -286,7 +286,7 @@ export const Perfil = () => {
                             </div>
                         </div>
                     </div>
-                    {store.userData.is_psicologo ? <div className="row" id="selector">
+                    {/* {store.userData.is_psicologo ? <div className="row" id="selector">
                         <div className="col-md-6" >
                             <div className="card mb-4 mb-md-0">
                                 <div className="card-body">
@@ -301,7 +301,7 @@ export const Perfil = () => {
                                 </div>
                             </div>
                         </div>
-                    </div> : ""}
+                    </div> : ""} */}
                 </div>
                 {localStorage.getItem("token") == undefined && (<Redirect to={"/signin"}></Redirect>
                 )}

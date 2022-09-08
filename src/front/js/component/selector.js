@@ -1,45 +1,45 @@
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import Stack from '@mui/material/Stack';
+// import * as React from 'react';
+// import TextField from 'material-ui/core/TextField';
+// import Autocomplete from '@material-ui/core/Autocomplete';
+// import Stack from 'material-ui/core/Stack';
 
 
-export default function Planilla(value_lista) {
+// export default function Planilla(value_lista) {
 
-    const [lalista, setLalista] = React.useState(value_lista.lista)
-    const defaultProps = {
-        options: lalista,
-        getOptionLabel: (option) => option.title,
-    };
+//     const [lalista, setLalista] = React.useState(value_lista.lista)
+//     const defaultProps = {
+//         options: lalista,
+//         getOptionLabel: (option) => option.title,
+//     };
 
-    // function handleSelect(event, value) {
-    //     console.log(event)
-    //     console.log(value)
-    //     console.log("Aaaaaaaaaaa")
+//     // function handleSelect(event, value) {
+//     //     console.log(event)
+//     //     console.log(value)
+//     //     console.log("Aaaaaaaaaaa")
 
 
-    // }
+//     // }
 
-    const flatProps = {
-        options: lalista.map((option) => option.title),
-    };
+//     const flatProps = {
+//         options: lalista.map((option) => option.title),
+//     };
 
-    const [value, setValue] = React.useState(null);
+//     const [value, setValue] = React.useState(null);
 
-    return (
-        <Stack spacing={1} sx={{ width: 300 }}>
-            <Autocomplete
-                onChange={value_lista.cambio}
-                {...defaultProps}
-                id="disable-close-on-select"
-                disableCloseOnSelect
-                renderInput={(params) => (
-                    <TextField {...params} label="seleccion de tags" variant="standard" />
-                )}
-            />
-        </Stack>
-    );
-}
+//     return (
+//         <Stack spacing={1} sx={{ width: 300 }}>
+//             <Autocomplete
+//                 onChange={value_lista.cambio}
+//                 {...defaultProps}
+//                 id="disable-close-on-select"
+//                 disableCloseOnSelect
+//                 renderInput={(params) => (
+//                     <TextField {...params} label="seleccion de tags" variant="standard" />
+//                 )}
+//             />
+//         </Stack>
+//     );
+// }
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 // const top100Films = [
