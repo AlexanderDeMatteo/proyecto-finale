@@ -12,6 +12,7 @@ class User(db.Model):
     numero_fpv = db.Column(db.String(25), unique=True, nullable=True)
     area_de_especialidad = db.Column(db.String(120), unique=False, nullable=True)
     pais = db.Column(db.String(120), unique=False, nullable=True)
+    estado = db.Column(db.String(120), unique=False, nullable=True)
     ciudad = db.Column(db.String(120), unique=False, nullable=True)
     status = db.Column(db.Boolean(), unique=False, nullable=True)
     twitter = db.Column(db.String(25), unique=True, nullable=True)
@@ -44,6 +45,7 @@ class User(db.Model):
             "area_de_especialidad" : self.area_de_especialidad,
             "pais" : self.pais,
             "ciudad" : self.ciudad,
+            "estado" : self.estado,
             "status" : self.status,
             "facebook": self.facebook,
             "twitter": self.twitter,
@@ -59,13 +61,14 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-    def update(self, name,last_name, numero_telefonico, area_de_especialidad, pais, ciudad, instagram, twitter, facebook, monto):
+    def update(self, name,last_name, numero_telefonico, area_de_especialidad, pais, estado, ciudad, instagram, twitter, facebook, monto):
 
         self.name=name
         self.last_name=last_name
         self.numero_telefonico=numero_telefonico
         self.area_de_especialidad=area_de_especialidad
         self.pais=pais
+        self.estado=estado
         self.ciudad=ciudad
         self.instagram=instagram
         self.facebook=facebook
