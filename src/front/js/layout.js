@@ -9,7 +9,7 @@ import { SignIn } from "./pages/signin";
 import { Perfil } from "./pages/perfil";
 
 import injectContext from "./store/appContext";
-import { Buscador_de_psicologos } from "./pages/buscador_de_psicologos";
+import { BuscadorDePsicologos } from "./pages/buscadorDePsicologos";
 
 import { Navbar } from "./component/navbar";
 import { Sidebar } from "./component/sidebar";
@@ -57,7 +57,7 @@ const Layout = () => {
 									<Sidebar />
 								</div>
 								<div id="pagina central">
-									<Buscador_de_psicologos />
+									<BuscadorDePsicologos />
 								</div>
 							</div>
 						</Route>

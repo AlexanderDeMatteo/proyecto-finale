@@ -1,29 +1,14 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	const API_URL = process.env.BACKEND_URL;
 	return {
-		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			],
-			userData: {},
-			userPsicologos: []
-		},
-		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
 
+		store: {
+			userData: {},
+			userPsicologos: JSON.parse(sessionStorage.getItem("psicos")) || []
+		},
+
+		actions: {
+			// Registrar al usuario en base de datos
 			registerUser: async (data) => {
 				let response = await fetch(`${API_URL}/api/sign-up`, {
 					method: "POST",
@@ -36,7 +21,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return true;
 				} else return false;
 			},
-
+			// Hacer el login para el usuario registrado
 			loginUser: async (data) => {
 				let response = await fetch(`${API_URL}/api/sign-in`, {
 					method: "POST",
@@ -67,6 +52,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			handle_user_data: async () => {
+				const store = getStore()
 				let response = await fetch(`${API_URL}/api/user-data`, {
 					method: 'GET',
 					headers: {
@@ -78,39 +64,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				if (response.ok) {
 					let body = await response.json()
-					setStore({ userData: body })
+					setStore({ 
+						...store,
+						userData: body 
+					})
 
 				}
 			},
 
 			handle_user_psicologo: async () => {
+				const store = getStore()
 				let response = await fetch(`${API_URL}/api/user-psicologo-data`, {
 					method: 'GET',
 					headers: {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${localStorage.getItem("token")}`
 					},
-					// body: JSON.stringify([])
 				});
-
 				if (response.ok) {
 					let body = await response.json()
-					setStore({ userPsicologos: body })
-
+					setStore({
+						...store,
+						userPsicologos: body
+					})
+					sessionStorage.setItem("psicos", JSON.stringify(store.userPsicologos))
 				}
 			},
 
-			handle_edit: (data, prop) => {
-				let store = getStore()
-				let userProp = (store.userData[`${prop}`] = data)
-				setStore(prev => ({
-					...prev, userProp
-				}))
-			},
+			// handle_edit: (data, prop) => {
+			// 	let store = getStore()
+			// 	let userProp = (store.userData[`${prop}`] = data)
+			// 	setStore(...store ,prev => ({
+			// 		...prev, userProp
+			// 	}))
+			// },
 
 			picture_profile: async (data) => {
 				let response = await fetch(`${API_URL}/api/user-profile-picture`, {
-					method: 'put',
+					method: 'PUT',
 					headers: {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -170,28 +161,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 		}
 			// 	},
 			// },
-
-			getMessage: () => {
-				// fetching data from the backend
-				fetch(process.env.BACKEND_URL + "/api/hello")
-					.then(resp => resp.json())
-					.then(data => setStore({ message: data.message }))
-					.catch(error => console.log("Error loading message from backend", error));
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			}
 		}
 	};
 };

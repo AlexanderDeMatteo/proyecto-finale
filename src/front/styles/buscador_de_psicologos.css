@@ -1,5 +1,6 @@
 .boxPrincipal {
   background-color: rgba(0, 0, 255, 0.205);
+  width: 100%;
 }
 .boxBuscador {
   background-color: whitesmoke;
