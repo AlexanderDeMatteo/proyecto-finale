@@ -64,9 +64,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				if (response.ok) {
 					let body = await response.json()
-					setStore({ 
+					setStore({
 						...store,
-						userData: body 
+						userData: body
 					})
 
 				}
@@ -114,24 +114,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			// handle_user_upgrade: async () => {
-			// 	let response = await fetch(`${API_URL}/api/user-data`, {
-			// 		method: 'PUT',
-			// 		headers: {
-			// 			"Content-Type": "application/json",
-			// 			Authorization: `Bearer ${localStorage.getItem("token")}`
-			// 		},
-			// 		body: JSON.stringify([])
-			// 	});
+			handle_user_upgrade: async () => {
+				let response = await fetch(`${API_URL}/api/user-data`, {
+					method: 'PUT',
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${localStorage.getItem("token")}`
+					},
+					body: JSON.stringify([])
+				});
 
-			// 	if (response.ok) {
-			// 		console.log(data)
-			// 		if (response.status == 200) {
-			// 			let body = await response.json()
-			// 			return true;
-			// 		} else return false;)
-			// 	}
-			// },
+				if (response.ok) {
+					console.log(data)
+					if (response.status == 200) {
+						let body = await response.json()
+						return true;
+					} else return false;
+				}
+			},
 
 			// 	handleList: async (e) => {
 			// 	if (e.key === "Enter" && addTodolist != "") {

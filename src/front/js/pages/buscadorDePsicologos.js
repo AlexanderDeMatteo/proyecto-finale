@@ -16,7 +16,7 @@ export const BuscadorDePsicologos = () => {
     })
 
     const handleChange = (e) => {
-        setFiltros({ ...filtros, [e.target.name]: e.target.value })
+        setFiltros({ ...filtros, [e.target.name]: e.target.value.toLowerCase() })
     }
 
     useEffect(() => {
@@ -27,7 +27,8 @@ export const BuscadorDePsicologos = () => {
     return (
         <>
             <div className="boxPrincipal">
-                <div className="d-flex py-1">
+                <div className="d-flex py-1 justify-content-between">
+                    <p>Encuentra tu psicologo ideal</p>
                     <button className="btn btn-primary me-2 ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                         <i className="fa-solid fa-sliders"></i> Filtros
                     </button>
@@ -61,28 +62,34 @@ export const BuscadorDePsicologos = () => {
                                 <h4 className="mt-2">Estado</h4>
                                 <input
                                     className="form-control"
-                                    placeholder="Precio Maximo por Consulta"
+                                    placeholder="Estado de Residencia"
                                     name="estado"
                                     value={filtros.estado}
                                     onChange={(e) => { handleChange(e) }} />
                                 <h4 className="mt-2">Ciudad</h4>
                                 <input
                                     className="form-control"
-                                    placeholder="Precio Maximo por Consulta"
+                                    placeholder="Ciudad de Residencia"
                                     name="ciudad"
                                     value={filtros.ciudad}
                                     onChange={(e) => { handleChange(e) }} />
                                 <h4 className="mt-2">Numero FPV</h4>
                                 <input
                                     className="form-control"
-                                    placeholder="Precio Maximo por Consulta"
+                                    placeholder="Numero FPV del Psicologo"
                                     name="numeroFpv"
                                     value={filtros.numeroFpv}
+                                    onChange={(e) => { handleChange(e) }} />
+                                <h4 className="mt-2">Nombre del Psicologo</h4>
+                                <input
+                                    className="form-control"
+                                    placeholder="Nombre del Psicologo"
+                                    name="nombre"
+                                    value={filtros.nombre}
                                     onChange={(e) => { handleChange(e) }} />
                             </form>
                         </div>
                     </div>
-                    <p>Encuentra tu psicologo ideal</p>
                 </div>
                 <div className="boxBuscador">
                     <PsicologoCards filtros={filtros} />

@@ -251,10 +251,10 @@ export const Perfil = () => {
                                     {store.userData.is_psicologo ? <hr /> : ""}
                                     <div className="row">
                                         <div className="col-sm-3">
-                                            <p className="mb-0">Pais</p>
+                                            <p className="mb-0">Estado</p>
                                         </div>
                                         <div className="col-sm-9">
-                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="pais" value={store.userData.pais} /> : <p className="text-muted mb-0">{store.userData.pais}</p>}
+                                            {!show ? <input onChange={handleChange} type="text" className="text-muted mb-0" name="pais" value={store.userData.estado} /> : <p className="text-muted mb-0">{store.userData.estado}</p>}
                                         </div>
                                     </div>
                                     <hr />
