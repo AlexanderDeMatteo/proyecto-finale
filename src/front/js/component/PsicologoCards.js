@@ -1,17 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Card } from "./card.js";
 import { Context } from "../store/appContext.js";
+import PropsType from "prop-types";
 
-export const PsicologoCards = () => {
+export const PsicologoCards = ({ filtros }) => {             // recibe por props los argumentos para filtrar
   const { store, actions } = useContext(Context);
 
   const filter = () => {             // Funcion en donde se filtran los psicologos mediante los datos recibidos
-    let filtrado = store.userPsicologos.filter(psico => 
-      (psico.monto < 100 && psico.monto !== null) 
-      || psico.name == "" 
-      || psico.numero_fpv == "547"
+    let filtrado = store.userPsicologos.filter(psico =>
+      (psico.monto < filtros?.precio && psico.monto !== null)
+      || psico.name == ""
+      || psico.numero_fpv == filtros?.numeroFpv
     )
-    console.log(filtrado)
     return filtrado
   }
 
@@ -50,3 +50,7 @@ export const PsicologoCards = () => {
     </div>
   );
 };
+
+PsicologoCards.propsType = {
+  filtros: PropsType.object
+}
