@@ -15,6 +15,7 @@
   display: block;
 }
 #avatar_perfil {
-  width: 261px;
-  height: 277px;
+  margin-top: 20px;
+  width: 100px;
+  height: 100px;
 }

@@ -11,8 +11,8 @@
   margin-right: -10px;
 }
 .card {
-  border-radius: 15px;
-  background-color: rgba(196, 227, 233, 0.795);
+  /* border-radius: 15px; */
+  /* background-color: rgba(196, 227, 233, 0.795); */
 }
 ul {
   color: rgba(220, 231, 233, 0.87);

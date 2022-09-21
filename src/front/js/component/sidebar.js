@@ -1,47 +1,53 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import "../../styles/navbar2.scss"
+import "../../styles/navbar2.scss";
 import { Context } from "../store/appContext";
 
-
-
-
-
 export const Sidebar = () => {
-    const { store } = useContext(Context)
+  const { store } = useContext(Context);
 
+  const [selectedTab, setSelectedTab] = React.useState({
+    li_1: "nav-item",
+    li_2: "have-children",
+    li_3: "have-children",
+    li_4: "have-children",
+  });
+  const [selectedTabStyle, setselectedTabStyle] = React.useState({
+    li_1: { display: "none" },
+    li_2: { display: "none" },
+    li_3: { display: "none" },
+    li_4: { display: "none" },
+  });
 
-
-    const [selectedTab, setSelectedTab] = React.useState({ 'li_1': 'nav-item', 'li_2': 'have-children', 'li_3': 'have-children', 'li_4': 'have-children' })
-    const [selectedTabStyle, setselectedTabStyle] = React.useState({ 'li_1': { 'display': 'none' }, 'li_2': { 'display': 'none' }, 'li_3': { 'display': 'none' }, 'li_4': { 'display': 'none' } })
-
-
-    function changeSelect(e) {
-        console.log(e)
-        const { name } = e.target
-        if (e.target.name && selectedTab[name] === 'nav-item') {
-            setSelectedTab(prevSelected => ({
-                ...prevSelected, [name]: 'nav-item active'
-            }))
-            // setSelectedTab({ 'li_1', 'li_2': 'nav-item active' })
-            setselectedTabStyle(prevSelected => ({
-                ...prevSelected, [name]: { 'display': 'block' }
-            }))
-            // setselectedTabStyle({ 'li_1', 'li_2': { 'display': 'block' } })
-
-        } else if (e.target.name) {
-            setSelectedTab(prevSelected => ({
-                ...prevSelected, [name]: 'nav-item'
-            }))
-            // setSelectedTab({ 'li_1', 'li_2': 'have-children active' })
-            setselectedTabStyle(prevSelected => ({
-                ...prevSelected, [name]: { 'display': 'none' }
-            }))
-        }
+  function changeSelect(e) {
+    console.log(e);
+    const { name } = e.target;
+    if (e.target.name && selectedTab[name] === "nav-item") {
+      setSelectedTab((prevSelected) => ({
+        ...prevSelected,
+        [name]: "nav-item active",
+      }));
+      // setSelectedTab({ 'li_1', 'li_2': 'nav-item active' })
+      setselectedTabStyle((prevSelected) => ({
+        ...prevSelected,
+        [name]: { display: "block" },
+      }));
+      // setselectedTabStyle({ 'li_1', 'li_2': { 'display': 'block' } })
+    } else if (e.target.name) {
+      setSelectedTab((prevSelected) => ({
+        ...prevSelected,
+        [name]: "nav-item",
+      }));
+      // setSelectedTab({ 'li_1', 'li_2': 'have-children active' })
+      setselectedTabStyle((prevSelected) => ({
+        ...prevSelected,
+        [name]: { display: "none" },
+      }));
     }
-    return (
-        <nav className="nav flex-column" id="box2">
-            {/* <p>Personal</p>
+  }
+  return (
+    <nav className="nav flex-column" id="box2">
+      {/* <p>Personal</p>
             <a className="nav-link active" aria-current="page" href="/Perfil">Perfil</a>
             <a className="nav-link" href="#">Sesiones Online</a>
             {store.userData.is_psicologo ? <a className="nav-link" href="#">Agenda del dia</a> : ""}
@@ -67,17 +73,14 @@ export const Sidebar = () => {
             {store.userData.is_psicologo ? <a className="nav-link" href="#">Buscador de colegas</a> : <a className="nav-link" href="/buscador">Buscador de psicologos</a>}
             {store.userData.is_psicologo ? <a className="nav-link" href="#">Mercado</a> : ""} */}
 
-            <main>
-                <ul className="sidebar-menu">
+      <main>
+        {/* <ul className="sidebar-menu">
 
-                </ul>
-                <div className="wrapper">
-
-                    <aside className="main-sidebar sidebar-dark-primary elevation-4">
-
-                        <div className="sidebar">
-
-                            {/* <div className="form-inline">
+                </ul> */}
+        <div className="wrapper">
+          <aside className="main-sidebar sidebar-dark-primary elevation-4">
+            <div className="sidebar">
+              {/* <div className="form-inline">
                                 <div className="input-group" data-widget="sidebar-search">
                                     <input className="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" />
                                     <div className="input-group-append">
@@ -87,7 +90,7 @@ export const Sidebar = () => {
                                     </div>
                                 </div>
                             </div> */}
-                            {/* <ul className="sidebar-menu">
+              {/* <ul className="sidebar-menu">
                                 <li><span className="nav-section-title"></span></li>
                                 <li className={selectedTab['li_1']} onClick={changeSelect}><a name='li_1' href="#"><span className="fa fa-university"></span>Personal</a>
                                     <ul style={selectedTabStyle['li_1']} >
@@ -119,136 +122,171 @@ export const Sidebar = () => {
                                 </li>
 
                             </ul> */}
-                            <nav className="mt-2">
+              <nav className="mt-2">
+                <ul
+                  className="nav nav-pills nav-sidebar flex-column"
+                  data-widget="treeview"
+                  role="menu"
+                  data-accordion="false"
+                >
+                  <li className={selectedTab["li_1"]} onClick={changeSelect}>
+                    <a name="li_1" href="#" className="nav-link">
+                      <i className="nav-icon fas fa-tachometer-alt" />
+                      <p>
+                        Personal
+                        <i className="right fas fa-angle-left" />
+                      </p>
+                    </a>
+                    <ul
+                      style={selectedTabStyle["li_1"]}
+                      className="nav nav-treeview"
+                    >
+                      <li className="nav-item">
+                        <a href="../../index.html" className="nav-link">
+                          <i className="far fa-circle nav-icon" />
+                          <p>Perfil</p>
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a href="../../index2.html" className="nav-link">
+                          <i className="far fa-circle nav-icon" />
+                          <p>Sesiones Online</p>
+                        </a>
+                      </li>
+                      {store.userData.is_psicologo ? (
+                        <div>
+                          {" "}
+                          <li className="nav-item">
+                            <a href="../../index3.html" className="nav-link">
+                              <i className="far fa-circle nav-icon" />
+                              <p>Agenda del dia</p>
+                            </a>
+                          </li>
+                          <li className="nav-item">
+                            <a href="../../index3.html" className="nav-link">
+                              <i className="far fa-circle nav-icon" />
+                              <p>Contactos personales</p>
+                            </a>
+                          </li>
+                          <li className="nav-item">
+                            <a href="../../index3.html" className="nav-link">
+                              <i className="far fa-circle nav-icon" />
+                              <p>Configuracion</p>
+                            </a>
+                          </li>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </ul>
+                  </li>
+                  {store.userData.is_psicologo ? (
+                    <li className={selectedTab["li_2"]} onClick={changeSelect}>
+                      <a name="li_2" href="#" className="nav-link">
+                        <i className="nav-icon fas fa-tachometer-alt" />
+                        <p>
+                          Administración de Pacientes
+                          <i className="right fas fa-angle-left" />
+                        </p>
+                      </a>
+                      <ul
+                        style={selectedTabStyle["li_2"]}
+                        className="nav nav-treeview"
+                      >
+                        <div>
+                          {" "}
+                          <li className="nav-item">
+                            <a href="../../index3.html" className="nav-link">
+                              <i className="far fa-circle nav-icon" />
+                              <p>Expedientes</p>
+                            </a>
+                          </li>
+                          <li className="nav-item">
+                            <a href="../../index3.html" className="nav-link">
+                              <i className="far fa-circle nav-icon" />
+                              <p>Manejo de Agenda</p>
+                            </a>
+                          </li>
+                        </div>
+                      </ul>
+                    </li>
+                  ) : (
+                    ""
+                  )}
+                  {store.userData.is_psicologo ? (
+                    <li className={selectedTab["li_3"]} onClick={changeSelect}>
+                      <a name="li_3" href="#" className="nav-link">
+                        <i className="nav-icon fas fa-tachometer-alt" />
+                        <p>
+                          Administración de Cuenta
+                          <i className="right fas fa-angle-left" />
+                        </p>
+                      </a>
+                      <ul
+                        style={selectedTabStyle["li_3"]}
+                        className="nav nav-treeview"
+                      >
+                        <div>
+                          {" "}
+                          <li className="nav-item">
+                            <a href="../../index3.html" className="nav-link">
+                              <i className="far fa-circle nav-icon" />
+                              <p>Facturacion</p>
+                            </a>
+                          </li>
+                          <li className="nav-item">
+                            <a href="../../index3.html" className="nav-link">
+                              <i className="far fa-circle nav-icon" />
+                              <p>Modalidad de Pago</p>
+                            </a>
+                          </li>
+                        </div>
+                      </ul>
+                    </li>
+                  ) : (
+                    ""
+                  )}
+                  <li className={selectedTab["li_4"]} onClick={changeSelect}>
+                    <a name="li_4" href="#" className="nav-link">
+                      <i className="nav-icon fas fa-tachometer-alt" />
+                      <p>
+                        Navega
+                        <i className="right fas fa-angle-left" />
+                      </p>
+                    </a>
+                    <ul
+                      style={selectedTabStyle["li_4"]}
+                      className="nav nav-treeview"
+                    >
+                      <li className="nav-item">
+                        <a href="../../index.html" className="nav-link">
+                          <i className="far fa-circle nav-icon" />
+                          <p>Noticias</p>
+                        </a>
+                      </li>
+                      <li className="nav-item">
+                        <a href="/Buscador" className="nav-link">
+                          <i className="far fa-circle nav-icon" />
+                          <p>Buscador de Psicologo</p>
+                        </a>
+                      </li>
+                      {store.userData.is_psicologo ? (
+                        <div>
+                          {" "}
+                          <li className="nav-item">
+                            <a href="../../index3.html" className="nav-link">
+                              <i className="far fa-circle nav-icon" />
+                              <p>Mercado</p>
+                            </a>
+                          </li>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </ul>
+                  </li>
 
-                                <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-                                    <li className={selectedTab['li_1']} onClick={changeSelect} >
-                                        <a name='li_1' href="#" className="nav-link">
-                                            <i className="nav-icon fas fa-tachometer-alt" />
-                                            <p>
-                                                Personal
-                                                <i className="right fas fa-angle-left" />
-                                            </p>
-                                        </a>
-                                        <ul style={selectedTabStyle['li_1']} className="nav nav-treeview">
-                                            <li className="nav-item">
-                                                <a href="../../index.html" className="nav-link">
-                                                    <i className="far fa-circle nav-icon" />
-                                                    <p>Perfil</p>
-                                                </a>
-                                            </li>
-                                            <li className="nav-item">
-                                                <a href="../../index2.html" className="nav-link">
-                                                    <i className="far fa-circle nav-icon" />
-                                                    <p>Sesiones Online</p>
-                                                </a>
-                                            </li>
-                                            {store.userData.is_psicologo ? <div> <li className="nav-item">
-                                                <a href="../../index3.html" className="nav-link">
-                                                    <i className="far fa-circle nav-icon" />
-                                                    <p>Agenda del dia</p>
-                                                </a>
-                                            </li>
-                                                <li className="nav-item">
-                                                    <a href="../../index3.html" className="nav-link">
-                                                        <i className="far fa-circle nav-icon" />
-                                                        <p>Contactos personales</p>
-                                                    </a>
-                                                </li>
-                                                <li className="nav-item">
-                                                    <a href="../../index3.html" className="nav-link">
-                                                        <i className="far fa-circle nav-icon" />
-                                                        <p>Configuracion</p>
-                                                    </a>
-                                                </li>
-
-                                            </div> : ""}
-
-
-
-                                        </ul>
-                                    </li>
-                                    {store.userData.is_psicologo ? <li className={selectedTab['li_2']} onClick={changeSelect} >
-                                        <a name='li_2' href="#" className="nav-link">
-                                            <i className="nav-icon fas fa-tachometer-alt" />
-                                            <p>
-                                                Administración de Pacientes
-                                                <i className="right fas fa-angle-left" />
-                                            </p>
-                                        </a>
-                                        <ul style={selectedTabStyle['li_2']} className="nav nav-treeview">
-                                            <div> <li className="nav-item">
-                                                <a href="../../index3.html" className="nav-link">
-                                                    <i className="far fa-circle nav-icon" />
-                                                    <p>Expedientes</p>
-                                                </a>
-                                            </li>
-                                                <li className="nav-item">
-                                                    <a href="../../index3.html" className="nav-link">
-                                                        <i className="far fa-circle nav-icon" />
-                                                        <p>Manejo de Agenda</p>
-                                                    </a>
-                                                </li>
-                                            </div>
-                                        </ul>
-                                    </li> : ""}
-                                    {store.userData.is_psicologo ? <li className={selectedTab['li_3']} onClick={changeSelect} >
-                                        <a name='li_3' href="#" className="nav-link">
-                                            <i className="nav-icon fas fa-tachometer-alt" />
-                                            <p>
-                                                Administración de Cuenta
-                                                <i className="right fas fa-angle-left" />
-                                            </p>
-                                        </a>
-                                        <ul style={selectedTabStyle['li_3']} className="nav nav-treeview">
-                                            <div> <li className="nav-item">
-                                                <a href="../../index3.html" className="nav-link">
-                                                    <i className="far fa-circle nav-icon" />
-                                                    <p>Facturacion</p>
-                                                </a>
-                                            </li>
-                                                <li className="nav-item">
-                                                    <a href="../../index3.html" className="nav-link">
-                                                        <i className="far fa-circle nav-icon" />
-                                                        <p>Modalidad de Pago</p>
-                                                    </a>
-                                                </li>
-                                            </div>
-                                        </ul>
-                                    </li> : ""}
-                                    <li className={selectedTab['li_4']} onClick={changeSelect} >
-                                        <a name='li_4' href="#" className="nav-link">
-                                            <i className="nav-icon fas fa-tachometer-alt" />
-                                            <p>
-                                                Navega
-                                                <i className="right fas fa-angle-left" />
-                                            </p>
-                                        </a>
-                                        <ul style={selectedTabStyle['li_4']} className="nav nav-treeview">
-                                            <li className="nav-item">
-                                                <a href="../../index.html" className="nav-link">
-                                                    <i className="far fa-circle nav-icon" />
-                                                    <p>Noticias</p>
-                                                </a>
-                                            </li>
-                                            <li className="nav-item">
-                                                <a href="/Buscador" className="nav-link">
-                                                    <i className="far fa-circle nav-icon" />
-                                                    <p>Buscador de Psicologo</p>
-                                                </a>
-                                            </li>
-                                            {store.userData.is_psicologo ? <div> <li className="nav-item">
-                                                <a href="../../index3.html" className="nav-link">
-                                                    <i className="far fa-circle nav-icon" />
-                                                    <p>Mercado</p>
-                                                </a>
-                                            </li>
-                                            </div> : ""}
-                                        </ul>
-                                    </li>
-
-                                    {/* <li className="nav-header">EXAMPLES</li>
+                  {/* <li className="nav-header">EXAMPLES</li>
                                     <li className="nav-item">
                                         <a href="../calendar.html" className="nav-link">
                                             <i className="nav-icon far fa-calendar-alt" />
@@ -619,18 +657,12 @@ export const Sidebar = () => {
                                             <p>Informational</p>
                                         </a>
                                     </li> */}
-                                </ul>
-                            </nav>
-                        </div>
-                    </aside>
-
-
-                </div>
-
-
-
-            </main>
-
-        </nav>
-    );
+                </ul>
+              </nav>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </nav>
+  );
 };
