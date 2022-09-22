@@ -74,9 +74,9 @@ export const Sidebar = () => {
             {store.userData.is_psicologo ? <a className="nav-link" href="#">Mercado</a> : ""} */}
 
       <main>
-        {/* <ul className="sidebar-menu">
+        <ul className="sidebar-menu">
 
-                </ul> */}
+        </ul>
         <div className="wrapper">
           <aside className="main-sidebar sidebar-dark-primary elevation-4">
             <div className="sidebar">

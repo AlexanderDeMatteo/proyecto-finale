@@ -72,6 +72,62 @@ export const Navbar = () => {
               </form>
             </div>
           </li>
+        </ul>
+
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+              <i class="fas fa-bars"></i>
+            </a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="../../index3.html" class="nav-link">
+              Home
+            </a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="/signin" class="nav-link">
+              login
+            </a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-widget="navbar-search"
+              data-target="#main-header-search"
+              href="#"
+              role="button"
+            >
+              <i class="fas fa-search"></i>
+            </a>
+            <div class="navbar-search-block" id="main-header-search">
+              <form class="form-inline">
+                <div class="input-group input-group-sm">
+                  <input
+                    class="form-control form-control-navbar"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                      <i class="fas fa-search"></i>
+                    </button>
+                    <button
+                      class="btn btn-navbar"
+                      type="button"
+                      data-widget="navbar-search"
+                    >
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </li>
 
           <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
@@ -199,42 +255,93 @@ export const Navbar = () => {
           </li>
         </ul>
       </nav>
+      <nav
+        id="menu"
+        className="navbar navbar-expand-sm nav justify-content-center"
+      >
+        <NavLink className="nav-link" id="nav-item" to="/">
+          Home
+        </NavLink>
+        <NavLink className="nav-link" id="nav-item" to="/servicios">
+          Servicios
+        </NavLink>
+        <NavLink className="nav-link" id="nav-item" to="/about_us">
+          About Us
+        </NavLink>
+        {!localStorage.getItem("token") ? (
+          <NavLink className="nav-link" id="nav-item" to="/signup">
+            registro
+          </NavLink>
+        ) : (
+          ""
+        )}
+        {!localStorage.getItem("token") ? (
+          <NavLink className="nav-link" id="nav-item" to="/signin">
+            Login
+          </NavLink>
+        ) : (
+          ""
+        )}
+        {/* {!localStorage.getItem("token") && store.userData.is_psicologo ? <NavLink className="nav-link" to="/market_place">Mercado</NavLink> : ""} */}
+        <NavLink className="nav-link" id="nav-item" to="/noticias">
+          Noticias
+        </NavLink>
+
+        {localStorage.getItem("token") ? (
+          <li className="nav-item dropdown" id="hola">
+            <a
+              className="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-expanded="false"
+            >
+              {store.userData.profile_picture ? (
+                <img
+                  id="avatar"
+                  width="40"
+                  height="40"
+                  className="rounded-circle img-fluid"
+                  src={store.userData.profile_picture}
+                  alt="Sample image"
+                />
+              ) : (
+                <img
+                  id="avatar"
+                  width="40"
+                  height="40"
+                  className="rounded-circle img-fluid"
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                  alt="Sample image"
+                />
+              )}
+            </a>
+            <ul className="dropdown-menu">
+              <li className="dropdown-item">
+                <NavLink to="/perfil">Perfil</NavLink>
+              </li>
+              <li className="dropdown-item">
+                <NavLink to="/status">Status</NavLink>
+              </li>
+              <li className="dropdown-item">
+                <NavLink to="/facturacion">Facturacion</NavLink>
+              </li>
+              <li
+                onClick={(e) => {
+                  localStorage.removeItem("token");
+                  setIsLogOut(true);
+                }}
+                className="dropdown-item"
+              >
+                Log Out
+              </li>
+            </ul>
+          </li>
+        ) : (
+          ""
+        )}
+        {isLogOut && <Redirect to={"/"} />}
+      </nav>
     </div>
   );
 };
-
-// <nav id="menu" className="navbar navbar-expand-sm nav justify-content-center">
-// 	<NavLink className="nav-link" id="nav-item" to="/">Home</NavLink>
-// 	<NavLink className="nav-link" id="nav-item" to="/servicios">Servicios</NavLink>
-// 	<NavLink className="nav-link" id="nav-item" to="/about_us">About Us</NavLink>
-// 	{!localStorage.getItem("token") ? <NavLink className="nav-link" id="nav-item"
-// 		to="/signup">registro</NavLink> : ""}
-// 	{!localStorage.getItem("token") ? <NavLink className="nav-link" id="nav-item" to="/signin">Login</NavLink> : ""}
-// 	{/* {!localStorage.getItem("token") && store.userData.is_psicologo ? <NavLink className="nav-link" to="/market_place">Mercado</NavLink> : ""} */}
-// 	<NavLink className="nav-link" id="nav-item" to="/noticias">Noticias</NavLink>
-
-// 	{localStorage.getItem("token") ?
-// 		<li className="nav-item dropdown" id="hola">
-// 			<a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-// 				{store.userData.profile_picture ? <img id="avatar"
-// 					width="40" height="40" className="rounded-circle img-fluid"
-// 					src={store.userData.profile_picture}
-// 					alt="Sample image"
-// 				/> : <img id="avatar"
-// 					width="40" height="40" className="rounded-circle img-fluid"
-// 					src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-// 					alt="Sample image" />}
-// 			</a>
-// 			<ul className="dropdown-menu">
-// 				<li className="dropdown-item"><NavLink to="/perfil">Perfil</NavLink></li>
-// 				<li className="dropdown-item"><NavLink to="/status">Status</NavLink></li>
-// 				<li className="dropdown-item"><NavLink to="/facturacion">Facturacion</NavLink></li>
-// 				<li onClick={(e) => {
-// 					localStorage.removeItem("token");
-// 					setIsLogOut(true)
-// 				}} className="dropdown-item">Log Out</li>
-// 			</ul>
-// 		</li>
-// 		: ""}
-// 	{isLogOut && <Redirect to={"/"} />}
-// </nav>
