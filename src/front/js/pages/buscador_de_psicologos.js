@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import "../../styles/buscador_de_psicologos.css";
 import { Context } from "../store/appContext";
 import { CardPsicologo } from "../component/PsicologosCard";
 
@@ -12,8 +11,8 @@ export const Buscador_de_psicologos = () => {
   }, []);
   return (
     <>
-      <div className="container">
-        <div className="boxBuscador">
+      <div className="container-fluid">
+        <div className="row justify-content-evenly mt-5">
           {store.userPsicologos.map((psicologo, index) => {
             return <CardPsicologo info={psicologo} key={index} />;
           })}
