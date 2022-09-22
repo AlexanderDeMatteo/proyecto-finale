@@ -11,53 +11,45 @@ from datetime import timedelta
 
 api = Blueprint('api', __name__)
 
-
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
-
 @api.route('/sign-up', methods=['POST'])
 def handle_register():
 
     data = request.data
     data_decode = json.loads(data)
     newUser = User(**data_decode)
-    user = User.query.filter_by(email=newUser.email,password=newUser.password).first()
+    user = User.query.filter_by(
+        email=newUser.email, password=newUser.password).first()
     if user is None:
         db.session.add(newUser)
         db.session.commit()
         access_token = create_access_token(identity=newUser.id)
         response_body = {
             "message": "Usuario creado con exito",
-            "token":access_token
+            "token": access_token
         }
         return jsonify(response_body), 200
-    else :
+    else:
         response_body = {
             "message": "Usuario ya existe"
         }
         return jsonify(response_body), 400
+
 
 @api.route('/sign-in', methods=['POST'])
 def handle_login():
     data = request.data
     data_decode = json.loads(data)
     user = User.query.filter_by(**data_decode).first()
-    if user is None:  
+    if user is None:
         response_body = {
             "message": "Credenciales Inválidas"
         }
         return jsonify(response_body), 400
-    else :
+    else:
         access_token = create_access_token(identity=user.id)
         response_body = {
             "message": "usuario logeado con exito",
-            "token":access_token
+            "token": access_token
         }
         return jsonify(response_body), 200
 
@@ -71,14 +63,14 @@ def handle_login():
 #     print(current_id_user)
 
 
-@api.route("/user-data", methods=['GET','PUT'])
+@api.route("/user-data", methods=['GET', 'PUT'])
 @jwt_required()
 def handle_user_data():
     if request.method == 'GET':
         current_user = get_jwt_identity()
         user = User.query.filter_by(id=current_user).one_or_none()
         if user is None:
-            return jsonify({"message":"Usuario no encontrado"}), 404
+            return jsonify({"message": "Usuario no encontrado"}), 404
         return jsonify(user.serialize()), 200
     if request.method == 'PUT':
         current_user = get_jwt_identity()
@@ -87,9 +79,10 @@ def handle_user_data():
         updateUser = User.query.get(current_user)
         updateUser.update(**data_decode)
         response_body = {
-            "message": "Usuario actualizado con exito",}
+            "message": "Usuario actualizado con exito", }
         return jsonify(response_body), 200
-        
+
+
 @api.route("/user-profile-picture", methods=['PUT'])
 @jwt_required()
 def handle_user_picture():
@@ -101,13 +94,15 @@ def handle_user_picture():
     updateUser.profile_picture = data_decode
     db.session.commit()
     response_body = {
-        "message": "Usuario actualizo foto con exito",}
+        "message": "Usuario actualizo foto con exito", }
     return jsonify(response_body), 200
+
 
 @api.route("/protected")
 @jwt_required()
 def protected():
     return jsonify(foo="bar")
+
 
 @api.route("/user-psicologo-data", methods=['GET'])
 @jwt_required()
@@ -117,12 +112,18 @@ def handle_user_psicologo():
         lista_psico = []
         for usuario in users:
             lista_psico.append(usuario.serialize())
-        
+
         if users is None:
-            return jsonify({"message":"Usuario no encontrado"}), 404
-        else: 
+            return jsonify({"message": "Usuario no encontrado"}), 404
+        else:
             return jsonify(lista_psico), 200
 
+
+@api.route("/specialty-area", methods=['GET'])
+def handle_specialty_area():
+    specialty_areas = ["Psicología Cognitiva", "Psicología Clínica", "Neuro Psicología", "Psicólogia Biológica", "Psicología Comparativa o Etiología", "Psicología Educativa", "Psicología Evolutiva", "Psicología del Deporte", "Psicología Jurídica", "Psicología de la Personalidad", "Psicología de la Salud",
+                       "Psicología de Parejas", "Psicología Familiar", "Psicología Empresarial y Organizacional", "Psicología Militar", "Psicología Escolar", "Psicología Gerontológica", "Psicología Experimental", "Psicología Del Desarrollo", "Psicología de Ingeniería", "Psicología del Marketing", "Sexología", "Psicología comunitaria"]
+    return jsonify({"ok": True, "result": specialty_areas}), 200
 
 # @api.route("/refresh", methods=["POST"])
 # @jwt_required(refresh=True)
@@ -130,8 +131,6 @@ def handle_user_psicologo():
 #     current_user = get_jwt_identity()
 #     access_token = create_access_token(identity=current_user)
 #     return jsonify(access_token=access_token)
-
-
 
 
 #     @app.route('/personajes', methods=['GET'])
