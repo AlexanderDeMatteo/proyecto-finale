@@ -9,7 +9,7 @@ import { SignIn } from "./pages/signin";
 import { Perfil } from "./pages/perfil";
 
 import injectContext from "./store/appContext";
-import { Buscador_de_psicologos } from "./pages/buscador_de_psicologos";
+import { BuscadorDePsicologos } from "./pages/buscadorDePsicologos";
 
 import { Navbar } from "./component/navbar";
 import { Sidebar } from "./component/sidebar";
@@ -42,7 +42,7 @@ const Layout = () => {
             </Route>
             <Route exact path="/perfil">
               {/* <Navbar3 /> */}
-              <div>
+              <div className="box" >
                 <div id="navbar2">
                   <Sidebar />
                 </div>
@@ -52,11 +52,13 @@ const Layout = () => {
               </div>
             </Route>
             <Route exact path="/buscador">
-              {/* <div id="navbar2">
+              <div className="box" >
+                <div id="navbar2">
                   <Sidebar />
-                </div> */}
-              <div id="pagina central">
-                <Buscador_de_psicologos />
+                </div>
+                <div id="pagina central">
+                  <BuscadorDePsicologos />
+                </div>
               </div>
             </Route>
             <Route>
@@ -66,7 +68,7 @@ const Layout = () => {
           <Footer />
         </ScrollToTop>
       </BrowserRouter>
-    </div>
+    </div >
   );
 };
 
