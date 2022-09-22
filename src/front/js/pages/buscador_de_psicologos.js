@@ -1,41 +1,24 @@
 import React, { useState, useContext, useEffect } from "react";
-import "../../styles/buscador_de_psicologos.css"
+import "../../styles/buscador_de_psicologos.css";
 import { Context } from "../store/appContext";
-import { PsicologoCards } from "../component/listaPsicologos";
+import { CardPsicologo } from "../component/PsicologosCard";
 
 export const Buscador_de_psicologos = () => {
-    const { actions, store } = useContext(Context)
-    const [aja, setAja] = useState({})
-    useEffect(() => {
-        // actions.privateData()
-        actions.handle_user_psicologo();
-    }, [])
-    return (
+  const { actions, store } = useContext(Context);
 
-        <>
-            <div className="boxPrincipal">
-                <p>Encuentra tu psicologo ideal</p>
-
-                <div className="boxBuscador">
-                    <PsicologoCards data={aja} />
-
-
-                </div>
-            </div>
-
-
-
-
-
-
-        </>
-
-
-
-
-
-
-
-
-    )
-}
+  useEffect(() => {
+    // actions.privateData()
+    actions.handle_user_psicologo();
+  }, []);
+  return (
+    <>
+      <div className="container">
+        <div className="boxBuscador">
+          {store.userPsicologos.map((psicologo, index) => {
+            return <CardPsicologo info={psicologo} key={index} />;
+          })}
+        </div>
+      </div>
+    </>
+  );
+};
