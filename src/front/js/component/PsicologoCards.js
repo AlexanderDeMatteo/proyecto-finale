@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Card } from "./card.js";
+import { Card } from "../component/cardBuscador";
 import { Context } from "../store/appContext.js";
 import PropsType from "prop-types";
 
