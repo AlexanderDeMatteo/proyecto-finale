@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Card } from "./card.js";
+import { CardPsicologo } from "../component/PsicologosCard";
 import { Context } from "../store/appContext.js";
 import PropsType from "prop-types";
 
@@ -23,7 +23,7 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
         filtrado() == "" ?   // Verifica que se haya hecho un filtro. Sino, se muestran todos los psicologos
           store.userPsicologos.map((vistaPsicologo, index) => {
             return (
-              <Card
+              <CardPsicologo
                 key={index}
                 area_de_especialidad={vistaPsicologo.area_de_especialidad}
                 name={vistaPsicologo.name}
@@ -37,7 +37,7 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
           : // Se muestran los psicologos filtrados 
           filtrado().map((vistaPsicologo, index) => {
             return (
-              <Card
+              <CardPsicologo
                 key={index}
                 area_de_especialidad={vistaPsicologo.area_de_especialidad}
                 name={vistaPsicologo.name}
