@@ -1,24 +1,26 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Card } from "./card.js";
+import { Card } from "../component/cardBuscador";
 import { Context } from "../store/appContext.js";
 import PropsType from "prop-types";
 
 export const PsicologoCards = ({ filtros }) => {             // recibe por props los argumentos para filtrar
   const { store, actions } = useContext(Context);
 
-  const filter = () => {             // Funcion en donde se filtran los psicologos mediante los datos recibidos
-    let filtrado = store.userPsicologos.filter(psico =>
+  const filtrado = () => {             // Funcion en donde se filtran los psicologos mediante los datos recibidos
+    let filtrados = store.userPsicologos.filter(psico =>
       (psico.monto < filtros?.precio && psico.monto !== null)
-      || psico.name == ""
+      || psico.name.toLowerCase() == filtros?.nombre.toLowerCase()
       || psico.numero_fpv == filtros?.numeroFpv
+      || psico.estado == filtros?.estado
+      || psico.ciudad == filtros?.ciudad
     )
-    return filtrado
+    return filtrados
   }
 
   return (
     <div className="row" id="overflow">
       {
-        filter() == "" ?   // Verifica que se haya hecho un filtro. Sino, se muestran todos los psicologos
+        filtrado() == "" ?   // Verifica que se haya hecho un filtro. Sino, se muestran todos los psicologos
           store.userPsicologos.map((vistaPsicologo, index) => {
             return (
               <Card
@@ -33,7 +35,7 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
             );
           })
           : // Se muestran los psicologos filtrados 
-          filter().map((vistaPsicologo, index) => {
+          filtrado().map((vistaPsicologo, index) => {
             return (
               <Card
                 key={index}

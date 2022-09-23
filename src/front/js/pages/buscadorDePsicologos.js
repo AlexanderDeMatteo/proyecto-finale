@@ -5,12 +5,11 @@ import { PsicologoCards } from "../component/PsicologoCards";
 
 export const BuscadorDePsicologos = () => {
     const { actions, store } = useContext(Context)
-    // const [aja, setAja] = useState({})
     const [filtros, setFiltros] = useState({       // estado donde se guardan los parametros del filtro
         precio: "",
         nombre: "",
         numeroFpv: "",
-        especialidades: "",
+        especialidades: [],
         estado: "",
         ciudad: ""
     })
@@ -18,6 +17,31 @@ export const BuscadorDePsicologos = () => {
     const handleChange = (e) => {
         setFiltros({ ...filtros, [e.target.name]: e.target.value.toLowerCase() })
     }
+
+    const handleCheck = (e) => {                 // verifica si las especialidades ya han sido marcadas para saber si las agrega o las quita
+        if (filtros.especialidades.find(especialidad => especialidad == e.target.value) == undefined) {
+            setFiltros({ ...filtros, especialidades: [...filtros.especialidades, e.target.value] })
+            return
+        } else {
+            setFiltros({
+                ...filtros,
+                especialidades: filtros.especialidades.filter(especialidad => especialidad !== e.target.value)
+            })
+        }
+    }
+
+    let especialidades = ["Psicología Cognitiva", "Psicología Clínica",   // array de las especialidades
+        "Neuro Psicología", "Psicólogia Biológica",
+        "Psicología Comparativa o Etiología", "Psicología Educativa",
+        "Psicología Evolutiva", "Psicología del Deporte",
+        "Psicología Jurídica", "Psicología de la Personalidad",
+        "Psicología de la Salud", "Psicología de Parejas",
+        "Psicología Familiar", "Psicología Empresarial y Organizacional",
+        "Psicología Militar", "Psicología Escolar",
+        "Psicología Gerontológica", "Psicología Experimental",
+        "Psicología Del Desarrollo", "Psicología de Ingeniería",
+        "Psicología del Marketing", "Sexología",
+        "Psicología comunitaria"]
 
     useEffect(() => {
         // actions.privateData()
@@ -40,18 +64,24 @@ export const BuscadorDePsicologos = () => {
                         <div className="offcanvas-body">
                             <form>
                                 <h4 className="mt-2">Especialidades</h4>
-                                <div className="form-check">
-                                    <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        value="Pediatra"
-                                        id="flexCheckDefault"
-                                        name="especialidades"
-                                        onClick={(e) => { handleChange(e) }} />
-                                    <label className="form-check-label" htmlFor="flexCheckDefault">
-                                        Default checkbox
-                                    </label>
-                                </div>
+                                {especialidades.map((especialidad, index) => {       // mapea el array especialidades
+                                    return (
+                                        <div key={index} className="form-check">
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                value={especialidad}
+                                                id="flexCheckDefault"
+                                                name="especialidades"
+                                                onClick={(e) => {
+                                                    handleCheck(e)
+                                                }} />
+                                            <label className="form-check-label" htmlFor="flexCheckDefault">
+                                                {especialidad}
+                                            </label>
+                                        </div>
+                                    )
+                                })}
                                 <h4 className="mt-2">Precio</h4>
                                 <input
                                     className="form-control"
