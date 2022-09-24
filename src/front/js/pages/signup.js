@@ -31,13 +31,13 @@ export const SignUp = () => {
 			data.name = name,
 				data.email = email,
 				data.password = password,
-				data.numero_fpv = numero_fpv,
+				data.fpv_number = numero_fpv,
 				data.is_psicologo = check_fpv
 		} else {
 			data.name = name,
 				data.email = email,
 				data.password = password,
-				data.numero_fpv = null,
+				data.fpv_number = null,
 				data.is_psicologo = check_fpv
 		}
 
