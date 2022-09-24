@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
-import "../../styles/psicologoCards.css"
+import "../../styles/buscador_de_psicologos.css"
 import { Context } from "../store/appContext.js";
 import { PsicologoCards } from "../component/PsicologoCards";
 
