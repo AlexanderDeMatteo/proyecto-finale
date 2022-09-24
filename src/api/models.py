@@ -11,19 +11,18 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     is_psicologo = db.Column(db.Boolean(), unique=False, nullable=True)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=False)
     is_online = db.Column(db.Boolean(), nullable=False, default=False)
     address = db.relationship("UserAddress", backref="user", uselist=False)
     user_info = db.relationship(
         'UserProfileInfo', backref='user', uselist=False)
 
-    def __init__(self, name, email, password, numero_fpv, is_psicologo):
-        self.name = name
-        self.email = email
-        self.password = password
-        self.numero_fpv = numero_fpv
-        self.is_active = True
-        self.is_psicologo = is_psicologo
+    #def __init__(self, name, email, password, is_psicologo):
+       # self.name = name
+       # self.email = email
+        #self.password = password
+        #self.is_active = True
+        #self.is_psicologo = is_psicologo
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -34,26 +33,30 @@ class User(db.Model):
             "email": self.email,
             "name": self.name,
             "last_name": self.last_name,
-            "numero_telefonico": self.numero_telefonico,
-            "numero_fpv": self.numero_fpv,
-            "area_de_especialidad": self.area_de_especialidad,
-            "pais": self.pais,
-            "ciudad": self.ciudad,
-            "estado": self.estado,
-            "status": self.status,
-            "facebook": self.facebook,
-            "twitter": self.twitter,
-            "instagram": self.instagram,
             "is_psicologo": self.is_psicologo,
-            "profile_picture": self.profile_picture,
-            "monto": self.monto
+        }
+
+    @classmethod
+    def create(cls, user):
+        try:
+            new_user = cls(**user)
+            db.session.add(new_user)
+            db.session.commit()
+            return new_user
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return None
+        
+
+           
 
 
 
 
 
             # do not serialize the password, its a security breach
-        }
+       
 
     def update(self, ref_user):
 
@@ -119,23 +122,46 @@ class UserProfileInfo(db.Model):
     phone_number = db.Column(db.String(25), unique=False, nullable=True)
     fpv_number = db.Column(db.String(25), unique=True, nullable=True)
     specialty_area = db.Column(db.String(120), unique=False, nullable=True)
+    city = db.Column(db.String(25), unique=False, nullable=True)
+    state = db.Column(db.String(25), unique=False, nullable=True)
     twitter = db.Column(db.String(25), unique=True, nullable=True)
     facebook = db.Column(db.String(25), unique=True, nullable=True)
     instagram = db.Column(db.String(25), unique=True, nullable=True)
 
+    def __init__(self, fpv_number, user_id):
+        self.fpv_number = fpv_number,
+        self.user_id = user_id
+        
     def serialize(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "status": self.status,
             "profile_picture": self.profile_picture,
             "phone_number": self.phone_number,
             "fpv_number": self.fpv_number,
             "specialty_area": self.specialty_area,
+            "city" : self.city,
+            "state" : self.state,
             "twitter": self.twitter,
             "facebook": self.facebook,
             "instagram": self.instagram
         }
+
+    def update_fpv(self, data):
+        if "fpv_number" in data:
+            self.fpv_number = data["fpv_number"]
+        if "user_id" in data:
+            self.user_id = data["user_id"]
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            return False
+
+        
+
+        
 
     def update(self, ref_user):
         if "profile_picture" in ref_user:
@@ -152,12 +178,18 @@ class UserProfileInfo(db.Model):
             self.facebook = ref_user["facebook"]
         if "instagram" in ref_user:
             self.instagram = ref_user["instagram"]
+        if "state" in ref_user:
+            self.state = ref_user["state"]
+        if "city" in ref_user:
+            self.city = ref_user["city"]
         try:
             db.session.commit()
             return True
         except Exception as error:
             db.session.rollback()
             return False
+
+        
 
 
 class PsychoConsultation:

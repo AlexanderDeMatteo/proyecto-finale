@@ -1,8 +1,9 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+from turtle import update
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import UserProfileInfo, db, User
 from api.utils import generate_sitemap, APIException
 import json
 from flask_cors import CORS, cross_origin
@@ -13,26 +14,31 @@ api = Blueprint('api', __name__)
 
 @api.route('/sign-up', methods=['POST'])
 def handle_register():
+    updated_info = {}
+    user = request.json
+    updated_info = {**user}
 
-    data = request.data
-    data_decode = json.loads(data)
-    newUser = User(**data_decode)
-    user = User.query.filter_by(
-        email=newUser.email, password=newUser.password).first()
-    if user is None:
-        db.session.add(newUser)
-        db.session.commit()
+    del user["fpv_number"]
+    newUser = User.create(user)
+    if newUser is not None:
         access_token = create_access_token(identity=newUser.id)
-        response_body = {
-            "message": "Usuario creado con exito",
-            "token": access_token
-        }
-        return jsonify(response_body), 200
-    else:
-        response_body = {
-            "message": "Usuario ya existe"
-        }
-        return jsonify(response_body), 400
+        updated_info["user_id"] = newUser.id
+        fpv = updated_info["fpv_number"]
+        print(updated_info)
+        create_profile_info = UserProfileInfo(
+            user_id = newUser.id,
+            fpv_number = fpv,
+            ) 
+        try:
+            db.session.add(create_profile_info)
+            db.session.commit()
+            return jsonify({"token": access_token, "results": create_profile_info.serialize()}), 201
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return jsonify(error.args), 500
+    
+    
 
 
 @api.route('/sign-in', methods=['POST'])
@@ -66,21 +72,53 @@ def handle_login():
 @api.route("/user-data", methods=['GET', 'PUT'])
 @jwt_required()
 def handle_user_data():
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(id=current_user).one_or_none()
+    user_profile_info = UserProfileInfo.query.filter_by(user_id = current_user).one_or_none()
     if request.method == 'GET':
-        current_user = get_jwt_identity()
-        user = User.query.filter_by(id=current_user).one_or_none()
         if user is None:
             return jsonify({"message": "Usuario no encontrado"}), 404
-        return jsonify(user.serialize()), 200
+        if user_profile_info is None:
+            return jsonify(user.serialize()), 200
+        else: 
+            user_info = user.serialize()
+            profile_info = user_profile_info.serialize()
+            full_info = {**user_info,**profile_info }
+            # print(user_profile_info.serialize())
+           # print(full_info, "linea 82")
+            return jsonify(full_info), 200 
     if request.method == 'PUT':
-        current_user = get_jwt_identity()
-        data = request.data
-        data_decode = json.loads(data)
-        updateUser = User.query.get(current_user)
-        updateUser.update(**data_decode)
-        response_body = {
-            "message": "Usuario actualizado con exito", }
-        return jsonify(response_body), 200
+        data = request.json
+        print(data)
+        #data_decode = json.loads(data)
+        user.update(data)
+        email = data["email"]
+        fpv = data["fpv_number"]
+        city = data["city"]
+        state = data["state"]
+        phone_number = data["phone_number"]
+        if user_profile_info is None: 
+            create_profile_info = UserProfileInfo(
+                user_id = current_user,
+                fpv_number = fpv,
+                city = city,
+                state = state,
+                phone_number = phone_number,
+                
+            ) 
+            try:
+                db.session.add(create_profile_info)
+                db.session.commit()
+                return jsonify(create_profile_info.serialize()), 201
+            except Exception as error:
+                db.session.rollback()
+                print(error)
+                return jsonify(error), 500
+        else:
+            updated = user_profile_info.update(data)
+            return jsonify({"message": "actualizalo", "ok": updated}), 200            # Se actualiza el usuario si existe
+
+        
 
 
 @api.route("/user-profile-picture", methods=['PUT'])

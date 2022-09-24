@@ -15,7 +15,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(data),
 				});
-				if (response.status == 200) {
+				if (response.ok) {
 					let data = await response.json();
 					localStorage.setItem("token", data.token);
 					return true;
@@ -52,7 +52,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			handle_user_data: async () => {
-				const store = getStore()
 				let response = await fetch(`${API_URL}/api/user-data`, {
 					method: 'GET',
 					headers: {
@@ -64,10 +63,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				if (response.ok) {
 					let body = await response.json()
-					setStore({
-						...store,
-						userData: body
-					})
+					console.log(body)
+					setStore({ userData: body })
 
 				}
 			},
@@ -91,13 +88,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// handle_edit: (data, prop) => {
-			// 	let store = getStore()
-			// 	let userProp = (store.userData[`${prop}`] = data)
-			// 	setStore(...store ,prev => ({
-			// 		...prev, userProp
-			// 	}))
-			// },
+			handle_edit: (data, prop) => {
+				let store = getStore()
+				let userProp = (store.userData[`${prop}`] = data)
+				setStore(prev => ({
+					...prev, userProp
+				}))
+			},
 
 			picture_profile: async (data) => {
 				let response = await fetch(`${API_URL}/api/user-profile-picture`, {

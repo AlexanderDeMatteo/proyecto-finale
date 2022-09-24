@@ -37,7 +37,7 @@ export const Perfil = () => {
         Object.keys(obj)
           .filter((key) => predicate(obj[key]))
           .reduce((res, key) => ((res[key] = obj[key]), res), {});
-      var result = Object.filter(
+      let result = Object.filter(
         selectedTab,
         (score) => score.nav === "nav-link active"
       );
@@ -69,13 +69,15 @@ export const Perfil = () => {
   }
 
   function handleChange(event) {
-    event.persist();
+    console.log(event.target.value)
+    console.log(event.target.name)
+    // event.persist();
     actions.handle_edit(event.target.value, event.target.name);
     // actions.handle_edit(prevFormData => {
-    // return {
-    // ...prevFormData,
+    //return {
+    //  ...prevFormData,
     // [event.target.name]: event.target.value
-    // }
+    //  }
     // })
   }
 
@@ -117,12 +119,12 @@ export const Perfil = () => {
   // }
 
   const guardar = async () => {
-    delete store.userData.profile_picture;
-    delete store.userData.email;
-    delete store.userData.id;
-    delete store.userData.status;
-    delete store.userData.numero_fpv;
-    delete store.userData.is_psicologo;
+    //delete store.userData.profile_picture;
+    //delete store.userData.email;
+    //delete store.userData.id;
+    //delete store.userData.status;
+    //delete store.userData.numero_fpv;
+    //delete store.userData.is_psicologo;
     const response = await fetch(`${API_URL}/api/user-data`, {
       method: "PUT",
       body: JSON.stringify(store.userData),
@@ -341,7 +343,7 @@ export const Perfil = () => {
                                     className="form-control"
                                     name="last_name"
                                     placeholder="Apellido"
-                                    value={store.userData.last_name}
+                                    value={store.userData.last_name || ""}
                                   />
                                 ) : (
                                   <p className="text-muted mb-0">
@@ -368,7 +370,7 @@ export const Perfil = () => {
                                     className="form-control"
                                     name="email"
                                     placeholder="Correo"
-                                    value={store.userData.email}
+                                    value={store.userData.email || ""}
                                   />
                                 ) : (
                                   <p className="text-muted mb-0">
@@ -418,7 +420,7 @@ export const Perfil = () => {
                                       className="form-control"
                                       name="monto"
                                       placeholder="Monto"
-                                      value={store.userData.monto}
+                                      value={store.userData.monto || ""}
                                     />
                                   ) : (
                                     <p className="text-muted mb-0">
@@ -446,13 +448,13 @@ export const Perfil = () => {
                                       onChange={handleChange}
                                       type="number"
                                       className="form-control"
-                                      name="numero_telefonico"
+                                      name="phone_number"
                                       placeholder="numero telefonico"
-                                      value={store.userData.numero_telefonico}
+                                      value={store.userData.phone_number || ""}
                                     />
                                   ) : (
                                     <p className="text-muted mb-0">
-                                      {store.userData.numero_telefonico}
+                                      {store.userData.phone_number}
                                     </p>
                                   )}
                                 </div>
@@ -476,13 +478,13 @@ export const Perfil = () => {
                                       onChange={handleChange}
                                       type="email"
                                       className="form-control"
-                                      name="numero_fpv"
-                                      placeholder="Correo"
-                                      value={store.userData.numero_fpv}
+                                      name="fpv_number"
+                                      placeholder="fpv"
+                                      value={store.userData.fpv_number || ""}
                                     />
                                   ) : (
                                     <p className="text-muted mb-0">
-                                      {store.userData.numero_fpv}
+                                      {store.userData.fpv_number}
                                     </p>
                                   )}
                                 </div>
@@ -516,13 +518,13 @@ export const Perfil = () => {
                                     onChange={handleChange}
                                     type="email"
                                     className="form-control"
-                                    name="pais"
+                                    name="state"
                                     placeholder="Nombre"
-                                    value={store.userData.estado}
+                                    value={store.userData.state || ""}
                                   />
                                 ) : (
                                   <p className="text-muted mb-0">
-                                    {store.userData.estado}
+                                    {store.userData.state}
                                   </p>
                                 )}
                               </div>
@@ -542,13 +544,13 @@ export const Perfil = () => {
                                     onChange={handleChange}
                                     type="email"
                                     className="form-control"
-                                    name="ciudad"
+                                    name="city"
                                     placeholder="Ciudad"
-                                    value={store.userData.ciudad}
+                                    value={store.userData.city || ""}
                                   />
                                 ) : (
                                   <p className="text-muted mb-0">
-                                    {store.userData.ciudad}
+                                    {store.userData.city}
                                   </p>
                                 )}
                               </div>
@@ -563,6 +565,13 @@ export const Perfil = () => {
                                 className="btn btn-danger"
                               >
                                 {!show ? "Guardar" : "Editar"}
+                              </button>
+                              <button
+                                type="submit"
+                                onClick={() => { guardar() }}
+                                className="btn btn-danger"
+                              >
+                                hola
                               </button>
                             </div>
                           </div>
