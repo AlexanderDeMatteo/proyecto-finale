@@ -36,15 +36,12 @@ export const Navbar = () => {
           {!localStorage.getItem("token") ? <li class="nav-item d-none d-sm-inline-block">
             <a href="/signin" class="nav-link">Login</a>
           </li> : ""}
-          {!localStorage.getItem("token") && store.userData.is_psicologo ? <li class="nav-item d-none d-sm-inline-block">
-            <a href="/signin" class="nav-link">Mercado</a>
+          {store.userData.is_psicologo ? <li class="nav-item d-none d-sm-inline-block">
+            <a href="/#" class="nav-link">Noticias</a>
           </li> : ""}
-          {!localStorage.getItem("token") && store.userData.is_psicologo ? <li class="nav-item d-none d-sm-inline-block">
-            <a href="/signin" class="nav-link">Noticias</a>
+          {store.userData.is_psicologo ? <li class="nav-item d-none d-sm-inline-block">
+            <a href="/#" class="nav-link">Mercado</a>
           </li> : ""}
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
-          </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">
