@@ -9,6 +9,8 @@ import json
 from flask_cors import CORS, cross_origin
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager, create_refresh_token, get_jwt, set_access_cookies
 from datetime import timedelta
+from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
 api = Blueprint('api', __name__)
 
@@ -18,8 +20,16 @@ def handle_register():
     user = request.json
     updated_info = {**user}
 
+    # Add salt to the password
+    password = user['password']
+    salt = os.urandom(10).hex()
+    user['salt'] = salt
+    user['password'] = generate_password_hash(salt + password)
+
     del user["fpv_number"]
+
     newUser = User.create(user)
+    
     if newUser is not None:
         access_token = create_access_token(identity=newUser.id)
         updated_info["user_id"] = newUser.id
@@ -43,21 +53,17 @@ def handle_register():
 
 @api.route('/sign-in', methods=['POST'])
 def handle_login():
-    data = request.data
-    data_decode = json.loads(data)
-    user = User.query.filter_by(**data_decode).first()
-    if user is None:
-        response_body = {
-            "message": "Credenciales Inválidas"
-        }
-        return jsonify(response_body), 400
-    else:
-        access_token = create_access_token(identity=user.id)
-        response_body = {
-            "message": "usuario logeado con exito",
-            "token": access_token
-        }
-        return jsonify(response_body), 200
+    email = request.json.get('email', None)
+    password = request.json.get('password', None)
+    user = User.query.filter_by(email=email).one_or_none()
+    if user is None: 
+        return jsonify({"message": "Usuario no encontrado"}), 404
+    
+    salt = user.salt
+    if check_password_hash(user.password, salt + password):
+        access_token = create_access_token(identity=user.id) 
+        return jsonify({"message": "Usuario logeado con éxito", "token": access_token}), 200
+    return jsonify({"message": "Credenciales Inválidas"}), 401
 
 # @api.route("/private",methods=["POST"])
 # @jwt_required()
