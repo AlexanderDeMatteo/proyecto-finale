@@ -1,7 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from turtle import update
+# from turtle import update
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import UserProfileInfo, db, User
 from api.utils import generate_sitemap, APIException
