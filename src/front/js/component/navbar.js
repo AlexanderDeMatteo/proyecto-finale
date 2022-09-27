@@ -22,7 +22,7 @@ export const Navbar = () => {
 
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa-solid fa-brain"></i></a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
             <a href="../../index3.html" class="nav-link">Home</a>
@@ -154,7 +154,7 @@ export const Navbar = () => {
           </li>
           {localStorage.getItem("token") ?
             <li className="nav-item dropdown" id="hola">
-              <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+              <a className="nav-link dropdown-toggle arrow-avatar" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                 {store.userData.profile_picture ? <img id="avatar"
                   width="40" height="40" className="rounded-circle img-fluid"
                   src={store.userData.profile_picture}
