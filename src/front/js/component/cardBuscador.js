@@ -11,7 +11,7 @@ export const Card = ({
     colSpacing = "col-3",
 }) => {
     return (
-        <>
+        <div className="content-wrapper">
             <div className="container py-5 " id="card-box">
                 <div className="row d-flex align-items-center ">
                     <div className="">
@@ -97,7 +97,7 @@ export const Card = ({
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

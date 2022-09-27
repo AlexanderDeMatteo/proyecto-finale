@@ -42,7 +42,7 @@ const Layout = () => {
             </Route>
             <Route exact path="/perfil">
               {/* <Navbar3 /> */}
-              <div className="box" >
+              <div  >
                 <div id="navbar2">
                   <Sidebar />
                 </div>
