@@ -1,23 +1,156 @@
-#imagen_card {
-  height: 80px;
-  width: 80px;
+.card {
+  width: 100%;
+  box-shadow: none;
+  margin-bottom: none;
 }
 
-#card-box {
-  height: 390px;
-  width: 340px;
+.psicologo-img {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 100px 100px;
+}
+
+.avatar {
+  background-color: white;
+}
+
+.container-card .card .avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+}
+
+.container-card .card .avatar .psicologo-img {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  color: #fff;
+}
+
+.psychologist-name {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.psychologist-category {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.container-card .card .slide {
+  width: 300px;
+  height: 200px;
+  transition: 0.5s;
+}
+
+/* Le da sombra al background de cada carta */
+
+.container-card .card .slide.slide1 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  transition: 0.7s;
+  transform: translateY(100px);
+  border: 0.5px solid rgba(46, 62, 87, 0.3);
+}
+
+.container-card .card:hover .slide.slide1 {
+  transform: translateY(0px);
+}
+
+.container-card .card .slide.slide2 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  transition: 0.7s;
+  transform: translateY(-70px);
+}
+
+.container-card .card:hover .slide.slide2 {
+  transform: translateY(0);
+}
+
+.container-card .card .slide.slide2::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 4px;
+  bottom: 15px;
+  left: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgb(46, 62, 87);
+}
+
+.container-card .card .slide.slide2 .content p {
+  margin: 0;
   padding: 0;
-  margin-left: 30px;
-  margin-right: -10px;
+  text-align: center;
+  color: #414141;
 }
-.card {
-  /* border-radius: 15px; */
-  /* background-color: rgba(196, 227, 233, 0.795); */
+
+.container-card .card .slide.slide2 .content h3 {
+  margin: 0 0 10px 0;
+  padding: 0;
+  font-size: 24px;
+  text-align: center;
+  color: #414141;
 }
-ul {
-  color: rgba(220, 231, 233, 0.87);
+
+.content-box {
+  background-color: rgb(46, 62, 87);
+  color: white;
+  border-left: white 5px solid;
+  height: 100px;
+  width: 100%;
 }
-#boton_agendar {
-  background-color: rgba(47, 47, 201, 0.74);
-  border-color: rgba(47, 47, 201, 0.74);
+
+.content-box:hover {
+  background-color: rgb(27, 39, 59);
+  transition: all 0.3s ease-in-out;
+}
+
+.content-bottom-box {
+  background-color: rgb(46, 62, 87);
+  margin: 0 1px 0 1px;
+  height: 40px;
+  transition: all 0.3s ease-in-out;
+}
+
+.content-bottom-box:hover {
+  background-color: rgb(27, 39, 59);
+}
+
+.psychologist-buttom {
+  border: white 1px solid;
+  border-radius: 5px;
+  background-color: white;
+  color: rgb(46, 62, 87);
+  font-weight: 600;
+  margin: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.psychologist-buttom:hover {
+  background-color: #999999;
+  border: #999999 1px solid;
+  color: white;
+  font-weight: 600;
 }

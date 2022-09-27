@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import "../../styles/card_buscador.css"
+import default_profile_picture from "../../img/default_profile_picture.jpeg"
 
 export const Card = ({
     name,
@@ -12,91 +13,50 @@ export const Card = ({
 }) => {
     return (
         <>
-            <div className="container py-5 " id="card-box">
-                <div className="row d-flex align-items-center ">
-                    <div className="">
-                        <div className="card">
-                            {/* style="border-radius: 15px; background-color: #93e2bb;" */}
-                            <div className="card-body p-4 text-black">
-                                <div>
-                                    <h6 className="mb-4">{area_de_especialidad}</h6>
-                                    <div className="d-flex align-items-center justify-content-between mb-3">
-                                        <p className="small mb-0">
-                                            <i className="far fa-clock me-2"></i>45 min
-                                        </p>
-                                        <p className="fw-bold mb-0">{precio_consulta}</p>
+            <div className="col-4">
+                <div className="container-card">
+                    <div className="card">
+                        <div className="slide slide1 shadow-sm">
+                            <div className="content ">
+                                <div className="avatar">
+                                    <img className="psicologo-img" src={profile_picture ? profile_picture : default_profile_picture} />
+                                </div>
+                                <div className="psychologist-name">
+                                    <p>{name}{" "}{last_name}</p>
+                                </div>
+                                <div className="psychologist-category">
+                                    <p>{area_de_especialidad}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="slide slide2 shadow">
+                            <div className="container h-100 pt-2">
+                                <div className="row d-flex align-items-center ps-1 pe-2">
+                                    <div className="col-4 content-box">
+                                        <b className="">Hello</b>
+                                    </div>
+                                    <div className="col-4 content-box">
+                                        <b className="">Hello</b>
+                                    </div>
+                                    <div className="col-4 content-box">
+                                        <b className="">Hello</b>
                                     </div>
                                 </div>
-                                <div className="d-flex align-items-center mb-4">
-                                    <div className="flex-shrink-0">
-                                        <img id="imagen_card"
-                                            src={profile_picture ? profile_picture : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"}
-                                            alt="Generic placeholder image"
-                                            className="img-fluid rounded-circle border border-dark border-3"
-                                        />
+                                <div className="row text-center content-bottom-box mt-2">
+                                    <div className="col-6 ">
+                                        <button className="psychologist-buttom">Perfil</button>
                                     </div>
-                                    <div className="flex-grow-1 ms-3">
-                                        <div className="d-flex flex-row align-items-center mb-2">
-                                            <p className="mb-0 me-2">
-                                                {name} {last_name}
-                                            </p>
-                                            <ul className="mb-0 list-unstyled d-flex flex-row">
-                                                <li>
-                                                    <i className="fas fa-star fa-xs"></i>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-star fa-xs"></i>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-star fa-xs"></i>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-star fa-xs"></i>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-star fa-xs"></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div>
-                                            <button
-                                                type="button"
-                                                className="btn btn-outline-dark btn-rounded btn-sm"
-                                                data-mdb-ripple-color="dark"
-                                            >
-                                                + Follow
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="btn btn-outline-dark btn-rounded btn-sm"
-                                                data-mdb-ripple-color="dark"
-                                            >
-                                                See profile
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="btn btn-outline-dark btn-floating btn-sm"
-                                                data-mdb-ripple-color="dark"
-                                            >
-                                                <i className="fas fa-comment"></i>
-                                            </button>
-                                        </div>
+                                    <div className="col-6 ">
+
+                                        <button className="psychologist-buttom">Agendar Cita</button>
                                     </div>
                                 </div>
-                                <hr />
-                                <p className="my-4 pb-1"></p>
-                                <button
-                                    type="button"
-                                    className="btn btn-success btn-rounded btn-block btn-lg"
-                                    id="boton_agendar"
-                                >
-                                    <i className="far fa-clock me-2"></i>Agenda tu cita
-                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </>
     );
 };

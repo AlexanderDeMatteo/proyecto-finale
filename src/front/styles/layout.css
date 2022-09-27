@@ -1,3 +1,9 @@
 .box {
   display: flex;
 }
+
+/* Aplica 100% de width para usar la pagina completa */
+
+div[id="pagina central"] {
+  width: 100%;
+}
