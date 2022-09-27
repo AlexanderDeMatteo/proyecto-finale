@@ -9,13 +9,13 @@ class User(db.Model):
     name = db.Column(db.String(120), unique=False, nullable=False)
     last_name = db.Column(db.String(120), unique=False, nullable=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
+    password = db.Column(db.String(256), unique=False, nullable=False)
     is_psicologo = db.Column(db.Boolean(), unique=False, nullable=True)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=False)
     is_online = db.Column(db.Boolean(), nullable=False, default=False)
+    salt = db.Column(db.String(80), unique=True, nullable=False)
     address = db.relationship("UserAddress", backref="user", uselist=False)
-    user_info = db.relationship(
-        'UserProfileInfo', backref='user', uselist=False)
+    user_info = db.relationship('UserProfileInfo', backref='user', uselist=False)
 
     #def __init__(self, name, email, password, is_psicologo):
        # self.name = name
@@ -48,16 +48,8 @@ class User(db.Model):
             print(error)
             return None
         
-
-           
-
-
-
-
-
             # do not serialize the password, its a security breach
        
-
     def update(self, ref_user):
 
         if "name" in ref_user:
@@ -76,14 +68,12 @@ class User(db.Model):
 
 class UserAddress(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        'user.id'), unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
     country = db.Column(db.String(120), unique=False, nullable=True)
     state = db.Column(db.String(120), unique=False, nullable=True)
     city = db.Column(db.String(120), unique=False, nullable=True)
     address = db.Column(db.String(300), nullable=True)
-    status = db.Column(db.Boolean(), unique=False,
-                       nullable=True, default=False)
+    status = db.Column(db.Boolean(), unique=False, nullable=True, default=False)
 
     def serialize(self):
         return {
@@ -113,8 +103,7 @@ class UserAddress(db.Model):
 
 class UserProfileInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        'user.id'), unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
     profile_picture = db.Column(db.String(500), unique=False, nullable=True)
     dob = db.Column(db.String(20), nullable=True)
     dni = db.Column(db.String(30), nullable=True)
