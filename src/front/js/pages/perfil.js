@@ -3,7 +3,8 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Navbar } from "../component/navbar";
 import "../../styles/paginaPrincipal.css";
-import { Imagenes } from "../component/imagenes";
+import { Imagenes } from "../component/perfil_components/imagenes";
+import { AboutMe } from "../component/perfil_components/AboutMe";
 import { uploadFile } from "../component/drag_and_drop";
 import Planilla from "../component/selector";
 import { Receptor_planillas } from "../component/receptor_planillas";
@@ -175,7 +176,7 @@ export const Perfil = () => {
             <div className="row">
               <div className="col-md-3">
                 <div className="card card-primary card-outline">
-                  <div>
+                  <div >
                     <div className="text-center">
                       <img
                         src={
@@ -206,62 +207,14 @@ export const Perfil = () => {
                       <b>Follow</b>
                     </a>
                   </div>
-                </div>
 
-                <div className="card mb-4 mb-lg-0">
-                  <div className="card-body">
-                    <ul className="list-group list-group-flush rounded-3">
-                      <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <i className="fab fa-twitter fa-lg"></i>
-                        {!show ? (
-                          <input
-                            onChange={handleChange}
-                            type="text"
-                            className="text-muted mb-0"
-                            name="twitter"
-                            value={store.userData.twitter}
-                          />
-                        ) : (
-                          <p className="text-muted mb-0">
-                            {store.userData.twitter}
-                          </p>
-                        )}
-                      </li>
-                      <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <i className="fab fa-instagram fa-lg"></i>
-                        {!show ? (
-                          <input
-                            onChange={handleChange}
-                            type="text"
-                            className="text-muted mb-0"
-                            name="instagram"
-                            value={store.userData.instagram}
-                          />
-                        ) : (
-                          <p className="text-muted mb-0">
-                            {store.userData.instagram}
-                          </p>
-                        )}
-                      </li>
-                      <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <i className="fab fa-facebook-f fa-lg"></i>
-                        {!show ? (
-                          <input
-                            onChange={handleChange}
-                            type="text"
-                            className="text-muted mb-0"
-                            name="facebook"
-                            value={store.userData.facebook}
-                          />
-                        ) : (
-                          <p className="text-muted mb-0">
-                            {store.userData.facebook}
-                          </p>
-                        )}
-                      </li>
-                    </ul>
-                  </div>
+
+
                 </div>
+                <AboutMe user_data={store.userData} />
+
+
+
               </div>
 
               <div className="col-md-9">
