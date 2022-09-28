@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import "../../styles/imagenes.css";
-import { Context } from "../store/appContext";
+import "../../../styles/imagenes.css";
+import { Context } from "../../store/appContext";
 
 export const Imagenes = () => {
   const { actions } = useContext(Context);
