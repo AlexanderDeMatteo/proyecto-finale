@@ -52,7 +52,7 @@ const Layout = () => {
               </div>
             </Route>
             <Route exact path="/buscador">
-              <div className="box" >
+              <div className="box">
                 <div id="navbar2">
                   <Sidebar />
                 </div>

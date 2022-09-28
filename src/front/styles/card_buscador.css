@@ -2,6 +2,7 @@
   width: 100%;
   box-shadow: none;
   margin-bottom: none;
+  background-color: #f4f6f9;
 }
 
 .psicologo-img {
@@ -81,6 +82,7 @@
   box-sizing: border-box;
   transition: 0.7s;
   transform: translateY(-70px);
+  background-color: white;
 }
 
 .container-card .card:hover .slide.slide2 {

@@ -18,41 +18,42 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
   }
 
   return (
-    <div className="container-fluid">
-      <div className="row">
+    <div style={{ margin: "inherit" }}>
+      <div className="container-fluid">
+        <div className="row">
 
-        {
-          filtrado() == "" ?   // Verifica que se haya hecho un filtro. Sino, se muestran todos los psicologos
-            store.userPsicologos.map((vistaPsicologo, index) => {
-              return (
-                <Card
-                  key={index}
-                  area_de_especialidad={vistaPsicologo.area_de_especialidad}
-                  name={vistaPsicologo.name}
-                  last_name={vistaPsicologo.last_name}
-                  precio_consulta={vistaPsicologo.monto}
-                  profile_picture={vistaPsicologo.profile_picture}
-                  colSpacing="col-4"
-                />
-              );
-            })
-            : // Se muestran los psicologos filtrados 
-            filtrado().map((vistaPsicologo, index) => {
-              return (
-                <Card
-                  key={index}
-                  area_de_especialidad={vistaPsicologo.area_de_especialidad}
-                  name={vistaPsicologo.name}
-                  last_name={vistaPsicologo.last_name}
-                  precio_consulta={vistaPsicologo.monto}
-                  profile_picture={vistaPsicologo.profile_picture}
-                  colSpacing="col-4"
-                />
-              );
-            })
-        }
+          {
+            filtrado() == "" ?   // Verifica que se haya hecho un filtro. Sino, se muestran todos los psicologos
+              store.userPsicologos.map((vistaPsicologo, index) => {
+                return (
+                  <Card
+                    key={index}
+                    area_de_especialidad={vistaPsicologo.area_de_especialidad}
+                    name={vistaPsicologo.name}
+                    last_name={vistaPsicologo.last_name}
+                    precio_consulta={vistaPsicologo.monto}
+                    profile_picture={vistaPsicologo.profile_picture}
+                    colSpacing="col-4"
+                  />
+                );
+              })
+              : // Se muestran los psicologos filtrados 
+              filtrado().map((vistaPsicologo, index) => {
+                return (
+                  <Card
+                    key={index}
+                    area_de_especialidad={vistaPsicologo.area_de_especialidad}
+                    name={vistaPsicologo.name}
+                    last_name={vistaPsicologo.last_name}
+                    precio_consulta={vistaPsicologo.monto}
+                    profile_picture={vistaPsicologo.profile_picture}
+                    colSpacing="col-4"
+                  />
+                );
+              })
+          }
+        </div>
       </div>
-
     </div>
   );
 };

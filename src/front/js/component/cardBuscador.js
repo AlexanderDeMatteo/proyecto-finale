@@ -13,7 +13,8 @@ export const Card = ({
 }) => {
     return (
         <>
-            <div className="col-4">
+
+            <div className="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
                 <div className="container-card">
                     <div className="card">
                         <div className="slide slide1 shadow-sm">
@@ -31,15 +32,18 @@ export const Card = ({
                         </div>
                         <div className="slide slide2 shadow">
                             <div className="container h-100 pt-2">
-                                <div className="row d-flex align-items-center ps-1 pe-2">
-                                    <div className="col-4 content-box">
-                                        <b className="">Hello</b>
+                                <div className="row ps-1 pe-2">
+                                    <div className="col-4 d-flex flex-column align-content-center content-box">
+                                        <b className="text-center mt-3" style={{ fontSize: "13px" }}>Casos completados</b>
+                                        <h1 className="text-center">{"*"}</h1>
                                     </div>
-                                    <div className="col-4 content-box">
-                                        <b className="">Hello</b>
+                                    <div className="col-4 d-flex flex-column align-content-center content-box">
+                                        <b className="text-center mt-3" style={{ fontSize: "13px" }}>Porcentaje de exito</b>
+                                        <h3 className="text-center">{"%"}</h3>
                                     </div>
-                                    <div className="col-4 content-box">
-                                        <b className="">Hello</b>
+                                    <div className="col-4 d-flex flex-column align-content-center content-box">
+                                        <b className="text-center mt-3" style={{ fontSize: "13px" }}>Servicios disponibles</b>
+                                        <h1 className="text-center">{"*"}</h1>
                                     </div>
                                 </div>
                                 <div className="row text-center content-bottom-box mt-2">
