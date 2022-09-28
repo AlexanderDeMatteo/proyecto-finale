@@ -13,13 +13,13 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
-
 #from models import Person
 
-ENV = os.getenv("FLASK_ENV")
+ENV = os.getenv("FLASK_DEBUG")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+
 
 app.config["JWT_SECRET_KEY"] = "super-secret-mega-duper-secret"  # Change this!
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=1)
@@ -56,7 +56,7 @@ def handle_invalid_usage(error):
 # generate sitemap with all your endpoints
 @app.route('/')
 def sitemap():
-    if ENV == "development":
+    if ENV == "1":
         return generate_sitemap(app)
     return send_from_directory(static_file_dir, 'index.html')
 

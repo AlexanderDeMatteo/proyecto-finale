@@ -1,14 +1,8 @@
 """empty message
 
-<<<<<<<< HEAD:migrations/versions/6988e9111c52_.py
-Revision ID: 6988e9111c52
+Revision ID: 92b71c46a7e2
 Revises: 
-Create Date: 2022-09-26 22:07:51.760542
-========
-Revision ID: 223f82320202
-Revises: 
-Create Date: 2022-09-27 15:46:11.639860
->>>>>>>> dev:migrations/versions/223f82320202_.py
+Create Date: 2022-09-27 23:37:05.663712
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<<< HEAD:migrations/versions/6988e9111c52_.py
-revision = '6988e9111c52'
-========
-revision = '223f82320202'
->>>>>>>> dev:migrations/versions/223f82320202_.py
+revision = '92b71c46a7e2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,12 +23,14 @@ def upgrade():
     sa.Column('name', sa.String(length=120), nullable=False),
     sa.Column('last_name', sa.String(length=120), nullable=True),
     sa.Column('email', sa.String(length=120), nullable=False),
-    sa.Column('password', sa.String(length=80), nullable=False),
+    sa.Column('password', sa.String(length=256), nullable=False),
     sa.Column('is_psicologo', sa.Boolean(), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('is_online', sa.Boolean(), nullable=False),
+    sa.Column('salt', sa.String(length=80), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email')
+    sa.UniqueConstraint('email'),
+    sa.UniqueConstraint('salt')
     )
     op.create_table('user_address',
     sa.Column('id', sa.Integer(), nullable=False),

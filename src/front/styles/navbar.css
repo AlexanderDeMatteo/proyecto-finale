@@ -1,7 +1,11 @@
 #avatar {
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 50px;
   border-radius: 500px;
+  /* margin-top: 10px; */
+}
+.arrow-avatar {
+  margin-top: 12px;
 }
 #menu {
   height: 75px;
