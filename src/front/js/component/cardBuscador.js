@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import "../../styles/card_buscador.css"
+import default_profile_picture from "../../img/default_profile_picture.jpeg"
 
 export const Card = ({
     name,
@@ -11,93 +12,43 @@ export const Card = ({
     colSpacing = "col-3",
 }) => {
     return (
-        <div className="content-wrapper">
-            <div className="container py-5 " id="card-box">
-                <div className="row d-flex align-items-center ">
-                    <div className="">
-                        <div className="card">
-                            {/* style="border-radius: 15px; background-color: #93e2bb;" */}
-                            <div className="card-body p-4 text-black">
-                                <div>
-                                    <h6 className="mb-4">{area_de_especialidad}</h6>
-                                    <div className="d-flex align-items-center justify-content-between mb-3">
-                                        <p className="small mb-0">
-                                            <i className="far fa-clock me-2"></i>45 min
-                                        </p>
-                                        <p className="fw-bold mb-0">{precio_consulta}</p>
-                                    </div>
+        <>
+
+
+            <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                <div class="card-psychologist p-3">
+                    <div class="d-flex align-items-center">
+                        <div class="image shadow">
+                            <img src={profile_picture ? profile_picture : default_profile_picture} class="rounded" width="155" />
+                        </div>
+                        <div class="ml-3 w-100">
+                            <h4 class="mb-0 mt-0 fw-bold psychologist-name">{name}{" "}{last_name}</h4>
+                            <span className="psychologist-category">{area_de_especialidad ? area_de_especialidad : "Psicologo deportivo"}</span>
+                            <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats shadow">
+                                <div class="d-flex flex-column dividerX">
+                                    <span class="queries">Consultas</span>
+                                    <span class="number1 text-center">38</span>
                                 </div>
-                                <div className="d-flex align-items-center mb-4">
-                                    <div className="flex-shrink-0">
-                                        <img id="imagen_card"
-                                            src={profile_picture ? profile_picture : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"}
-                                            alt="Generic placeholder image"
-                                            className="img-fluid rounded-circle border border-dark border-3"
-                                        />
-                                    </div>
-                                    <div className="flex-grow-1 ms-3">
-                                        <div className="d-flex flex-row align-items-center mb-2">
-                                            <p className="mb-0 me-2">
-                                                {name} {last_name}
-                                            </p>
-                                            <ul className="mb-0 list-unstyled d-flex flex-row">
-                                                <li>
-                                                    <i className="fas fa-star fa-xs"></i>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-star fa-xs"></i>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-star fa-xs"></i>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-star fa-xs"></i>
-                                                </li>
-                                                <li>
-                                                    <i className="fas fa-star fa-xs"></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div>
-                                            <button
-                                                type="button"
-                                                className="btn btn-outline-dark btn-rounded btn-sm"
-                                                data-mdb-ripple-color="dark"
-                                            >
-                                                + Follow
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="btn btn-outline-dark btn-rounded btn-sm"
-                                                data-mdb-ripple-color="dark"
-                                            >
-                                                See profile
-                                            </button>
-                                            <button
-                                                type="button"
-                                                className="btn btn-outline-dark btn-floating btn-sm"
-                                                data-mdb-ripple-color="dark"
-                                            >
-                                                <i className="fas fa-comment"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                <div class="d-flex flex-column dividerX">
+                                    <span class="patients">Pacientes</span>
+                                    <span class="number2 text-center">980</span>
                                 </div>
-                                <hr />
-                                <p className="my-4 pb-1"></p>
-                                <button
-                                    type="button"
-                                    className="btn btn-success btn-rounded btn-block btn-lg"
-                                    id="boton_agendar"
-                                >
-                                    <i className="far fa-clock me-2"></i>Agenda tu cita
-                                </button>
+                                <div class="d-flex flex-column">
+                                    <span class="price">Precio</span>
+                                    <span class="number3 text-center">{`${precio_consulta ? precio_consulta : "10"}$`}</span>
+                                </div>
+                            </div>
+                            <div class="button mt-2 d-flex flex-row align-items-center">
+                                <button class="btn btn-sm btn-outline-primary w-100 shadow">Agendar</button>
+                                <button class="btn btn-sm btn-primary w-100 ml-2 shadow">Perfil</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+
+        </>
     );
 };
 

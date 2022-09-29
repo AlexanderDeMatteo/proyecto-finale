@@ -23,6 +23,7 @@ export const Perfil = () => {
     li_1: { nav: "nav-link active", tab: "active tab-pane" },
     li_2: { nav: "nav-link", tab: "tab-pane" },
     li_3: { nav: "nav-link", tab: "tab-pane" },
+    li_4: { nav: "nav-link", tab: "tab-pane" },
   });
 
   useEffect(() => {
@@ -248,6 +249,15 @@ export const Perfil = () => {
                           Experiencias
                         </a>
                       </li>
+                      <li onClick={changeSelect} class="nav-item">
+                        <a
+                          class={selectedTab["li_4"]["nav"]}
+                          name="li_4"
+                          data-toggle="tab"
+                        >
+                          Sobre Mi
+                        </a>
+                      </li>
                     </ul>
                   </div>
                   <div className="card-body">
@@ -457,58 +467,6 @@ export const Perfil = () => {
                             </select>
                           </div>
 
-                          <div className="form-group row">
-                            <label
-                              for="inputName"
-                              className="col-sm-2 col-form-label"
-                            >
-                              Estado
-                            </label>
-                            <div className="col-sm-10">
-                              <div>
-                                {!show ? (
-                                  <input
-                                    onChange={handleChange}
-                                    type="email"
-                                    className="form-control"
-                                    name="state"
-                                    placeholder="Nombre"
-                                    value={store.userData.state || ""}
-                                  />
-                                ) : (
-                                  <p className="text-muted mb-0">
-                                    {store.userData.state}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="form-group row">
-                            <label
-                              for="inputName"
-                              className="col-sm-2 col-form-label"
-                            >
-                              Ciudad
-                            </label>
-                            <div className="col-sm-10">
-                              <div>
-                                {!show ? (
-                                  <input
-                                    onChange={handleChange}
-                                    type="email"
-                                    className="form-control"
-                                    name="city"
-                                    placeholder="Ciudad"
-                                    value={store.userData.city || ""}
-                                  />
-                                ) : (
-                                  <p className="text-muted mb-0">
-                                    {store.userData.city}
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          </div>
 
                           <div className="form-group row">
                             <div className="offset-sm-2 col-sm-10">
@@ -576,6 +534,218 @@ export const Perfil = () => {
                             </div>
                           </form>
                         </div>
+
+                      </div>
+                      <div className={selectedTab["li_4"]["tab"]} id="timeline">
+                        <div class="tab-pane" id="settings">
+                          <form className="form-horizontal">
+                            <div className="form-group row">
+                              <label
+                                for="inputName"
+                                className="col-sm-2 col-form-label"
+                              >
+                                Educacion
+                              </label>
+                              <div className="col-sm-10">
+                                <div>
+                                  {!show ? (
+                                    <input
+                                      onChange={handleChange}
+                                      type="email"
+                                      className="form-control"
+                                      name="name"
+                                      placeholder="Nombre"
+                                      value={store.userData.name}
+                                    />
+                                  ) : (
+                                    <p className="text-muted mb-0">
+                                      {store.userData.name}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="form-group row">
+                              <label
+                                for="inputName"
+                                className="col-sm-2 col-form-label"
+                              >
+                                Instagram
+                              </label>
+                              <div className="col-sm-10">
+                                <div>
+                                  {!show ? (
+                                    <input
+                                      onChange={handleChange}
+                                      type="email"
+                                      className="form-control"
+                                      name="last_name"
+                                      placeholder="Apellido"
+                                      value={store.userData.instagram || ""}
+                                    />
+                                  ) : (
+                                    <p className="text-muted mb-0">
+                                      {store.userData.last_name}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="form-group row">
+                              <label
+                                for="inputName"
+                                className="col-sm-2 col-form-label"
+                              >
+                                Facebook
+                              </label>
+                              <div className="col-sm-10">
+                                <div>
+                                  {!show ? (
+                                    <input
+                                      onChange={handleChange}
+                                      type="email"
+                                      className="form-control"
+                                      name="email"
+                                      placeholder="Correo"
+                                      value={store.userData.facebook || ""}
+                                    />
+                                  ) : (
+                                    <p className="text-muted mb-0">
+                                      {store.userData.facebook}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="form-group row">
+                              <label
+                                for="inputName"
+                                className="col-sm-2 col-form-label"
+                              >
+                                Twitter
+                              </label>
+                              <div className="col-sm-10">
+                                <div>
+                                  {!show ? (
+                                    <input
+                                      onChange={handleChange}
+                                      type="email"
+                                      className="form-control"
+                                      name="email"
+                                      placeholder="Correo"
+                                      value={store.userData.twitter || ""}
+                                    />
+                                  ) : (
+                                    <p className="text-muted mb-0">
+                                      {store.userData.twitter}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+
+                            {/* {store.userData.is_psicologo ? (
+                                            <div className="form-group row">
+                                                <label for="inputName" className="col-sm-2 col-form-label">
+                                                    Area de Especialidad
+                                                </label>
+                                                <div className="col-sm-10">
+                                                    <div>
+                                                        {!show ? (
+                                                        <input onChange={handleChange} type="email"
+                                                            className="form-control" name="email" placeholder="Correo"
+                                                            value={ store.userData.area_de_especialidad } />
+                                                        ) : (
+                                                        <p className="text-muted mb-0">
+                                                            {store.userData.area_de_especialidad}
+                                                        </p>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            ) : (
+                                            ""
+                                            )} */}
+
+
+
+
+                            <div className="form-group row">
+                              <label
+                                for="inputName"
+                                className="col-sm-2 col-form-label"
+                              >
+                                Estado
+                              </label>
+                              <div className="col-sm-10">
+                                <div>
+                                  {!show ? (
+                                    <input
+                                      onChange={handleChange}
+                                      type="email"
+                                      className="form-control"
+                                      name="state"
+                                      placeholder="Nombre"
+                                      value={store.userData.state || ""}
+                                    />
+                                  ) : (
+                                    <p className="text-muted mb-0">
+                                      {store.userData.state}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="form-group row">
+                              <label
+                                for="inputName"
+                                className="col-sm-2 col-form-label"
+                              >
+                                Ciudad
+                              </label>
+                              <div className="col-sm-10">
+                                <div>
+                                  {!show ? (
+                                    <input
+                                      onChange={handleChange}
+                                      type="email"
+                                      className="form-control"
+                                      name="city"
+                                      placeholder="Ciudad"
+                                      value={store.userData.city || ""}
+                                    />
+                                  ) : (
+                                    <p className="text-muted mb-0">
+                                      {store.userData.city}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="form-group row">
+                              <div className="offset-sm-2 col-sm-10">
+                                <button
+                                  type="submit"
+                                  onClick={Editar}
+                                  className="btn btn-danger"
+                                >
+                                  {!show ? "Guardar" : "Editar"}
+                                </button>
+                                <button
+                                  type="submit"
+                                  onClick={() => { guardar() }}
+                                  className="btn btn-danger"
+                                >
+                                  hola
+                                </button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -589,12 +759,4 @@ export const Perfil = () => {
   );
 };
 
-const top100Films = [
-  { title: "psicologia gestal" },
-  { title: "psicologia humanista" },
-  { title: "psicoanalisis" },
-  { title: "psicologia sistemica" },
-  { title: "psicologia cognitivo conductual" },
-  { title: "constelaciones familiares" },
-  { title: "psicologia organizacional" },
-];
+

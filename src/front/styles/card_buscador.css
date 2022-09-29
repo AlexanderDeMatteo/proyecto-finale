@@ -1,23 +1,93 @@
-#imagen_card {
-  height: 80px;
-  width: 80px;
+.card-psychologist {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 400px;
+  border: none;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: box-shadow 0.3s;
 }
 
-#card-box {
-  height: 390px;
-  width: 340px;
-  padding: 0;
-  margin-left: 30px;
-  margin-right: -10px;
+.card-psychologist:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.48);
 }
-.card {
-  /* border-radius: 15px; */
-  /* background-color: rgba(196, 227, 233, 0.795); */
+
+.our-team:hover .picture::before {
+  height: 100%;
 }
-ul {
-  color: rgba(220, 231, 233, 0.87);
+
+.stats {
+  background: #f2f5f8 !important;
+  color: #000 !important;
+  transition: all 0.3s ease-in-out;
 }
-#boton_agendar {
-  background-color: rgba(47, 47, 201, 0.74);
-  border-color: rgba(47, 47, 201, 0.74);
+
+.psychologist-name {
+  font-family: Bergen Sans;
+}
+
+.psychologist-category {
+  font-family: "Montserrat", sans-serif;
+}
+
+.stats:hover {
+  background: #dbe0e2 !important;
+}
+
+.queries {
+  font-size: 13px;
+  color: #9099a9;
+  transition: all 0.3s ease-in-out;
+}
+
+.queries:hover {
+  font-size: 15px;
+  color: #636973;
+}
+
+.number1 {
+  font-weight: 500;
+}
+
+.patients {
+  font-size: 13px;
+  color: #9099a9;
+  transition: all 0.3s ease-in-out;
+}
+
+.patients:hover {
+  font-size: 15px;
+  color: #636973;
+}
+
+.number2 {
+  font-weight: 500;
+}
+
+.price {
+  font-size: 13px;
+  color: #9099a9;
+  transition: all 0.3s ease-in-out;
+}
+
+.price:hover {
+  font-size: 15px;
+  color: #636973;
+}
+
+.number3 {
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+
+.number3:hover {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.dividerX {
+  padding-right: 5px;
+  border-radius: 8px;
+  border-right: white 5px solid;
+  height: 50px;
 }
