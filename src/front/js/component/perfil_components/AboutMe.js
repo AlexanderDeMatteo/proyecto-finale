@@ -11,7 +11,7 @@ export const AboutMe = (data) => {
   return (
     <div class="card card-primary ">
       <div class="card-header">
-        <h3 class="card-title">About Me</h3>
+        <h3 class="card-title">Sobre mi</h3>
       </div>
 
       <div class="card-body">
