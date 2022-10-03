@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Card } from "../component/cardBuscador";
-import { Context } from "../store/appContext.js";
+import { Card } from "../buscador_components/cardBuscador";
+import { Context } from "../../store/appContext.js";
 import PropsType from "prop-types";
 
 export const PsicologoCards = ({ filtros }) => {             // recibe por props los argumentos para filtrar
