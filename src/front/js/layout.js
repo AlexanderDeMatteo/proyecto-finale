@@ -61,7 +61,7 @@ const Layout = () => {
                 </div>
               </div>
             </Route>
-            <Route>
+            <Route path={"*"}>
               <h1>Not found!</h1>
             </Route>
           </Switch>

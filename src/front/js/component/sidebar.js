@@ -142,7 +142,7 @@ export const Sidebar = () => {
                       className="nav nav-treeview"
                     >
                       <li className="nav-item">
-                        <a href="../../index.html" className="nav-link">
+                        <a href="/perfil" className="nav-link">
                           <i className="far fa-circle nav-icon" />
                           <p>Perfil</p>
                         </a>
@@ -265,7 +265,7 @@ export const Sidebar = () => {
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a href="/Buscador" className="nav-link">
+                        <a href="/buscador" className="nav-link">
                           <i className="far fa-circle nav-icon" />
                           <p>Buscador de Psicologo</p>
                         </a>

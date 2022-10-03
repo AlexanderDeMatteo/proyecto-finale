@@ -13,6 +13,9 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
       || psico.numero_fpv == filtros?.numeroFpv
       || psico.estado == filtros?.estado
       || psico.ciudad == filtros?.ciudad
+      || psico.dni == filtros?.ci
+      || psico.sexo == filtros?.sexo
+      || (psico.dob >= filtros?.edadMin && psico.dob <= filtros?.edadMax)
     )
     return filtrados
   }
