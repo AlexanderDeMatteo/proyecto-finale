@@ -9,27 +9,30 @@ export const BuscadorDePsicologos = () => {
         precio: "",
         nombre: "",
         numeroFpv: "",
-        especialidades: [],
+        especialidades: "",
         estado: "",
         ciudad: "",
-        ci: ""
+        ci: "",
+        sexo: "",
+        edadMin: "",
+        edadMax: ""
     })
 
     const handleChange = (e) => {
         setFiltros({ ...filtros, [e.target.name]: e.target.value.toLowerCase() })
     }
 
-    const handleCheck = (e) => {                 // verifica si las especialidades ya han sido marcadas para saber si las agrega o las quita
-        if (filtros.especialidades.find(especialidad => especialidad == e.target.value) == undefined) {
-            setFiltros({ ...filtros, especialidades: [...filtros.especialidades, e.target.value] })
-            return
-        } else {
-            setFiltros({
-                ...filtros,
-                especialidades: filtros.especialidades.filter(especialidad => especialidad !== e.target.value)
-            })
-        }
-    }
+    // const handleCheck = (e) => {                 // verifica si las especialidades ya han sido marcadas para saber si las agrega o las quita
+    //     if (filtros.especialidades.find(especialidad => especialidad == e.target.value) == undefined) {
+    //         setFiltros({ ...filtros, especialidades: [...filtros.especialidades, e.target.value] })
+    //         return
+    //     } else {
+    //         setFiltros({
+    //             ...filtros,
+    //             especialidades: filtros.especialidades.filter(especialidad => especialidad !== e.target.value)
+    //         })
+    //     }
+    // }
 
     let especialidades = ["Psicología Cognitiva", "Psicología Clínica",   // array de las especialidades
         "Neuro Psicología", "Psicólogia Biológica",
@@ -78,7 +81,18 @@ export const BuscadorDePsicologos = () => {
                                     </button>
                                     <div className="collapse" id="collapseEspecialidad">
                                         <div className="card card-body">
-                                            {especialidades.map((especialidad, index) => {       // mapea el array especialidades
+                                            <select className="form-select"
+                                                onChange={(e) => handleChange(e)}
+                                                name="especialidades"
+                                            >
+                                                <option defaultValue>Especialidad</option>
+                                                {especialidades.map((especialidad, index) => {
+                                                    return (
+                                                        <option key={index} value={especialidad}>{especialidad}</option>
+                                                    )
+                                                })}
+                                            </select>
+                                            {/* {especialidades.map((especialidad, index) => {       // mapea el array especialidades
                                                 return (
                                                     <div key={index} className="form-check">
                                                         <input
@@ -95,7 +109,7 @@ export const BuscadorDePsicologos = () => {
                                                         </label>
                                                     </div>
                                                 )
-                                            })}
+                                            })} */}
                                         </div>
                                     </div>
                                     <button className="dropdowns btn btn-secondary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCredenciales" aria-expanded="false" aria-controls="collapseExample">
@@ -103,6 +117,13 @@ export const BuscadorDePsicologos = () => {
                                     </button>
                                     <div className="collapse" id="collapseCredenciales">
                                         <div className="card card-body">
+                                            Nombre y Apellido
+                                            <input
+                                                className="form-control"
+                                                placeholder="Nombre del Psicologo"
+                                                name="nombre"
+                                                value={filtros.nombre}
+                                                onChange={(e) => { handleChange(e) }} />
                                             Cedula de Identidad
                                             <input
                                                 className="form-control"
@@ -126,11 +147,36 @@ export const BuscadorDePsicologos = () => {
                                         <div className="card card-body">
                                             Nombre y Apellido
                                             <input
-                                                className="form-control"
+                                                className="form-control mb-1"
                                                 placeholder="Nombre del Psicologo"
                                                 name="nombre"
                                                 value={filtros.nombre}
                                                 onChange={(e) => { handleChange(e) }} />
+                                            Genero
+                                            <select className="form-select mb-1"
+                                                onChange={(e) => handleChange(e)}
+                                                name="sexo"
+                                            >
+                                                <option defaultValue>Sexo</option>
+                                                <option value="masculino">Masculino</option>
+                                                <option value="femenino">Femenino</option>
+                                                <option value="otro">Otro</option>
+                                            </select>
+                                            Rango de Edad
+                                            <div className="row ms-1">
+                                                <input
+                                                    className="col-5 form-control me-1"
+                                                    placeholder="Desde"
+                                                    name="edadMin"
+                                                    value={filtros.edadMin}
+                                                    onChange={(e) => handleChange(e)} />
+                                                <input
+                                                    className="col-5 form-control"
+                                                    placeholder="Hasta"
+                                                    name="edadMax"
+                                                    value={filtros.edadMax}
+                                                    onChange={(e) => handleChange(e)} />
+                                            </div>
                                         </div>
                                     </div>
                                     <button className="dropdowns btn btn-secondary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePrecio" aria-expanded="false" aria-controls="collapseExample">

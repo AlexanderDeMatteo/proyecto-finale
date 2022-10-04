@@ -4,7 +4,7 @@
   position: absolute;
   padding: 10px;
   top: 105px;
-  left: 446px;
+  left: 441px;
   background-color: white;
   overflow: auto;
   width: 300px;
@@ -22,4 +22,8 @@
 
 .form-control{
   border: 1px solid #385bfc ;
+}
+.rango{
+  position: absolute;
+  left: 10px;
 }

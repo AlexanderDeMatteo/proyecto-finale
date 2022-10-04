@@ -265,7 +265,7 @@ export const Sidebar = () => {
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a href="/Buscador" className="nav-link">
+                        <a href="/buscador" className="nav-link">
                           <i className="far fa-circle nav-icon" />
                           <p>Buscador de Psicologo</p>
                         </a>
