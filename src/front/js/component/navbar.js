@@ -22,10 +22,10 @@ export const Navbar = () => {
 
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa-solid fa-brain"></i></a>
+            <a class="nav-link" data-widget="pushmenu" href="/" role="button"><i class="fa-solid fa-brain"></i></a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
-            <a href="../../index3.html" class="nav-link">Home</a>
+            <a href="/" class="nav-link">Home</a>
           </li>
           <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">sobre nosotros</a>
