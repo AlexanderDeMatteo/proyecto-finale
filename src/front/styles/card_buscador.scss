@@ -1,7 +1,7 @@
 .psychologist-card {
   position: relative;
   width: 16rem;
-  height: 19rem;
+  height: 20.5rem;
   margin: 5rem auto;
   background-color: #fff;
   color: #000;
@@ -11,7 +11,7 @@
 
 .psychologist-card:hover {
   box-shadow: 1px 8px 20px grey;
-  -webkit-transition: box-shadow 0.3s ease-in;
+  transition: box-shadow 0.3s ease-in;
 }
 
 .card-img-psychologist {
@@ -20,13 +20,19 @@
   height: 12rem;
 }
 
-.vignette {
+.caption-up {
   text-align: center;
   height: 1.6rem;
-  background-color: #007bff;
+  background-color: #2e3e57;
   color: white;
-  padding-top: 1.2rem;
 }
+
+.vignette2 {
+  position: absolute;
+  transform: translateX(-10px);
+  color: #007bff00;
+}
+
 .name-text {
   color: black;
   font-family: Bergen Sans;
@@ -36,6 +42,8 @@
 .category-text {
   color: black;
   font-size: 18px;
+  font-family: Monserrat;
+  font-weight: 200;
 }
 
 .card-caption {
@@ -54,6 +62,57 @@
   transition: -webkit-transform 0.4s;
   transition: transform 0.4s;
   transition: transform 0.4s, -webkit-transform 0.4s;
+}
+
+.card-box {
+  justify-content: space-evenly;
+  color: white;
+}
+
+.card-box2 {
+  margin-left: 0.45rem;
+  margin-right: 0.5rem;
+  color: white;
+  border-left: none;
+  transition: box-shadow 0.3s ease-in;
+}
+
+.card-box2:hover {
+  box-shadow: 1px 8px 5px rgb(127, 127, 127);
+  transition: box-shadow 0.3s ease-in;
+}
+
+.box1 {
+  background-color: #2e3e57;
+  font-weight: bold;
+  padding: 0;
+  transition: box-shadow 0.3s ease-in;
+}
+
+.box2 {
+  background-color: #2e3e57;
+  padding: 0;
+  transition: box-shadow 0.3s ease-in;
+}
+
+.box1 p {
+  font-weight: normal;
+}
+
+.box2 {
+  p {
+    font-weight: normal;
+  }
+}
+
+.box1:hover {
+  box-shadow: 1px 5px 8px rgb(127, 127, 127);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.box2:hover {
+  box-shadow: 1px 5px 8px rgb(127, 127, 127);
+  transition: box-shadow 0.3s ease-in;
 }
 
 .card-caption-title {
