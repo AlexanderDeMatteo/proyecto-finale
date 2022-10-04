@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import "../../styles/buscador_de_psicologos.css"
 import { Context } from "../store/appContext.js";
-import { PsicologoCards } from "../component/PsicologoCards";
+import { PsicologoCards } from "../component/buscador_components/PsicologoCards";
 
 export const BuscadorDePsicologos = () => {
     const { actions, store } = useContext(Context)

@@ -148,7 +148,7 @@ export const Sidebar = () => {
                         </a>
                       </li>
                       <li className="nav-item">
-                        <a href="../../index2.html" className="nav-link">
+                        <a href="#" className="nav-link">
                           <i className="far fa-circle nav-icon" />
                           <p>Sesiones Online</p>
                         </a>
@@ -157,19 +157,19 @@ export const Sidebar = () => {
                         <div>
                           {" "}
                           <li className="nav-item">
-                            <a href="../../index3.html" className="nav-link">
+                            <a href="#" className="nav-link">
                               <i className="far fa-circle nav-icon" />
                               <p>Agenda del dia</p>
                             </a>
                           </li>
                           <li className="nav-item">
-                            <a href="../../index3.html" className="nav-link">
+                            <a href="#" className="nav-link">
                               <i className="far fa-circle nav-icon" />
                               <p>Contactos personales</p>
                             </a>
                           </li>
                           <li className="nav-item">
-                            <a href="../../index3.html" className="nav-link">
+                            <a href="#" className="nav-link">
                               <i className="far fa-circle nav-icon" />
                               <p>Configuracion</p>
                             </a>

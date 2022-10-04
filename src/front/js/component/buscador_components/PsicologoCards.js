@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Card } from "../component/cardBuscador";
-import { Context } from "../store/appContext.js";
+import { Card } from "../buscador_components/cardBuscador";
+import { Context } from "../../store/appContext.js";
 import PropsType from "prop-types";
 
 export const PsicologoCards = ({ filtros }) => {             // recibe por props los argumentos para filtrar
@@ -31,6 +31,7 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
                 return (
                   <Card
                     key={index}
+                    id={vistaPsicologo.id}
                     area_de_especialidad={vistaPsicologo.area_de_especialidad}
                     name={vistaPsicologo.name}
                     last_name={vistaPsicologo.last_name}
