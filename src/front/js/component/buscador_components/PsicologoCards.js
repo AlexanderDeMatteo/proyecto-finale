@@ -28,6 +28,7 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
                 return (
                   <Card
                     key={index}
+                    id={vistaPsicologo.id}
                     area_de_especialidad={vistaPsicologo.area_de_especialidad}
                     name={vistaPsicologo.name}
                     last_name={vistaPsicologo.last_name}
