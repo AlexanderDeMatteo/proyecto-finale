@@ -10,9 +10,9 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
     let filtrados = store.userPsicologos.filter(psico =>
       (psico.monto < filtros?.precio && psico.monto !== null)
       || psico.name.toLowerCase() == filtros?.nombre.toLowerCase()
-      || psico.numero_fpv == filtros?.numeroFpv
-      || psico.estado == filtros?.estado
-      || psico.ciudad == filtros?.ciudad
+      || psico.fpv_number == filtros?.numeroFpv
+      || psico.state == filtros?.estado
+      || psico.city == filtros?.ciudad
       || psico.dni == filtros?.ci
       || psico.sexo == filtros?.sexo
       || (psico.dob >= filtros?.edadMin && psico.dob <= filtros?.edadMax)
