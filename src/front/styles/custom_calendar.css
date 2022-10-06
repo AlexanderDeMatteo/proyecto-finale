@@ -1,0 +1,13 @@
+.custom_calendar_css {
+  border: solid #2e3e57;
+  border-radius: 15px;
+
+  padding: 10px;
+  top: 140px;
+  left: 300px;
+  border-top: 4px solid #007bff !important;
+  margin: 0px 0px 0px 30px;
+  background-color: white;
+  width: 800px !important;
+  /* box-shadow: 10px 5px 5px #2e3e57 */
+}
