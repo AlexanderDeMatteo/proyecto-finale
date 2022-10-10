@@ -15,6 +15,7 @@ import { Navbar } from "./component/navbar";
 import { Sidebar } from "./component/sidebar";
 import { Footer } from "./component/footer";
 import "../styles/layout.css";
+import Sessions from "./pages/sessions";
 
 //create your first component
 const Layout = () => {
@@ -58,6 +59,16 @@ const Layout = () => {
                 </div>
                 <div id="pagina central">
                   <BuscadorDePsicologos />
+                </div>
+              </div>
+            </Route>
+            <Route path={"/sessions"}>
+              <div className="box">
+                <div id="navbar2">
+                  <Sidebar />
+                </div>
+                <div id="pagina central">
+                  <Sessions />
                 </div>
               </div>
             </Route>
