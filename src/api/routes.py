@@ -2,6 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 # from turtle import update
+from cmath import inf
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import UserProfileInfo, db, User
 from api.utils import generate_sitemap, APIException
@@ -153,14 +154,25 @@ def protected():
 def handle_user_psicologo():
     if request.method == 'GET':
         users = User.query.filter_by(is_psicologo=True).all()
-        lista_psico = []
-        for usuario in users:
-            lista_psico.append(usuario.serialize())
-
+        users_info = UserProfileInfo.query.filter(UserProfileInfo.fpv_number != "null")
         if users is None:
             return jsonify({"message": "Usuario no encontrado"}), 404
         else:
-            return jsonify(lista_psico), 200
+            users = list(map(
+                lambda user : user.serialize(),
+                users
+            ))
+            users_info = list(map(
+                lambda user : user.serialize(),
+                users_info
+            ))
+            full_info = []
+            for user in users:
+                for info in users_info:
+                    if info["user_id"] == user["id"]:
+                        info.update(user)
+                        full_info.append(info)
+            return jsonify(full_info), 200
 
 
 @api.route("/specialty-area", methods=['GET'])
