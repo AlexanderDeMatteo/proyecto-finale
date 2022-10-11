@@ -1,4 +1,5 @@
 from email.policy import default
+from enum import unique
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -11,18 +12,26 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(256), unique=False, nullable=False)
     is_psicologo = db.Column(db.Boolean(), unique=False, nullable=True)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=False)
+    is_active = db.Column(db.Boolean(), unique=False,
+                          nullable=False, default=False)
     is_online = db.Column(db.Boolean(), nullable=False, default=False)
     salt = db.Column(db.String(80), unique=True, nullable=False)
     address = db.relationship("UserAddress", backref="user", uselist=False)
-    user_info = db.relationship('UserProfileInfo', backref='user', uselist=False)
+    user_info = db.relationship(
+        'UserProfileInfo', backref='user', uselist=False)
+    session_ids = db.relationship(
+        "Session",
+        primaryjoin="and_(User.id==Session.psychologist_id, " "Session.client_id)",
+    )
+    #psychologist_sessions = db.relationship('Session', backref='psychologist', uselist=False)
+    #client_sessions = db.relationship('Session', backref='client', uselist=False)
 
-    #def __init__(self, name, email, password, is_psicologo):
-       # self.name = name
-       # self.email = email
-        #self.password = password
-        #self.is_active = True
-        #self.is_psicologo = is_psicologo
+    # def __init__(self, name, email, password, is_psicologo):
+    # self.name = name
+    # self.email = email
+    #self.password = password
+    #self.is_active = True
+    #self.is_psicologo = is_psicologo
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -47,9 +56,9 @@ class User(db.Model):
             db.session.rollback()
             print(error)
             return None
-        
+
             # do not serialize the password, its a security breach
-       
+
     def update(self, ref_user):
 
         if "name" in ref_user:
@@ -68,12 +77,15 @@ class User(db.Model):
 
 class UserAddress(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
+    psychologist_id = db.Column(db.Integer, db.ForeignKey(
+        'user.id'), unique=True, nullable=False)
+
     country = db.Column(db.String(120), unique=False, nullable=True)
     state = db.Column(db.String(120), unique=False, nullable=True)
     city = db.Column(db.String(120), unique=False, nullable=True)
     address = db.Column(db.String(300), nullable=True)
-    status = db.Column(db.Boolean(), unique=False, nullable=True, default=False)
+    status = db.Column(db.Boolean(), unique=False,
+                       nullable=True, default=False)
 
     def serialize(self):
         return {
@@ -103,7 +115,8 @@ class UserAddress(db.Model):
 
 class UserProfileInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'user.id'), unique=True, nullable=False)
     profile_picture = db.Column(db.String(500), unique=False, nullable=True)
     dob = db.Column(db.String(20), nullable=True)
     dni = db.Column(db.String(30), nullable=True)
@@ -120,7 +133,7 @@ class UserProfileInfo(db.Model):
     def __init__(self, fpv_number, user_id):
         self.fpv_number = fpv_number,
         self.user_id = user_id
-        
+
     def serialize(self):
         return {
             "id": self.id,
@@ -129,8 +142,8 @@ class UserProfileInfo(db.Model):
             "phone_number": self.phone_number,
             "fpv_number": self.fpv_number,
             "specialty_area": self.specialty_area,
-            "city" : self.city,
-            "state" : self.state,
+            "city": self.city,
+            "state": self.state,
             "twitter": self.twitter,
             "facebook": self.facebook,
             "instagram": self.instagram
@@ -147,10 +160,6 @@ class UserProfileInfo(db.Model):
         except Exception as error:
             db.session.rollback()
             return False
-
-        
-
-        
 
     def update(self, ref_user):
         if "profile_picture" in ref_user:
@@ -178,7 +187,39 @@ class UserProfileInfo(db.Model):
             db.session.rollback()
             return False
 
-        
+
+class Session(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    psychologist_id = db.Column(
+        db.Integer, db.ForeignKey('user.id'), nullable=False)
+    client_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    reserved = db.Column(db.Boolean(), nullable=True, default=False)
+    name = db.Column(db.String(100), nullable=False, unique=False)
+    date = db.Column(db.String(50), nullable=False, unique=False)
+    time = db.Column(db.String(20), nullable=False, unique=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "psychologist_id": self.psychologist_id,
+            "client_id": self.client_id,
+            "reserved": self.state,
+            "name": self.city,
+            "date": self.address,
+            "time": self.time
+        }
+
+    @classmethod
+    def create(cls, data_sessions):
+        try:
+            new_data_session = cls(**data_sessions)
+            db.session.add(new_data_session)
+            db.session.commit()
+            return new_data_session
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return None
 
 
 class PsychoConsultation:

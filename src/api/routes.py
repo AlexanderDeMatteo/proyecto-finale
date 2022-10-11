@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 # from turtle import update
 from cmath import inf
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import UserProfileInfo, db, User
+from api.models import Session, UserProfileInfo, db, User
 from api.utils import generate_sitemap, APIException
 import json
 from flask_cors import CORS, cross_origin
@@ -14,6 +14,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
 api = Blueprint('api', __name__)
+
 
 @api.route('/sign-up', methods=['POST'])
 def handle_register():
@@ -30,16 +31,16 @@ def handle_register():
     del user["fpv_number"]
 
     newUser = User.create(user)
-    
+
     if newUser is not None:
         access_token = create_access_token(identity=newUser.id)
         updated_info["user_id"] = newUser.id
         fpv = updated_info["fpv_number"]
         print(updated_info)
         create_profile_info = UserProfileInfo(
-            user_id = newUser.id,
-            fpv_number = fpv,
-            ) 
+            user_id=newUser.id,
+            fpv_number=fpv,
+        )
         try:
             db.session.add(create_profile_info)
             db.session.commit()
@@ -48,8 +49,6 @@ def handle_register():
             db.session.rollback()
             print(error)
             return jsonify(error.args), 500
-    
-    
 
 
 @api.route('/sign-in', methods=['POST'])
@@ -57,12 +56,12 @@ def handle_login():
     email = request.json.get('email', None)
     password = request.json.get('password', None)
     user = User.query.filter_by(email=email).one_or_none()
-    if user is None: 
+    if user is None:
         return jsonify({"message": "Usuario no encontrado"}), 404
-    
+
     salt = user.salt
     if check_password_hash(user.password, salt + password):
-        access_token = create_access_token(identity=user.id) 
+        access_token = create_access_token(identity=user.id)
         return jsonify({"message": "Usuario logeado con éxito", "token": access_token}), 200
     return jsonify({"message": "Credenciales Inválidas"}), 401
 
@@ -81,19 +80,20 @@ def handle_login():
 def handle_user_data():
     current_user = get_jwt_identity()
     user = User.query.filter_by(id=current_user).one_or_none()
-    user_profile_info = UserProfileInfo.query.filter_by(user_id = current_user).one_or_none()
+    user_profile_info = UserProfileInfo.query.filter_by(
+        user_id=current_user).one_or_none()
     if request.method == 'GET':
         if user is None:
             return jsonify({"message": "Usuario no encontrado"}), 404
         if user_profile_info is None:
             return jsonify(user.serialize()), 200
-        else: 
+        else:
             user_info = user.serialize()
             profile_info = user_profile_info.serialize()
-            full_info = {**user_info,**profile_info }
+            full_info = {**user_info, **profile_info}
             # print(user_profile_info.serialize())
            # print(full_info, "linea 82")
-            return jsonify(full_info), 200 
+            return jsonify(full_info), 200
     if request.method == 'PUT':
         data = request.json
         print(data)
@@ -104,15 +104,15 @@ def handle_user_data():
         city = data["city"]
         state = data["state"]
         phone_number = data["phone_number"]
-        if user_profile_info is None: 
+        if user_profile_info is None:
             create_profile_info = UserProfileInfo(
-                user_id = current_user,
-                fpv_number = fpv,
-                city = city,
-                state = state,
-                phone_number = phone_number,
-                
-            ) 
+                user_id=current_user,
+                fpv_number=fpv,
+                city=city,
+                state=state,
+                phone_number=phone_number,
+
+            )
             try:
                 db.session.add(create_profile_info)
                 db.session.commit()
@@ -123,9 +123,8 @@ def handle_user_data():
                 return jsonify(error), 500
         else:
             updated = user_profile_info.update(data)
-            return jsonify({"message": "actualizalo", "ok": updated}), 200            # Se actualiza el usuario si existe
-
-        
+            # Se actualiza el usuario si existe
+            return jsonify({"message": "actualizalo", "ok": updated}), 200
 
 
 @api.route("/user-profile-picture", methods=['PUT'])
@@ -154,16 +153,17 @@ def protected():
 def handle_user_psicologo():
     if request.method == 'GET':
         users = User.query.filter_by(is_psicologo=True).all()
-        users_info = UserProfileInfo.query.filter(UserProfileInfo.fpv_number != "null")
+        users_info = UserProfileInfo.query.filter(
+            UserProfileInfo.fpv_number != "null")
         if users is None:
             return jsonify({"message": "Usuario no encontrado"}), 404
         else:
             users = list(map(
-                lambda user : user.serialize(),
+                lambda user: user.serialize(),
                 users
             ))
             users_info = list(map(
-                lambda user : user.serialize(),
+                lambda user: user.serialize(),
                 users_info
             ))
             full_info = []
@@ -180,6 +180,25 @@ def handle_specialty_area():
     specialty_areas = ["Psicología Cognitiva", "Psicología Clínica", "Neuro Psicología", "Psicólogia Biológica", "Psicología Comparativa o Etiología", "Psicología Educativa", "Psicología Evolutiva", "Psicología del Deporte", "Psicología Jurídica", "Psicología de la Personalidad", "Psicología de la Salud",
                        "Psicología de Parejas", "Psicología Familiar", "Psicología Empresarial y Organizacional", "Psicología Militar", "Psicología Escolar", "Psicología Gerontológica", "Psicología Experimental", "Psicología Del Desarrollo", "Psicología de Ingeniería", "Psicología del Marketing", "Sexología", "Psicología comunitaria"]
     return jsonify({"ok": True, "result": specialty_areas}), 200
+
+
+@api.route("/session_handle", methods=['POST'])
+@jwt_required()
+def handle_session_create():
+    if request.method == 'POST':
+        current_psychologist = get_jwt_identity()
+        psychologist = UserProfileInfo.query.filter_by(
+            user_id=current_psychologist).where(UserProfileInfo.fpv_number != "" or None).one_or_none()  # Confirma si el usuario actual es psicologo o no
+        if psychologist is not None:
+            session_data = request.json
+            session_data["psychologist_id"] = psychologist.user_id
+            print(session_data)
+            session = Session.create(session_data)
+            if session is not None:
+                return jsonify({"message": "Session created succesfully", }), 201
+            return jsonify({"message": "info error"}), 400
+        return jsonify({"message": "user not psychologist"}), 405
+
 
 # @api.route("/refresh", methods=["POST"])
 # @jwt_required(refresh=True)
