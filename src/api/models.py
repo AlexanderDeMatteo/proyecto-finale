@@ -197,18 +197,22 @@ class Session(db.Model):
     name = db.Column(db.String(100), nullable=False, unique=False)
     date = db.Column(db.String(50), nullable=False, unique=False)
     time = db.Column(db.String(20), nullable=False, unique=False)
+    room_number = db.Column(db.String(200), nullable=False, unique=True)
 
+    # Method to serialize information of Sessions
     def serialize(self):
         return {
             "id": self.id,
             "psychologist_id": self.psychologist_id,
             "client_id": self.client_id,
-            "reserved": self.state,
-            "name": self.city,
-            "date": self.address,
-            "time": self.time
+            "reserved": self.reserved,
+            "name": self.name,
+            "date": self.date,
+            "time": self.time,
+            "room_number": self.room_number
         }
 
+    # Method to create a new Session
     @classmethod
     def create(cls, data_sessions):
         try:
@@ -220,6 +224,38 @@ class Session(db.Model):
             db.session.rollback()
             print(error)
             return None
+
+    # Method to delete a Session
+    def delete(self):
+        db.session.delete(self)
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            return False
+
+    # Method to update a Session
+
+    def update(self, session):
+        if "name" in session:
+            self.title = session["title"]
+        if "description" in session:
+            self.description = session["description"]
+        if "price" in session:
+            self.price = session["price"]
+        if "schedule" in session:
+            self.schedule = session["schedule"]
+        if "image" in session:
+            self.image = session["image"]
+
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return False
 
 
 class PsychoConsultation:

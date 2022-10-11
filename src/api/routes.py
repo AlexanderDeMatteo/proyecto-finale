@@ -3,6 +3,8 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 # from turtle import update
 from cmath import inf
+from distutils.log import error
+from http.client import OK
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import Session, UserProfileInfo, db, User
 from api.utils import generate_sitemap, APIException
@@ -12,6 +14,7 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 from datetime import timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
+from datetime import date
 
 api = Blueprint('api', __name__)
 
@@ -182,22 +185,82 @@ def handle_specialty_area():
     return jsonify({"ok": True, "result": specialty_areas}), 200
 
 
-@api.route("/session_handle", methods=['POST'])
+# Get Session by ID of the professor, but returns all sessions of the current day. If there's no sessions, will return the same statement
+@api.route("/sessions/today/<int:psychologist_id>", methods=['GET'])
+def handle_sessions_today(psychologist_id):
+    today = date.today()
+    # Get the current date and stringify to compare with the value on the database
+    current_date = today.strftime("%d/%m/%Y")
+    print(today)
+    sessions = Session.query.filter_by(
+        psychologist_id=psychologist_id).where(current_date == Session.date).all()
+    response = []
+    for session in sessions:
+        response.append(session.serialize())
+        print(response)
+    if sessions is None:
+        return jsonify({"message": "Not sessions available for this Psychologist"}), 401
+    else:
+        return jsonify(response), 201
+
+
+# Obtain sessions by the ID of the professor. Return all sessions for that professor
+@api.route("/sessions/<int:psychologist_id>", methods=['GET'])
+def handle_get_sessions(psychologist_id):
+    sessions = Session.query.filter_by(psychologist_id=psychologist_id).all()
+    response = []
+    for session in sessions:
+        response.append(session.serialize())
+        print(response)
+    if sessions is None:
+        return jsonify({"message": "Not sessions available for this Psychologist"}), 401
+    else:
+        return jsonify(response), 201
+
+
+# Handle the creation of the session by querying if the current user is psychologist
+@api.route("/session-create", methods=['POST'])
 @jwt_required()
 def handle_session_create():
+    current_psychologist = get_jwt_identity()
     if request.method == 'POST':
-        current_psychologist = get_jwt_identity()
         psychologist = UserProfileInfo.query.filter_by(
             user_id=current_psychologist).where(UserProfileInfo.fpv_number != "" or None).one_or_none()  # Confirma si el usuario actual es psicologo o no
         if psychologist is not None:
+            room_number = os.urandom(30).hex()
             session_data = request.json
             session_data["psychologist_id"] = psychologist.user_id
+            session_data["room_number"] = room_number
             print(session_data)
             session = Session.create(session_data)
             if session is not None:
                 return jsonify({"message": "Session created succesfully", }), 201
             return jsonify({"message": "info error"}), 400
         return jsonify({"message": "user not psychologist"}), 405
+
+# Handle the DELETE, UPDATE of a session by getting the ID of the professor and the Session
+
+
+@api.route("/session-handle/<int:session_id>", methods=['DELETE', 'PUT'])
+@jwt_required()
+def handle_one_session(session_id):
+    current_psychologist = get_jwt_identity()
+    psychologist = Session.query.filter_by(psychologist_id=current_psychologist).where(
+        Session.id == session_id).one_or_none()  # Verifica si al psicologo actual le pertenece el servicio y si puede borrarlo
+    session = Session.query.filter_by(id=session_id).one_or_none()
+    if request.method == 'DELETE':
+        if psychologist is not None:
+            if session is None:
+                return jsonify({"message": "Service not found"}), 404
+            removed = session.delete()
+            if removed == False:
+                return jsonify({"status": False, "message": "something happened"}), 500
+            else:
+                return jsonify({"status": True, "message": "service deleted"}), 204
+        else:
+            return jsonify({"status": False, "message": "you're not the psychologist of this Session"}), 405
+    # if request.method == 'PUT':
+        # if session is not None:
 
 
 # @api.route("/refresh", methods=["POST"])
