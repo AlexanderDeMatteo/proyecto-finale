@@ -227,7 +227,7 @@ def handle_session_create():
         psychologist = UserProfileInfo.query.filter_by(
             user_id=current_psychologist).where(UserProfileInfo.fpv_number != "" or None).one_or_none()  # Confirma si el usuario actual es psicologo o no
         if psychologist is not None:
-            room_number = os.urandom(30).hex()
+            room_number = os.urandom(20).hex()
             session_data = request.json
             session_data["psychologist_id"] = psychologist.user_id
             session_data["room_number"] = room_number
@@ -259,8 +259,34 @@ def handle_one_session(session_id):
                 return jsonify({"status": True, "message": "service deleted"}), 204
         else:
             return jsonify({"status": False, "message": "you're not the psychologist of this Session"}), 405
-    # if request.method == 'PUT':
-        # if session is not None:
+    if request.method == 'PUT':
+        if session is not None:
+            updated = session.update_session(request.json)
+            if updated:
+                return jsonify({"message": "service updated"}), 200
+            return jsonify({"message": "error"}), 500
+
+
+# Handle the reservation of the service by a client
+@api.route("/session-reserved/<int:session_id>", methods=['PUT'])
+@jwt_required()
+def handle_reserved_session(session_id):
+    current_user = get_jwt_identity()
+    # Confirma el id del usuario actual
+    user = User.query.filter_by(id=current_user).one_or_none()
+    data = request.json
+    session = Session.query.filter_by(id=session_id).one_or_none()
+    if session is not None:
+        # añade el id del usuario actual al response
+        data["client_id"] = user.id
+        # actualiza la session y le coloca el id del usuario. tambien cambia el estado de reservacion a true
+        reserved = session.reserve_session(data)
+        if reserved is True:
+            return jsonify({"message": "session is reserved"}), 200
+        else:
+            return jsonify({"message": "error"}), 500
+    else:
+        return ({"message": "session not found"})
 
 
 # @api.route("/refresh", methods=["POST"])

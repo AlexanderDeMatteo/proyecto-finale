@@ -237,24 +237,31 @@ class Session(db.Model):
 
     # Method to update a Session
 
-    def update(self, session):
+    def update_session(self, session):
         if "name" in session:
-            self.title = session["title"]
-        if "description" in session:
-            self.description = session["description"]
-        if "price" in session:
-            self.price = session["price"]
-        if "schedule" in session:
-            self.schedule = session["schedule"]
-        if "image" in session:
-            self.image = session["image"]
-
+            self.name = session["name"]
+        if "date" in session:
+            self.date = session["date"]
+        if "time" in session:
+            self.time = session["time"]
         try:
             db.session.commit()
             return True
         except Exception as error:
             db.session.rollback()
-            print(error)
+            return False
+
+    # Handle the reservation for a client
+    def reserve_session(self, session):
+        if "client_id" in session:
+            self.client_id = session["client_id"]
+        if "reserved" in session:
+            self.reserved = session["reserved"]
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
             return False
 
 
