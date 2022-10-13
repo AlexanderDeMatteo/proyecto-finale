@@ -238,9 +238,8 @@ def handle_session_create():
             return jsonify({"message": "info error"}), 400
         return jsonify({"message": "user not psychologist"}), 405
 
+
 # Handle the DELETE, UPDATE of a session by getting the ID of the professor and the Session
-
-
 @api.route("/session-handle/<int:session_id>", methods=['DELETE', 'PUT'])
 @jwt_required()
 def handle_one_session(session_id):
