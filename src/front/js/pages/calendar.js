@@ -3,10 +3,19 @@ import "../../styles/custom_calendar.css"
 import { Context } from "../store/appContext.js";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { useTransition, animated } from "react-spring";
 
 export const Calendar_custom = () => {
     const { actions, store } = useContext(Context)
     const [selectedDate, setSelectedDate] = useState(new Date().toString().split(" "));
+    const [items, setItems] = useState([{ text: '9am - 10am' }, { text: '1pm-2pm' }, { text: '3pm-4pm' }]);
+
+    const transition = useTransition(items, {
+        from: { x: 0, y: 30, opacity: 0 },
+        enter: { x: 0, y: 0, opacity: 1 },
+
+
+    });
 
     useEffect(() => {
         // actions.privateData()
@@ -14,8 +23,7 @@ export const Calendar_custom = () => {
     }, [])
 
     function onChangeCalendar(event) {
-        console.log(event.toString().split(" "))
-        console.log("aaaa")
+        setItems([{ text: '9am - 10am' }, { text: '1pm-2pm' }, { text: '3pm-4pm' }]);
         setSelectedDate(event.toString().split(" "))
 
     }
@@ -62,7 +70,14 @@ export const Calendar_custom = () => {
                                                 {/* <div class="external-event bg-success">Lunch</div>
                                                 <div class="external-event bg-warning">Go home</div>
                                                 <div class="external-event bg-info">Do homework</div> */}
-                                                <div class="external-event bg-primary">Work on UI design</div>
+                                                {transition((style, item) =>
+                                                    item ? <animated.div style={style} className="card card-primary card-outline" ><div class="card-header">
+                                                        <h5 class="card-title">{item.text}</h5>
+                                                        <div class="card-tools button-agend">
+                                                            <a href="#" class="btn btn-tool btn-link button-agend">Agendar Cita</a>
+                                                        </div>
+                                                    </div> </animated.div> : '')}
+                                                {/* <div class="external-event bg-primary">Work on UI design</div> */}
                                                 {/* <div class="external-event bg-danger">Sleep tight</div> */}
 
 
@@ -88,11 +103,11 @@ export const Calendar_custom = () => {
                                                     </div>
                                                 </div> */}
                                         </div>
-
+                                        {/* 
                                         <div class="card-footer">
                                             <button type="submit" class="btn btn-primary">Crear Cita</button>
-                                            {/* <button type="submit" class="btn btn-default float-right">Cancel</button> */}
-                                        </div>
+                                           
+                                        </div> */}
 
                                     </form>
                                 </div>
@@ -101,9 +116,9 @@ export const Calendar_custom = () => {
                                 {/* </div> */}
                             </div>
                         </div>
-                        <div class="col-md-9">
-                            <div class="card card-primary">
-                                <div class="card-body p-0">
+                        <div class="col-md-9 fondo_tran">
+                            <div class="card card-primary fondo_tran">
+                                <div class="card-body p-0 fondo_tran">
 
                                     <Calendar onChange={onChangeCalendar} className="custom_calendar_css" />
                                 </div>
