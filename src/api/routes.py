@@ -237,7 +237,7 @@ def handle_one_experience(id):
 
 #Endpoint to delete, update and get a strategie by id
 @api.route('/psych-strategies/<int:id>', methods=['DELETE', 'PUT', 'GET'])
-def handle_one_experience(id):
+def handle_one_strategie(id):
     psych_strategie = PsychTherapeuticStrategies.query.filter_by(id=id).one_or_none()
     if request.method == 'DELETE':
         if psych_strategie is None:
