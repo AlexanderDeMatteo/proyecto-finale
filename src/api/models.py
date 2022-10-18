@@ -12,17 +12,12 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(256), unique=False, nullable=False)
     is_psicologo = db.Column(db.Boolean(), unique=False, nullable=True)
-    is_active = db.Column(db.Boolean(), unique=False,
-                          nullable=False, default=False)
+    is_active = db.Column(db.Boolean(), unique=False,nullable=False, default=False)
     is_online = db.Column(db.Boolean(), nullable=False, default=False)
     salt = db.Column(db.String(80), unique=True, nullable=False)
     address = db.relationship("UserAddress", backref="user", uselist=False)
-    user_info = db.relationship(
-        'UserProfileInfo', backref='user', uselist=False)
-    session_ids = db.relationship(
-        "Session",
-        primaryjoin="and_(User.id==Session.psychologist_id, " "Session.client_id)",
-    )
+    user_info = db.relationship('UserProfileInfo', backref='user', uselist=False)
+    session_ids = db.relationship( "Session", primaryjoin="and_(User.id==Session.psychologist_id, " "Session.client_id)",)
     #psychologist_sessions = db.relationship('Session', backref='psychologist', uselist=False)
     #client_sessions = db.relationship('Session', backref='client', uselist=False)
 
@@ -115,8 +110,7 @@ class UserAddress(db.Model):
 
 class UserProfileInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        'user.id'), unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
     profile_picture = db.Column(db.String(500), unique=False, nullable=True)
     dob = db.Column(db.String(20), nullable=True)
     dni = db.Column(db.String(30), nullable=True)
@@ -270,16 +264,16 @@ class Session(db.Model):
             return False
 
 
-class PsychoConsultation:
+class PsychoConsultation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     monto = db.Column(db.String(25), unique=False, nullable=True)
 
 
-class PsychAcademicInfo:
+class PsychAcademicInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer,  db.ForeignKey('user_profile_info.user_id'), nullable=False)
     description = db.Column(db.String(300))
-    psych_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     institute = db.Column(db.String(100))
     graduation_date = db.Column(db.String(30))
     certificate_url = db.Column(db.String(300))
@@ -287,7 +281,7 @@ class PsychAcademicInfo:
     def serialize(self):
         return{
             "id":self.id,
-            "psych_id":self.psych_id,
+            "user_id":self.user_id,
             "institute": self.institute,
             "description": self.description,
             "graduation_date": self.graduation_date,
@@ -336,15 +330,15 @@ class PsychAcademicInfo:
             print(error)
             return False
 
-class PsychExperiences:
+class PsychExperiences(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    psych_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user_profile_info.user_id'), nullable=False)
     description = db.Column(db.String(500), unique=False, nullable=True)
 
     def serialize(self):
         return{
             "id":self.id,
-            "psych_id":self.psych_id,
+            "user_id":self.user_id,
             "description": self.description
         }
 
@@ -384,13 +378,13 @@ class PsychExperiences:
             print(error)
             return False
 
-class PsychTherapeuticStrategies:
+class PsychTherapeuticStrategies(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(500))
-    psych_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user_profile_info.user_id'), nullable=False)
     url = db.Column(db.String(300))
     __table_args__ = (db.UniqueConstraint(
-        'psych_id',
+        'user_id',
         'url',
         'description',
         name='unique_psych_image_url'
@@ -399,7 +393,7 @@ class PsychTherapeuticStrategies:
     def serialize(self):
         return {
             "id": self.id,
-            "psych_id": self.psych_id,
+            "user_id": self.user_id,
             "url": self.url,
             "description":self.description
         }
