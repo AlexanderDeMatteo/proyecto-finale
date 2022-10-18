@@ -187,7 +187,7 @@ def handle_specialty_area():
 
 #Endpoint to delete, update and get a academic info by id
 # Preguntar en reunion, como se hará para actualizar la información academica del psicologo
-@app.route('/psych-academic-info/<int:id>', methods=['DELETE', 'PUT', 'GET'])
+@api.route('/psych-academic-info/<int:id>', methods=['DELETE', 'PUT', 'GET'])
 def handle_one_academic_info(id):
     academic_info = PsychAcademicInfo.query.filter_by(id=id).one_or_none()
     if request.method == 'DELETE':
@@ -212,7 +212,7 @@ def handle_one_academic_info(id):
 
 
 #Endpoint to delete, update and get a experience by id
-@app.route('/psych-experiences/<int:id>', methods=['DELETE', 'PUT', 'GET'])
+@api.route('/psych-experiences/<int:id>', methods=['DELETE', 'PUT', 'GET'])
 def handle_one_experience(id):
     psych_xp = PsychExperiences.query.filter_by(id=id).one_or_none()
     if request.method == 'DELETE':
@@ -236,7 +236,7 @@ def handle_one_experience(id):
         return jsonify({"message":"Experience does not exist!"}), 404
 
 #Endpoint to delete, update and get a strategie by id
-@app.route('/psych-strategies/<int:id>', methods=['DELETE', 'PUT', 'GET'])
+@api.route('/psych-strategies/<int:id>', methods=['DELETE', 'PUT', 'GET'])
 def handle_one_experience(id):
     psych_strategie = PsychTherapeuticStrategies.query.filter_by(id=id).one_or_none()
     if request.method == 'DELETE':
