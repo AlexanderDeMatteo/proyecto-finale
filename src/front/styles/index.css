@@ -1,3 +1,18 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+
+/* CUSTOM FONTS */
+
+/* Bergen Sans MAIN FONT*/
+/* Si se quiere usar, font-family: Bergen Sans;*/
+@font-face {
+  font-family: "Bergen Sans";
+  src: url("../fonts/Bergen\ Sans/BergenSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Monserrat SECUNDARY FONT */
+/* Si se quiere usar, font-family: 'Montserrat', sans-serif;*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap");

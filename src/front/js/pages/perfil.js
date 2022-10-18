@@ -3,7 +3,14 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Navbar } from "../component/navbar";
 import "../../styles/paginaPrincipal.css";
-import { Imagenes } from "../component/imagenes";
+import Imager from "../component/perfil_components/consulta.jpg";
+import Imager1 from "../component/perfil_components/consulta2.jpg";
+import Imager2 from "../component/perfil_components/consulta3.jpeg";
+import Imager3 from "../component/perfil_components/consulta3.jpeg";
+import Imager4 from "../component/perfil_components/consulta4.jpg";
+import psicologo_img from "../component/perfil_components/psicologo.png";
+import { Imagenes } from "../component/perfil_components/imagenes";
+import { AboutMe } from "../component/perfil_components/AboutMe";
 import { uploadFile } from "../component/drag_and_drop";
 import Planilla from "../component/selector";
 import { Receptor_planillas } from "../component/receptor_planillas";
@@ -19,9 +26,11 @@ export const Perfil = () => {
   const history = useHistory();
   const { actions, store } = useContext(Context);
   const [selectedTab, setSelectedTab] = React.useState({
-    li_1: { nav: "nav-link active", tab: "active tab-pane" },
+    li_0: { nav: "nav-link active", tab: "active tab-pane" },
+    li_1: { nav: "nav-link", tab: "tab-pane" },
     li_2: { nav: "nav-link", tab: "tab-pane" },
     li_3: { nav: "nav-link", tab: "tab-pane" },
+    li_4: { nav: "nav-link", tab: "tab-pane" },
   });
 
   useEffect(() => {
@@ -31,7 +40,7 @@ export const Perfil = () => {
 
   function changeSelect(e) {
     const { name } = e.target;
-    console.log(selectedTab);
+    console.log(store);
     if (e.target.name && selectedTab[name].nav === "nav-link") {
       Object.filter = (obj, predicate) =>
         Object.keys(obj)
@@ -175,13 +184,13 @@ export const Perfil = () => {
             <div className="row">
               <div className="col-md-3">
                 <div className="card card-primary card-outline">
-                  <div>
+                  <div >
                     <div className="text-center">
                       <img
                         src={
                           store.userData.profile_picture
                             ? store.userData.profile_picture
-                            : "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                            : psicologo_img
                         }
                         alt="User profile picture"
                         id="avatar_perfil"
@@ -194,8 +203,11 @@ export const Perfil = () => {
                     <p className="text-muted mb-1 text-center">
                       {store.userData.area_de_especialidad}
                     </p>
-                    <p className="text-muted mb-4 text-center">
-                      {store.userData.estado}/{store.userData.ciudad}
+                    <p className="text-muted mb-2 text-center">
+                      {store.userData.phone_number}
+                    </p>
+                    <p className="text-muted mb-2 text-center">
+                      {store.userData.email}
                     </p>
 
                     <div className="text-center">
@@ -206,100 +218,180 @@ export const Perfil = () => {
                       <b>Follow</b>
                     </a>
                   </div>
-                </div>
 
-                <div className="card mb-4 mb-lg-0">
-                  <div className="card-body">
-                    <ul className="list-group list-group-flush rounded-3">
-                      <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <i className="fab fa-twitter fa-lg"></i>
-                        {!show ? (
-                          <input
-                            onChange={handleChange}
-                            type="text"
-                            className="text-muted mb-0"
-                            name="twitter"
-                            value={store.userData.twitter}
-                          />
-                        ) : (
-                          <p className="text-muted mb-0">
-                            {store.userData.twitter}
-                          </p>
-                        )}
-                      </li>
-                      <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <i className="fab fa-instagram fa-lg"></i>
-                        {!show ? (
-                          <input
-                            onChange={handleChange}
-                            type="text"
-                            className="text-muted mb-0"
-                            name="instagram"
-                            value={store.userData.instagram}
-                          />
-                        ) : (
-                          <p className="text-muted mb-0">
-                            {store.userData.instagram}
-                          </p>
-                        )}
-                      </li>
-                      <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <i className="fab fa-facebook-f fa-lg"></i>
-                        {!show ? (
-                          <input
-                            onChange={handleChange}
-                            type="text"
-                            className="text-muted mb-0"
-                            name="facebook"
-                            value={store.userData.facebook}
-                          />
-                        ) : (
-                          <p className="text-muted mb-0">
-                            {store.userData.facebook}
-                          </p>
-                        )}
-                      </li>
-                    </ul>
-                  </div>
+
+
                 </div>
+                <AboutMe user_data={store.userData} />
+
+
+
               </div>
 
               <div className="col-md-9">
                 <div className="card">
                   <div className="card-header p-2">
                     <ul className="nav nav-pills">
-                      <li onClick={changeSelect} class="nav-item">
+                      <li onClick={changeSelect} className="nav-item">
                         <a
-                          class={selectedTab["li_1"].nav}
+                          className={selectedTab["li_0"].nav}
+                          name="li_0"
+                          data-toggle="tab"
+                        >
+                          Información
+                        </a>
+                      </li>
+                      <li onClick={changeSelect} className="nav-item">
+                        <a
+                          className={selectedTab["li_1"].nav}
                           name="li_1"
                           data-toggle="tab"
                         >
-                          Informacion
+                          Perfil
                         </a>
                       </li>
-                      <li onClick={changeSelect} class="nav-item">
+                      {/* <li onClick={changeSelect} className="nav-item">
                         <a
-                          class={selectedTab["li_2"]["nav"]}
+                          className={selectedTab["li_2"]["nav"]}
                           name="li_2"
                           data-toggle="tab"
                         >
                           Estrategia Terapeutica
                         </a>
                       </li>
-                      <li onClick={changeSelect} class="nav-item">
+                      <li onClick={changeSelect} className="nav-item">
                         <a
-                          class={selectedTab["li_3"]["nav"]}
+                          className={selectedTab["li_3"]["nav"]}
                           name="li_3"
                           data-toggle="tab"
                         >
                           Experiencias
+                        </a>
+                      </li> */}
+                      <li onClick={changeSelect} className="nav-item">
+                        <a
+                          className={selectedTab["li_4"]["nav"]}
+                          name="li_4"
+                          data-toggle="tab"
+                        >
+                          Redes
                         </a>
                       </li>
                     </ul>
                   </div>
                   <div className="card-body">
                     <div className="tab-content">
-                      <div class={selectedTab["li_1"]["tab"]} id="activity">
+                      <div className={selectedTab["li_0"]["tab"]} id="timeline">
+                        <div className="post clearfix">
+                          <div className="user-block">
+                            {/* <span className="username"> */}
+                            <strong>
+
+                              <a >Estrategia Terapeutica</a>
+                            </strong>
+                            {/* <a href="#" className="float-right btn-tool"><i className="fas fa-times"></i></a> */}
+                            {/* </span> */}
+
+                          </div>
+
+                          {!show ? (
+                            <textarea
+                              className="form-control"
+                              id="inputEstrategia"
+                              placeholder="Estrategia"
+                              value=" Lorem ipsum represents a long-held tradition htmlFor designers,
+                            typographers and the like. Some people hate it and argue htmlFor
+                            its demise, but others ignore the hate as they create awesome
+                            tools to help create filler text htmlFor everyone from bacon lovers
+                            to Charlie Sheen fans."/>
+
+                          ) : (
+                            <p>
+                              Lorem ipsum represents a long-held tradition htmlFor designers,
+                              typographers and the like. Some people hate it and argue htmlFor
+                              its demise, but others ignore the hate as they create awesome
+                              tools to help create filler text htmlFor everyone from bacon lovers
+                              to Charlie Sheen fans.
+                            </p>
+                          )}
+
+
+
+                        </div>
+
+
+                        <div className="post">
+                          <div className="user-block">
+                            {/* <span className="username"> */}
+                            <strong>
+
+                              <a >Experiencias</a>
+                            </strong>
+                            {/* <a href="#" className="float-right btn-tool"><i className="fas fa-times"></i></a> */}
+                            {/* </span> */}
+
+                          </div>
+
+                          <div className="row mb-3">
+                            <div className="col-sm-6">
+                              <img className="img-fluid" src={Imager} alt="Photo" />
+                            </div>
+
+                            <div className="col-sm-6">
+                              <div className="row">
+                                <div className="col-sm-6">
+                                  <img className="img-fluid mb-3" src={Imager1} alt="Photo" />
+                                  <img className="img-fluid mb-3" src={Imager2} alt="Photo" />
+                                </div>
+
+                                <div className="col-sm-6">
+                                  <img className="img-fluid mb-3" src={Imager3} alt="Photo" />
+                                  <img className="img-fluid mb-3" src={Imager4} alt="Photo" />
+                                </div>
+
+                              </div>
+
+                            </div>
+
+                          </div>
+
+                          {!show ? (
+                            <textarea
+                              className="form-control"
+                              id="inputEstrategia"
+                              placeholder="Estrategia"
+                              value=" Lorem ipsum represents a long-held tradition htmlFor designers,
+                            typographers and the like. Some people hate it and argue htmlFor
+                            its demise, but others ignore the hate as they create awesome
+                            tools to help create filler text htmlFor everyone from bacon lovers
+                            to Charlie Sheen fans."/>
+
+                          ) : (
+                            <p>
+                              Lorem ipsum represents a long-held tradition htmlFor designers,
+                              typographers and the like. Some people hate it and argue htmlFor
+                              its demise, but others ignore the hate as they create awesome
+                              tools to help create filler text htmlFor everyone from bacon lovers
+                              to Charlie Sheen fans.
+                            </p>
+                          )}
+
+
+                        </div>
+                        <div className="form-group row">
+                          <div >
+                            <button
+                              type="submit"
+                              onClick={Editar}
+                              className="btn btn-danger"
+                            >
+                              {!show ? "Guardar" : "Editar"}
+                            </button>
+
+                          </div>
+                        </div>
+                      </div>
+                      <div className={selectedTab["li_1"]["tab"]} id="activity">
                         <form className="form-horizontal">
                           <div className="form-group row">
                             <label
@@ -353,6 +445,26 @@ export const Perfil = () => {
                               </div>
                             </div>
                           </div>
+                          <div className="form-group row">
+                            <label
+                              for="inputName"
+                              className="col-sm-2 col-form-label"
+                            >
+                              Fecha de nacimiento
+                            </label>
+
+                            <div className="col-sm-10">
+                              <div>
+                                {!show ? (
+                                  <input type="text" class="form-control" placeholder="mm/dd/yyyy" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-mask />
+                                ) : (
+                                  <p className="text-muted mb-0">
+                                    {store.userData.birht_date}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
 
                           <div className="form-group row">
                             <label
@@ -375,6 +487,29 @@ export const Perfil = () => {
                                 ) : (
                                   <p className="text-muted mb-0">
                                     {store.userData.email}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="form-group row">
+                            <label
+                              for="inputName"
+                              className="col-sm-2 col-form-label"
+                            >
+                              Sexo
+                            </label>
+                            <div className="col-sm-10">
+                              <div>
+                                {!show ? (
+                                  <select class="custom-select form-control-border" id="exampleSelectBorder">
+                                    <option>M</option>
+                                    <option>F</option>
+                                    <option>Otro</option>
+                                  </select>
+                                ) : (
+                                  <p className="text-muted mb-0">
+                                    {store.userData.sex}
                                   </p>
                                 )}
                               </div>
@@ -493,17 +628,6 @@ export const Perfil = () => {
                           ) : (
                             ""
                           )}
-                          <div class="form-group">
-                            <label>Ares de Especialidad</label>
-                            <select class="form-control select2">
-                              <option>option 1</option>
-                              <option>option 2</option>
-                              <option>option 3</option>
-                              <option>option 4</option>
-                              <option>option 5</option>
-                            </select>
-                          </div>
-
                           <div className="form-group row">
                             <label
                               for="inputName"
@@ -556,6 +680,17 @@ export const Perfil = () => {
                               </div>
                             </div>
                           </div>
+                          {/* <div className="form-group">
+                            <label>Ares de Especialidad</label>
+                            <select className="form-control select2">
+                              <option>option 1</option>
+                              <option>option 2</option>
+                              <option>option 3</option>
+                              <option>option 4</option>
+                              <option>option 5</option>
+                            </select>
+                          </div> */}
+
 
                           <div className="form-group row">
                             <div className="offset-sm-2 col-sm-10">
@@ -566,32 +701,32 @@ export const Perfil = () => {
                               >
                                 {!show ? "Guardar" : "Editar"}
                               </button>
-                              <button
+                              {/* <button
                                 type="submit"
                                 onClick={() => { guardar() }}
                                 className="btn btn-danger"
                               >
                                 hola
-                              </button>
+                              </button> */}
                             </div>
                           </div>
                         </form>
                       </div>
 
                       <div className={selectedTab["li_2"]["tab"]} id="timeline">
-                        <div class="tab-pane" id="settings">
-                          <form class="form-horizontal">
-                            <div class="form-group row">
-                              <div class="form-group row">
+                        <div className="tab-pane" id="settings">
+                          <form className="form-horizontal">
+                            <div className="form-group row">
+                              <div className="form-group row">
                                 <label
                                   for="inputExperience"
-                                  class="col-sm-2 col-form-label"
+                                  className="col-sm-2 col-form-label"
                                 >
                                   Estrategia
                                 </label>
-                                <div class="col-sm-10">
+                                <div className="col-sm-10">
                                   <textarea
-                                    class="form-control"
+                                    className="form-control"
                                     id="inputEstrategia"
                                     placeholder="Estrategia"
                                   ></textarea>
@@ -602,19 +737,19 @@ export const Perfil = () => {
                         </div>
                       </div>
                       <div className={selectedTab["li_3"]["tab"]} id="timeline">
-                        <div class="tab-pane" id="settings">
-                          <form class="form-horizontal">
-                            <div class="form-group row">
-                              <div class="form-group row">
+                        <div className="tab-pane" id="settings">
+                          <form className="form-horizontal">
+                            <div className="form-group row">
+                              <div className="form-group row">
                                 <label
                                   for="inputExperience"
-                                  class="col-sm-2 col-form-label"
+                                  className="col-sm-2 col-form-label"
                                 >
                                   Experiencias
                                 </label>
-                                <div class="col-sm-10">
+                                <div className="col-sm-10">
                                   <textarea
-                                    class="form-control"
+                                    className="form-control"
                                     id="inputExperience"
                                     placeholder="Experiencia"
                                   ></textarea>
@@ -623,6 +758,167 @@ export const Perfil = () => {
                             </div>
                           </form>
                         </div>
+
+                      </div>
+                      <div className={selectedTab["li_4"]["tab"]} id="timeline">
+                        <div className="tab-pane" id="settings">
+                          <form className="form-horizontal">
+                            <div className="form-group row">
+                              <label
+                                for="inputName"
+                                className="col-sm-2 col-form-label"
+                              >
+                                Educacion
+                              </label>
+                              <div className="col-sm-10">
+                                <div>
+                                  {!show ? (
+                                    <input
+                                      onChange={handleChange}
+                                      type="email"
+                                      className="form-control"
+                                      name="name"
+                                      placeholder="Nombre"
+                                      value={store.userData.education}
+                                    />
+                                  ) : (
+                                    <p className="text-muted mb-0">
+                                      {store.userData.name}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="form-group row">
+                              <label
+                                for="inputName"
+                                className="col-sm-2 col-form-label"
+                              >
+                                Instagram
+                              </label>
+                              <div className="col-sm-10">
+                                <div>
+                                  {!show ? (
+                                    <input
+                                      onChange={handleChange}
+                                      type="email"
+                                      className="form-control"
+                                      name="instagram"
+                                      placeholder="Instagram"
+                                      value={store.userData.instagram || ""}
+                                    />
+                                  ) : (
+                                    <p className="text-muted mb-0">
+                                      {store.userData.instagram}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="form-group row">
+                              <label
+                                for="inputName"
+                                className="col-sm-2 col-form-label"
+                              >
+                                Facebook
+                              </label>
+                              <div className="col-sm-10">
+                                <div>
+                                  {!show ? (
+                                    <input
+                                      onChange={handleChange}
+                                      type="email"
+                                      className="form-control"
+                                      name="facebook"
+                                      placeholder="Facebook"
+                                      value={store.userData.facebook || ""}
+                                    />
+                                  ) : (
+                                    <p className="text-muted mb-0">
+                                      {store.userData.facebook}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="form-group row">
+                              <label
+                                for="inputName"
+                                className="col-sm-2 col-form-label"
+                              >
+                                Twitter
+                              </label>
+                              <div className="col-sm-10">
+                                <div>
+                                  {!show ? (
+                                    <input
+                                      onChange={handleChange}
+                                      type="email"
+                                      className="form-control"
+                                      name="twitter"
+                                      placeholder="Twitter"
+                                      value={store.userData.twitter || ""}
+                                    />
+                                  ) : (
+                                    <p className="text-muted mb-0">
+                                      {store.userData.twitter}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+
+                            {/* {store.userData.is_psicologo ? (
+                                            <div className="form-group row">
+                                                <label for="inputName" className="col-sm-2 col-form-label">
+                                                    Area de Especialidad
+                                                </label>
+                                                <div className="col-sm-10">
+                                                    <div>
+                                                        {!show ? (
+                                                        <input onChange={handleChange} type="email"
+                                                            className="form-control" name="email" placeholder="Correo"
+                                                            value={ store.userData.area_de_especialidad } />
+                                                        ) : (
+                                                        <p className="text-muted mb-0">
+                                                            {store.userData.area_de_especialidad}
+                                                        </p>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            ) : (
+                                            ""
+                                            )} */}
+
+
+
+
+
+
+                            <div className="form-group row">
+                              <div className="offset-sm-2 col-sm-10">
+                                <button
+                                  type="submit"
+                                  onClick={Editar}
+                                  className="btn btn-danger"
+                                >
+                                  {!show ? "Guardar" : "Editar"}
+                                </button>
+                                {/* <button
+                                  type="submit"
+                                  onClick={() => { guardar() }}
+                                  className="btn btn-danger"
+                                >
+                                  hola
+                                </button> */}
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -636,12 +932,4 @@ export const Perfil = () => {
   );
 };
 
-const top100Films = [
-  { title: "psicologia gestal" },
-  { title: "psicologia humanista" },
-  { title: "psicoanalisis" },
-  { title: "psicologia sistemica" },
-  { title: "psicologia cognitivo conductual" },
-  { title: "constelaciones familiares" },
-  { title: "psicologia organizacional" },
-];
+

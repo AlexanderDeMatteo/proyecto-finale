@@ -2,6 +2,11 @@
   background-color: whitesmoke;
   width: 1089px;
 }
+
+#pagina#central {
+  width: 100%;
+}
+
 #boton1 {
   margin-left: 40%;
 }
