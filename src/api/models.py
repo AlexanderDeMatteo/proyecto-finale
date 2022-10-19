@@ -12,17 +12,12 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(256), unique=False, nullable=False)
     is_psicologo = db.Column(db.Boolean(), unique=False, nullable=True)
-    is_active = db.Column(db.Boolean(), unique=False,
-                          nullable=False, default=False)
+    is_active = db.Column(db.Boolean(), unique=False,nullable=False, default=False)
     is_online = db.Column(db.Boolean(), nullable=False, default=False)
     salt = db.Column(db.String(80), unique=True, nullable=False)
     address = db.relationship("UserAddress", backref="user", uselist=False)
-    user_info = db.relationship(
-        'UserProfileInfo', backref='user', uselist=False)
-    session_ids = db.relationship(
-        "Session",
-        primaryjoin="and_(User.id==Session.psychologist_id, " "Session.client_id)",
-    )
+    user_info = db.relationship('UserProfileInfo', backref='user', uselist=False)
+    session_ids = db.relationship( "Session", primaryjoin="and_(User.id==Session.psychologist_id, " "Session.client_id)",)
     #psychologist_sessions = db.relationship('Session', backref='psychologist', uselist=False)
     #client_sessions = db.relationship('Session', backref='client', uselist=False)
 
@@ -115,8 +110,7 @@ class UserAddress(db.Model):
 
 class UserProfileInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        'user.id'), unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
     profile_picture = db.Column(db.String(500), unique=False, nullable=True)
     dob = db.Column(db.String(20), nullable=True)
     dni = db.Column(db.String(30), nullable=True)
@@ -129,6 +123,9 @@ class UserProfileInfo(db.Model):
     twitter = db.Column(db.String(25), unique=True, nullable=True)
     facebook = db.Column(db.String(25), unique=True, nullable=True)
     instagram = db.Column(db.String(25), unique=True, nullable=True)
+    academic_info  = db.relationship('PsychAcademicInfo', backref='userprofileinfo', uselist=True)
+    experience = db.relationship("PsychExperiences", uselist=False, backref="userprofileinfo")
+    psych_strategies  = db.relationship('PsychTherapeuticStrategies', backref='userprofileinfo', uselist=True)
 
     def __init__(self, fpv_number, user_id):
         self.fpv_number = fpv_number,
@@ -146,7 +143,9 @@ class UserProfileInfo(db.Model):
             "state": self.state,
             "twitter": self.twitter,
             "facebook": self.facebook,
-            "instagram": self.instagram
+            "instagram": self.instagram,
+            "academic_info":[academic_info.serialize() for info in self.academic_info],
+            "psych_strategies":self.psych_strategies
         }
 
     def update_fpv(self, data):
@@ -265,7 +264,174 @@ class Session(db.Model):
             return False
 
 
-class PsychoConsultation:
+class PsychoConsultation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     monto = db.Column(db.String(25), unique=False, nullable=True)
+
+
+class PsychAcademicInfo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer,  db.ForeignKey('user_profile_info.user_id'), nullable=False)
+    description = db.Column(db.String(300))
+    institute = db.Column(db.String(100))
+    graduation_date = db.Column(db.String(30))
+    certificate_url = db.Column(db.String(300))
+
+    def serialize(self):
+        return{
+            "id":self.id,
+            "user_id":self.user_id,
+            "institute": self.institute,
+            "description": self.description,
+            "graduation_date": self.graduation_date,
+            "certificate_url": self.certificate_url
+        }
+
+    #Method to create academic information
+    @classmethod
+    def create(cls, academic_info):
+        try:
+            new_academic_info = cls(**academic_info)
+            db.session.add(new_academic_info)
+            db.session.commit()
+            return new_academic_info
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return None
+
+    #Method to delete academic information
+    def delete(self):
+        db.session.delete(self)
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            return False
+    
+    #Method to update a academic info of an Psychologist
+    def update(self, info):
+        if "institute" in info:
+            self.institute = info["institute"]
+        if "description" in info:
+            self.description = info["description"]
+        if "graduation_date" in info:
+            self.graduation_date = info["graduation_date"]
+        if "certificate_url" in info:
+            self.certificate_url = info["certificate_url"]
+
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return False
+
+class PsychExperiences(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user_profile_info.user_id'), nullable=False)
+    description = db.Column(db.String(500), unique=False, nullable=True)
+
+    def serialize(self):
+        return{
+            "id":self.id,
+            "user_id":self.user_id,
+            "description": self.description
+        }
+
+    #Method to create experience information
+    @classmethod
+    def create(cls, experience_info):
+        try:
+            new_experience_info = cls(**experience_info)
+            db.session.add(experience_info)
+            db.session.commit()
+            return new_experience_info
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return None
+
+    #Method to delete experience information
+    def delete(self):
+        db.session.delete(self)
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            return False
+    
+    #Method to update a experience info of an Psychologist
+    def update(self, xp):
+        if "description" in xp:
+            self.description = xp["description"]
+
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return False
+
+class PsychTherapeuticStrategies(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String(500))
+    user_id = db.Column(db.Integer, db.ForeignKey('user_profile_info.user_id'), nullable=False)
+    url = db.Column(db.String(300))
+    __table_args__ = (db.UniqueConstraint(
+        'user_id',
+        'url',
+        'description',
+        name='unique_psych_image_url'
+    ),)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "url": self.url,
+            "description":self.description
+        }
+
+    #Method to create strategie information
+    @classmethod
+    def create(cls, strategie):
+        try:
+            new_strategie = cls(**strategie)
+            db.session.add(strategie)
+            db.session.commit()
+            return strategie    
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return None
+
+    #Method to delete strategie information
+    def delete(self):
+        db.session.delete(self)
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            return False
+    
+    #Method to update a strategie info of an Psychologist
+    def update(self, strategie):
+        if "description" in strategie:
+            self.description = strategie["description"],
+        if "url" in strategie:
+            self.url = strategie['url']
+
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return False
