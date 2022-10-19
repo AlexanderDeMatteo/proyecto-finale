@@ -73,6 +73,7 @@
     ]
   },
   "dependencies": {
+    "@jitsi/react-sdk": "^1.0.2",
     "@material-ui/core": "^4.12.4",
     "admin-lte": "^3.2.0",
     "prop-types": "^15.6.1",
