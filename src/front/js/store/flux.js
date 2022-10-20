@@ -68,6 +68,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				}
 			},
+			get_user_dates: async (data) => {
+				console.log(data)
+				let response = await fetch(`${API_URL}/sessions/today/1`, {
+					method: 'GET',
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${localStorage.getItem("token")}`
+					},
+
+				});
+				console.log(response)
+				console.log(body)
+				if (response.ok) {
+					let body = await response.json()
+					console.log("aaaa")
+					console.log(body)
+					setStore({ userData: body })
+
+				}
+			},
 
 			handle_user_psicologo: async () => {
 				const store = getStore()

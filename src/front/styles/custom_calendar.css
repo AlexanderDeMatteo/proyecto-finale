@@ -14,6 +14,18 @@
   /* box-shadow: 10px 5px 5px #2e3e57 */
 }
 
+.letter_small {
+  font-size: 14px;
+}
+.react-calendar__navigation__arrow {
+  background: #d6e7ff !important;
+  border-radius: 5px;
+}
+.react-calendar__navigation__label {
+  background: #d6e7ff !important;
+  border-radius: 5px;
+}
+
 .button-agend {
   background-color: #007bff !important;
   border-radius: 5px;
@@ -33,7 +45,6 @@
   line-height: 1.125em;
 }
 .react-calendar__navigation button {
-
   min-width: 44px;
   background: none;
   font-size: 16px;
@@ -101,7 +112,7 @@ abbr[title] {
   border-bottom-right-radius: 0;
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
- 
+
   color: white;
 }
 .react-calendar__tile--rangeEnd {
