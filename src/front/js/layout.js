@@ -11,6 +11,8 @@ import { Perfil } from "./pages/perfil";
 import injectContext from "./store/appContext";
 import { BuscadorDePsicologos } from "./pages/buscadorDePsicologos";
 import { Calendar_custom } from "./pages/calendar";
+import { CalendarCogif_custom } from "./pages/calendar_config";
+import { CalendarToday_custom } from "./pages/calendar_today";
 
 import { Navbar } from "./component/navbar";
 import { Sidebar } from "./component/sidebar";
@@ -70,6 +72,26 @@ const Layout = () => {
                 </div>
                 <div id="pagina central">
                   <Calendar_custom />
+                </div>
+              </div>
+            </Route>
+            <Route exact path="/calendar_config">
+              <div >
+                <div id="navbar2">
+                  <Sidebar />
+                </div>
+                <div id="pagina central">
+                  <CalendarCogif_custom />
+                </div>
+              </div>
+            </Route>
+            <Route exact path="/calendar_today">
+              <div >
+                <div id="navbar2">
+                  <Sidebar />
+                </div>
+                <div id="pagina central">
+                  <CalendarToday_custom />
                 </div>
               </div>
             </Route>

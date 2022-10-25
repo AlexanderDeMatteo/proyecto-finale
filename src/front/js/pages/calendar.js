@@ -31,16 +31,28 @@ export const Calendar_custom = () => {
 
     }
     const months = {
-        'Oct': 'Oct'
+        'Oct': 'Oct',
+        'Dec': 'Dic',
+        'Jan': 'Ene',
+        'Feb': 'Feb',
+        'Mar': 'Mar',
+        'Apr': 'Abr',
+        'May': 'May',
+        'Jun': 'Jun',
+        'Jul': 'Jul',
+        'Nov': 'Nov',
+        'Aug': 'Agos',
+        'Sep': 'Sep'
+
     }
     const Days = {
         'Mon': 'Lunes',
         'Tue': 'Martes',
         'Wed': 'Miercoles',
-        'Thu': 'Lunes',
-        'Fri': 'Lunes',
-        'Sat': 'Lunes',
-        'Sun': 'Lunes',
+        'Thu': 'Jueves',
+        'Fri': 'Viernes',
+        'Sat': 'Sabado',
+        'Sun': 'Domingo',
     }
 
     return (
