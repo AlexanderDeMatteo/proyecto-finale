@@ -6,7 +6,7 @@ from cmath import inf
 from distutils.log import error
 from http.client import OK
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import Session, UserProfileInfo, db, User
+from api.models import Schedule, Session, UserProfileInfo, db, User
 from api.utils import generate_sitemap, APIException
 import json
 from flask_cors import CORS, cross_origin
@@ -385,6 +385,31 @@ def handle_unbook_session(session_id):
         else:
             return jsonify({"message": "error"}), 500
 
+
+@api.route("/schedules", methods=['GET', 'POST'])
+@jwt_required()
+def handle_schedules():
+    current_user = get_jwt_identity()
+    psychologist = User.query.filter_by(
+        id=current_user).where(User.is_psicologo == True).one_or_none()
+    print(psychologist.id)
+    if request.method == 'GET':
+        response = []
+       # if schedules is not None:
+        #  for schedule in schedules:
+        #     response.append(schedule.serialize())
+        #  return jsonify({response}), 200
+    elif request.method == 'POST':
+        schedule_data = request.json
+        print(schedule_data)
+        schedule_data["psychologist_id"] = psychologist.id
+        print(schedule_data)
+        new_schedule = Schedule.create_schedule(schedule_data)
+        print(new_schedule)
+        if new_schedule is not None:
+            return jsonify({"message": "Schedule created succesfully", "data": new_schedule}), 201
+        else:
+            return jsonify({"message": "info error", "data": new_schedule}), 400
 
 # @api.route("/refresh", methods=["POST"])
 # @jwt_required(refresh=True)
