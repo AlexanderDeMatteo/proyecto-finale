@@ -309,7 +309,6 @@ def handle_session_create():
             session_data = request.json
             session_data["psychologist_id"] = psychologist.id
             session_data["room_number"] = room_number
-            print(session_data)
             session = Session.create(session_data)
             if session is not None:
                 return jsonify({"message": "Session created succesfully", }), 201
@@ -366,9 +365,6 @@ def handle_reserved_session(session_id):
         return ({"message": "session not found"})
 
 
-<< << << < HEAD
-
-
 @api.route("/schedule", methods=['GET', 'POST'])
 @jwt_required()
 def handle_schedule():
@@ -390,9 +386,6 @@ def handle_schedule():
             for schedule_single in schedules_current_id:
                 response.append(schedule_single.serialize())
             return jsonify(response), 200
-
-
-== == == =
 
 
 @api.route("/session-unbook/<int:session_id>", methods=['PUT'])
@@ -440,7 +433,6 @@ def handle_schedules():
             return jsonify({"message": "info error", "data": new_schedule}), 400
 
 
->>>>>> > e400282140399db42d653d505fe78cbc14e93172
 # @api.route("/refresh", methods=["POST"])
 # @jwt_required(refresh=True)
 # def refresh():

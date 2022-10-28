@@ -20,20 +20,11 @@ class User(db.Model):
     user_info = db.relationship(
         'UserProfileInfo', backref='user', uselist=False)
     session_ids = db.relationship(
-<< << << < HEAD
         "Session",
         primaryjoin="and_(User.id==Session.psychologist_id, " "Session.client_id)",
     )
     schedule_id = db.relationship(
         'Schedule', backref='user', uselist=False)
-
-
-== == == =
-        "Session", primaryjoin = "and_(User.id==Session.psychologist_id, " "Session.client_id)",)
-    schedule_id=db.relationship('Schedule', backref = 'user', uselist = False)
-    # psychologist_sessions = db.relationship('Session', backref='psychologist', uselist=False)
-    # client_sessions = db.relationship('Session', backref='client', uselist=False)
->> >>>> > e400282140399db42d653d505fe78cbc14e93172
 
     # def __init__(self, name, email, password, is_psicologo):
     # self.name = name
@@ -94,7 +85,7 @@ class UserAddress(db.Model):
     city = db.Column(db.String(120), unique=False, nullable=True)
     address = db.Column(db.String(300), nullable=True)
     status = db.Column(db.Boolean(), unique=False,
-                       nullable = True, default = False)
+                       nullable=True, default=False)
 
     def serialize(self):
         return {
