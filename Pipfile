@@ -20,7 +20,7 @@ flask-admin = "*"
 flask-jwt-extended = "*"
 
 [requires]
-python_version = "3.9"
+python_version = "3.10"
 
 [scripts]
 start="flask run -p 3001 -h 0.0.0.0"
@@ -29,4 +29,5 @@ migrate="flask db migrate"
 local="heroku local"
 upgrade="flask db upgrade"
 reset_db="bash ./docs/assets/reset_migrations.bash"
+reset_db_local="bash ./docs/assets/reset_migrations_local.bash"
 deploy="echo 'Please follow this 3 steps to deploy: https://github.com/4GeeksAcademy/flask-rest-hello/blob/master/README.md#deploy-your-website-to-heroku' "

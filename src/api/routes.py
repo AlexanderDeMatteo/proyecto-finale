@@ -6,7 +6,7 @@ from cmath import inf
 from distutils.log import error
 from http.client import OK
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import Session, UserProfileInfo, db, User
+from api.models import Schedule, Session, UserProfileInfo, db, User
 from api.utils import generate_sitemap, APIException
 import json
 from flask_cors import CORS, cross_origin
@@ -224,12 +224,12 @@ def handle_get_sessions(psychologist_id):
 def handle_session_create():
     current_psychologist = get_jwt_identity()
     if request.method == 'POST':
-        psychologist = UserProfileInfo.query.filter_by(
-            user_id=current_psychologist).where(UserProfileInfo.fpv_number != "" or None).one_or_none()  # Confirma si el usuario actual es psicologo o no
+        psychologist = User.query.filter_by(id=current_psychologist).where(
+            User.is_psicologo == True).one_or_none()  # Confirma si el usuario actual es psicologo o no
         if psychologist is not None:
             room_number = os.urandom(20).hex()
             session_data = request.json
-            session_data["psychologist_id"] = psychologist.user_id
+            session_data["psychologist_id"] = psychologist.id
             session_data["room_number"] = room_number
             print(session_data)
             session = Session.create(session_data)
@@ -288,6 +288,27 @@ def handle_reserved_session(session_id):
         return ({"message": "session not found"})
 
 
+@api.route("/schedule", methods=['GET', 'POST'])
+@jwt_required()
+def handle_schedule():
+    current_psychologist = get_jwt_identity()
+    psychologist = User.query.filter_by(id=current_psychologist).where(
+        User.is_psicologo == True).one_or_none()
+    if request.method == 'POST':
+        schedule_data = request.json
+        schedule_data["psychologist_id"] = psychologist.id
+        schedule = Schedule.create_schedule(schedule_data)
+        if schedule is not None:
+            return jsonify({"message": "schedule created succesfully"}), 201
+        return jsonify({"message": "info error"}), 400
+    else:
+        schedules_current_id = Schedule.query.filter_by(
+            psychologist_id=psychologist.id).all()
+        response = []
+        if schedules_current_id is not None:
+            for schedule_single in schedules_current_id:
+                response.append(schedule_single.serialize())
+            return jsonify(response), 200
 # @api.route("/refresh", methods=["POST"])
 # @jwt_required(refresh=True)
 # def refresh():

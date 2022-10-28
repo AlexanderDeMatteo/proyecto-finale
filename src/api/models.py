@@ -23,8 +23,8 @@ class User(db.Model):
         "Session",
         primaryjoin="and_(User.id==Session.psychologist_id, " "Session.client_id)",
     )
-    #psychologist_sessions = db.relationship('Session', backref='psychologist', uselist=False)
-    #client_sessions = db.relationship('Session', backref='client', uselist=False)
+    schedule_id = db.relationship(
+        'Schedule', backref='user', uselist=False)
 
     # def __init__(self, name, email, password, is_psicologo):
     # self.name = name
@@ -188,15 +188,45 @@ class UserProfileInfo(db.Model):
             return False
 
 
+class Schedule(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    psychologist_id = db.Column(
+        db.Integer, db.ForeignKey('user.id'), nullable=False)
+    start_time = db.Column(db.String(10), nullable=False, unique=False)
+    end_time = db.Column(db.String(10), nullable=False, unique=False)
+    session_id = db.relationship(
+        "Session", backref="schedule.id", uselist=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "psychologist_id": self.psychologist_id,
+            "start_time": self.start_time,
+            "end_time": self.end_time
+        }
+
+    @classmethod
+    def create_schedule(cls, schedules):
+        try:
+            new_schedule_data = cls(**schedules)
+            db.session.add(new_schedule_data)
+            db.session.commit()
+            return new_schedule_data
+        except Exception as error:
+            db.session.rollback()
+            return error
+
+
 class Session(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     psychologist_id = db.Column(
         db.Integer, db.ForeignKey('user.id'), nullable=False)
     client_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    schedule_id = db.Column(db.ForeignKey('schedule.id'),
+                            nullable=False, unique=True)
     reserved = db.Column(db.Boolean(), nullable=True, default=False)
     name = db.Column(db.String(100), nullable=False, unique=False)
     date = db.Column(db.String(50), nullable=False, unique=False)
-    time = db.Column(db.String(20), nullable=False, unique=False)
     room_number = db.Column(db.String(200), nullable=False, unique=True)
 
     # Method to serialize information of Sessions
