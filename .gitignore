@@ -55,7 +55,6 @@ Thumbs.db
 
 # ignore node/grunt dependency directories
 node_modules/
-
 # webpack output
 dist/*
 public/
@@ -73,3 +72,4 @@ database.database
 database.db
 diagram.png
 __pycache__/
+docs/assets/reset_migrations_local.bash
