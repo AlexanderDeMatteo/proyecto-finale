@@ -1,0 +1,23 @@
+.box_info {
+  width: 400%;
+}
+.row_custom {
+  /* width: 80% !important; */
+  padding-left: 20px;
+}
+.button-info {
+  display: flex;
+  border-left: 800px !important;
+  background: red;
+}
+.title_custom {
+  padding-top: 6px;
+  border-left: -80px;
+}
+.header_custom {
+  padding-left: 0px !important;
+}
+.custom_card {
+  /* border-righ: 60x !important; */
+  padding-right: 60px !important;
+}

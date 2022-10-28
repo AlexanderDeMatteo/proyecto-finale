@@ -185,7 +185,85 @@ def handle_specialty_area():
     return jsonify({"ok": True, "result": specialty_areas}), 200
 
 
+# Endpoint to delete, update and get a academic info by id
+# Preguntar en reunion, como se hará para actualizar la información academica del psicologo
+@api.route('/psych-academic-info/<int:id>', methods=['DELETE', 'PUT', 'GET'])
+def handle_one_academic_info(id):
+    academic_info = PsychAcademicInfo.query.filter_by(id=id).one_or_none()
+    if request.method == 'DELETE':
+        if academic_info is None:
+            return jsonify({"message": "Academic information not found"}), 404
+        deleted = academic_info.delete()
+        if deleted == False:
+            return jsonify({"message": "Something happen try again!"}), 500
+        return jsonify({"message": "Academic information deleted."}), 204
+    elif request.method == 'GET':
+        if academic_info is None:
+            return jsonify({"message": "Academic information not found"}), 404
+        return jsonify(academic_info.serialize()), 200
+    elif request.method == 'PUT':
+        if academic_info is not None:
+            updated = academic_info.update(request.json)
+            if updated:
+                return jsonify({"message": "Academic information updated"}), 200
+            else:
+                return jsonify({"message": "Something went wrong!"}), 500
+        return jsonify({"message": "This academic information does not exist"}), 404
+
+
+# Endpoint to delete, update and get a experience by id
+@api.route('/psych-experiences/<int:id>', methods=['DELETE', 'PUT', 'GET'])
+def handle_one_experience(id):
+    psych_xp = PsychExperiences.query.filter_by(id=id).one_or_none()
+    if request.method == 'DELETE':
+        if psych_xp is None:
+            return jsonify({"message": "Experience not found"}), 404
+        deleted = psych_xp.delete()
+        if deleted == False:
+            return jsonify({"message": "Something happen try again!"}), 500
+        return jsonify({"message": "Experience deleted"}), 204
+    elif request.method == 'GET':
+        if psych_xp is None:
+            return jsonify({"message": "Experience not found"}), 404
+        return jsonify(psych_xp.serialize()), 200
+    elif request.method == 'PUT':
+        if psych_xp is not None:
+            updated = psych_xp.update(request.json)
+            if updated:
+                return jsonify({"message": "Experience updated"}), 200
+            else:
+                return jsonify({"message": "Something went wrong!"}), 500
+        return jsonify({"message": "Experience does not exist!"}), 404
+
+# Endpoint to delete, update and get a strategie by id
+
+
+@api.route('/psych-strategies/<int:id>', methods=['DELETE', 'PUT', 'GET'])
+def handle_one_strategie(id):
+    psych_strategie = PsychTherapeuticStrategies.query.filter_by(
+        id=id).one_or_none()
+    if request.method == 'DELETE':
+        if psych_strategie is None:
+            return jsonify({"message": "Strategie not found"}), 404
+        deleted = psych_strategie.delete()
+        if deleted == False:
+            return jsonify({"message": "Something happen try again!"}), 500
+        return jsonify({"message": "Strategie deleted"}), 204
+    elif request.method == 'GET':
+        if psych_strategie is None:
+            return jsonify({"message": "Strategie not found"}), 404
+        return jsonify(psych_strategie.serialize()), 200
+    elif request.method == 'PUT':
+        if psych_strategie is not None:
+            updated = psych_strategie.update(request.json)
+            if updated:
+                return jsonify({"message": "Strategie updated"}), 200
+            else:
+                return jsonify({"message": "Something went wrong!"}), 500
+        return jsonify({"message": "Strategie does not exist!"}), 404
 # Get Session by ID of the professor, but returns all sessions of the current day. If there's no sessions, will return the same statement
+
+
 @api.route("/sessions/today/<int:psychologist_id>", methods=['GET'])
 def handle_sessions_today(psychologist_id):
     today = date.today()
@@ -288,6 +366,9 @@ def handle_reserved_session(session_id):
         return ({"message": "session not found"})
 
 
+<< << << < HEAD
+
+
 @api.route("/schedule", methods=['GET', 'POST'])
 @jwt_required()
 def handle_schedule():
@@ -309,6 +390,57 @@ def handle_schedule():
             for schedule_single in schedules_current_id:
                 response.append(schedule_single.serialize())
             return jsonify(response), 200
+
+
+== == == =
+
+
+@api.route("/session-unbook/<int:session_id>", methods=['PUT'])
+@jwt_required()
+def handle_unbook_session(session_id):
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(id=current_user).one_or_none()
+    session = Session.query.filter_by(id=session_id).one_or_none()
+    data = request.json
+    print(data)
+    if session is not None:
+        data["client_id"] = None
+        print(data)
+        unbooked = session.reserve_session(data)
+        print(unbooked)
+        if unbooked is True:
+            return jsonify({"message": "Session unbooked"}), 204
+        else:
+            return jsonify({"message": "error"}), 500
+
+
+@api.route("/schedules", methods=['GET', 'POST'])
+@jwt_required()
+def handle_schedules():
+    current_user = get_jwt_identity()
+    psychologist = User.query.filter_by(
+        id=current_user).where(User.is_psicologo == True).one_or_none()
+    print(psychologist.id)
+    if request.method == 'GET':
+        response = []
+       # if schedules is not None:
+        #  for schedule in schedules:
+        #     response.append(schedule.serialize())
+        #  return jsonify({response}), 200
+    elif request.method == 'POST':
+        schedule_data = request.json
+        print(schedule_data)
+        schedule_data["psychologist_id"] = psychologist.id
+        print(schedule_data)
+        new_schedule = Schedule.create_schedule(schedule_data)
+        print(new_schedule)
+        if new_schedule is not None:
+            return jsonify({"message": "Schedule created succesfully", "data": new_schedule}), 201
+        else:
+            return jsonify({"message": "info error", "data": new_schedule}), 400
+
+
+>>>>>> > e400282140399db42d653d505fe78cbc14e93172
 # @api.route("/refresh", methods=["POST"])
 # @jwt_required(refresh=True)
 # def refresh():
