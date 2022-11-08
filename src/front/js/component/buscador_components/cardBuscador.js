@@ -16,32 +16,30 @@ export const Card = ({
 
     return (
         <>
-
-            <div className="col-4" style={{ textAlign: "-webkit-center" }}>
-                <div className="card card-primary card-outline w-75">
-                    <div >
-                        <div className="text-center">
-                            <img
-                                src={
-                                    profile_picture ? profile_picture : default_profile_picture
-                                }
-                                alt="User profile picture"
-                                id="avatar_perfil"
-                                className="profile-user-img img-fluid img-circle"
-                            />
+            <div className="col-4">
+                <div className="card">
+                    <div className="card-liner">
+                        <figure><img src="https://i.imgur.com/mXf4bBv.jpg" alt="" /> </figure>
+                        <div className="card--social">
+                            <ul>
+                                <li className="instagram"><a href="#" className="insta"><i className="bi bi-instagram"></i></a></li>
+                                <li className="codepen"><a href="#"><i className="fa fa-codepen"></i></a></li>
+                            </ul>
                         </div>
-                        <h5 className="my-3 text-center">
-                            {name} {last_name}
-                        </h5>
-                        <p className="text-muted mb-1 text-center">
-                            {area_de_especialidad}
-                        </p>
-                        <p className="text-muted mb-2 text-center">
-                            {precio_consulta}
-                        </p>
-                        <a href="#" className="btn btn-primary btn-block">
-                            <b>Follow</b>
-                        </a>
+                        <div className="card--title">
+                            <h3>Sarfaraz Stark</h3>
+                            <p>Web Developer</p>
+                        </div>
+                        <div className="card--desc">
+                            <hr />
+                            <p>“Everybody should learn to program a computer, because it teaches you how to think.”</p>
+                        </div>
+                        <div className="card--btn">
+                            <a href="#">
+                                <span className="moreinfo"><i className="fa fa-info-circle"></i> CSS HOVER CARD</span>
+                                <span className="fullprof">Dont Forget To Like <i className="fa fa-heart"></i> </span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
