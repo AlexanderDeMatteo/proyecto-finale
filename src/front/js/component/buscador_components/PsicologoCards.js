@@ -24,7 +24,7 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
   return (
     <div style={{ margin: "inherit" }}>
       <div className="container-fluid">
-        <div className="row">
+        <div className="row mt-2" style={{ textAlign: "-webkit-center" }}>
 
           {
             filtrado() == "" ?   // Verifica que se haya hecho un filtro. Sino, se muestran todos los psicologos

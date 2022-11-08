@@ -16,29 +16,39 @@ export const Card = ({
 
     return (
         <>
-            <div className="col-4">
-                <div className="card">
-                    <div className="card-liner">
-                        <figure><img src="https://i.imgur.com/mXf4bBv.jpg" alt="" /> </figure>
-                        <div className="card--social">
-                            <ul>
-                                <li className="instagram"><a href="#" className="insta"><i className="bi bi-instagram"></i></a></li>
-                                <li className="codepen"><a href="#"><i className="fa fa-codepen"></i></a></li>
-                            </ul>
-                        </div>
-                        <div className="card--title">
-                            <h3>Sarfaraz Stark</h3>
-                            <p>Web Developer</p>
-                        </div>
-                        <div className="card--desc">
-                            <hr />
-                            <p>“Everybody should learn to program a computer, because it teaches you how to think.”</p>
-                        </div>
-                        <div className="card--btn">
-                            <a href="#">
-                                <span className="moreinfo"><i className="fa fa-info-circle"></i> CSS HOVER CARD</span>
-                                <span className="fullprof">Dont Forget To Like <i className="fa fa-heart"></i> </span>
-                            </a>
+
+
+            <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                <div className="container-fluid">
+                    <div className="card" style={{ border: "1px solid #fff", borderRadius: "15px", transition: "all 0.35s ease", background: "#fff", width: "15rem", height: "20rem" }}>
+                        <div className="card-liner">
+                            <figure><img src={profile_picture ? profile_picture : default_profile_picture} alt="" /> </figure>
+                            <div className="card--social">
+                                <ul>
+                                    <li className="instagram"><a href="#" className="insta"><i className="bi bi-instagram"></i></a></li>
+                                    <li className="codepen"><a href="#"><i className="fa fa-codepen"></i></a></li>
+                                </ul>
+                            </div>
+                            <div className="card--title">
+                                <h3>{name}{" "}{last_name ? last_name : "Pestana"}</h3>
+                                <p>{area_de_especialidad ? area_de_especialidad : "Psicologo Deportivo"}</p>
+                            </div>
+                            <div className="card--desc">
+                                <div className="row">
+                                    <div className="col-6">
+                                        1
+                                    </div>
+                                    <div className="col-6">
+                                        2
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card--btn">
+                                <a href="#" style={{ padding: "0" }}>
+                                    <span className="moreinfo">More Info</span>
+                                    <Link className="fullprof card-link">Profile</Link>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
