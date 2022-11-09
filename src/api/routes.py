@@ -400,7 +400,7 @@ def handle_schedule():
         if schedule is not None:
             return jsonify({"message": "schedule created succesfully"}), 201
         return jsonify({"message": "info error"}), 400
-    else:
+    elif request.method == 'GET':
         schedules_current_id = Schedule.query.filter_by(
             psychologist_id=psychologist.id).all()
         print(schedules_current_id)
@@ -412,6 +412,37 @@ def handle_schedule():
         else:
             return jsonify({"message": "no schedules"})
 
+
+@api.route("/schedule-handle/<int:schedule_id>", methods=['DELETE', 'PUT'])
+@jwt_required()
+def handle_modification_schedule(schedule_id):
+    current_psychologist = get_jwt_identity()
+    psychologist = User.query.filter_by(id=current_psychologist).where(
+        User.is_psicologo == True).one_or_none()
+    if request.method == 'DELETE':
+        schedule_to_delete = Schedule.query.filter_by(
+            id=schedule_id).one_or_none()
+        if schedule_to_delete.psychologist_id != psychologist.id:
+            return jsonify({"message": "not the owner of the schedule"}), 402
+        else:
+            if schedule_to_delete is None:
+                return jsonify({"message": "schedule not found"}), 404
+            removed = schedule_to_delete.delete_schedule()
+            if removed == False:
+                return jsonify({"status": False, "message": "something happened"}), 500
+            else:
+                return jsonify({"status": True, "message": "service deleted"}), 204
+    elif request.method == 'PUT':
+        schedule_to_modify = Schedule.query.filter_by(
+            id=schedule_id).one_or_none()
+        if schedule_to_modify.psychologist_id != psychologist.id:
+            return jsonify({"message": "not the owner of the schedule"}), 402
+        data = request.json
+        if schedule_to_modify is not None:
+            modified = schedule_to_modify.update_schedule(data)
+            if modified == True:
+                return jsonify({"message": "schedule modified"}), 200
+            return jsonify({"message": "error"})
 
 # @api.route("/refresh", methods=["POST"])
 # @jwt_required(refresh=True)

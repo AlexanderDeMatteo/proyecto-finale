@@ -25,8 +25,8 @@ export const Card = ({
                             <figure><img src={profile_picture ? profile_picture : default_profile_picture} alt="" /> </figure>
                             <div className="card--social">
                                 <ul>
-                                    <li className="instagram"><a href="#" className="insta"><i className="bi bi-instagram"></i></a></li>
-                                    <li className="codepen"><a href="#"><i className="fa fa-codepen"></i></a></li>
+                                    <li className="instagram"><Link to={`/profile/${id ? id : 0}`}><i className="fa-regular fa-user"></i></Link></li>
+                                    <li className="codepen"><Link><i className="fa fa-codepen"></i></Link></li>
                                 </ul>
                             </div>
                             <div className="card--title">

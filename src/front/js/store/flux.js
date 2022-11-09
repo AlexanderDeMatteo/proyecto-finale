@@ -100,6 +100,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 				if (response.ok) {
 					let body = await response.json()
+					console.log(body)
 					setStore({
 						...store,
 						userPsicologos: body
