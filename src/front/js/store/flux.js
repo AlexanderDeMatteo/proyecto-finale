@@ -71,37 +71,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// getSchedule: async () => {
-			// 	const store = getStore()
-			// 	let response = await fetch(`${API_URL}/api/schedule`, {
-			// 		method: "GET",
-			// 		headers: {
-			// 			"Content-Type": "application/json",
-			// 			Authorization: `Bearer ${localStorage.getItem("token")}`,
-			// 		},
+			deleteSchedule: async (data) => {
+				const store = getStore()
+				let response = await fetch(`${API_URL}/api/schedule-handle/` + data, {
+					method: 'DELETE',
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${localStorage.getItem("token")}`
+					},
+				});
 
-			// 	});
+			},
 
-			// 	if (response.ok) {
-			// 		let body = await response.json()
 
-			// 		setStore({
-			// 			...store,
-			// 			userTime: body
-			// 		})
-			// 		// setStore({ 'serDataD': body })
-			// 	} else return false;
-			// 	let data = await response.json();
-
-			// },
-			createSchedule: async () => {
+			createSchedule: async (start, end) => {
 				let response = await fetch(`${API_URL}/api/schedule`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${localStorage.getItem("token")}`,
 					},
-					body: JSON.stringify({ 'start_time': 10, "end_time": 14 })
+					body: JSON.stringify({ 'start_time': start, "end_time": end })
 				});
 				if (response.ok) {
 					console.log(response.statusText)

@@ -10,18 +10,14 @@ export const Calendar_custom = () => {
     const [selectedDate, setSelectedDate] = useState(new Date().toString().split(" "));
     const [items, setItems] = useState([{ text: '9am - 10am' }, { text: '1pm-2pm' }, { text: '3pm-4pm' }]);
 
-    const transition = useTransition(items, {
+    const transition = useTransition(store.userTime, {
         from: { x: 0, y: 50, opacity: 0 },
         enter: { x: 0, y: 0, opacity: 1 },
 
     });
 
     useEffect(() => {
-        console.log(store)
-        let pp = store.userData
-        console.log(pp)
-        actions.get_user_dates(1)
-        console.log(store)
+        actions.getSchedule()
 
     }, [])
 
@@ -87,7 +83,7 @@ export const Calendar_custom = () => {
                                                 <div className="external-event bg-info">Do homework</div> */}
                                                 {transition((style, item) =>
                                                     item ? <animated.div style={style} className="card card-primary card-outline" ><div className="card-header">
-                                                        <h3 className="card-title letter_small">{item.text}</h3>
+                                                        <h3 className="card-title letter_small">{item.start_time + 'am - ' + item.end_time + 'pm'}</h3>
                                                         <div className="card-tools button-agend">
                                                             <a href="#" className="btn btn-tool btn-link button-agend">Agendar Cita</a>
                                                         </div>

@@ -7,13 +7,11 @@ import { useTransition, animated } from "react-spring";
 
 export const CalendarCogif_custom = () => {
     const { actions, store } = useContext(Context)
-    const [dateList, setdateList] = useState([]);
     const [showcreate, setShowCreate] = useState(false);
-    const [data, setData] = useState(JSON.stringify(store))
     const [DatesCreate, setDatesCreate] = useState({ "horaincio": 0, "horafina": 0 });
 
 
-    const transition = useTransition(dateList, {
+    const transition = useTransition(store.userTime, {
         from: { x: 0, y: 50, opacity: 0 },
         enter: { x: 0, y: 0, opacity: 1 },
     });
@@ -25,31 +23,27 @@ export const CalendarCogif_custom = () => {
 
     useEffect(() => {
         actions.getSchedule()
-        // setdateList([{ text: '9am - 10am' }, { text: '1pm-2pm' },]);
-        // setdateList(store.userTime);
+
 
 
 
     }, [store])
 
-    function onChangeCalendar(event) {
+    function onCreatetimework(event) {
         event.preventDefault();
-        console.log(dateList)
-        actions.createSchedule()
-        // setdateList([]);
-        if (DatesCreate.horaincio && DatesCreate.horafina) {
-            setdateList((prevDate) => ([...prevDate, { text: DatesCreate.horaincio + "am - " + DatesCreate.horafina + "pm " }]));
-        }
+        actions.createSchedule(DatesCreate.horaincio, DatesCreate.horafina)
         setDatesCreate({ "horaincio": 0, "horafina": 0 })
-    }
-    function testbutton(event) {
-        event.preventDefault();
-        actions.getSchedule()
-        console.log(store.userTime)
-        setdateList(store.userTime)
         setShowCreate(!showcreate)
-        // console.log(dateList)
-        // console.log(store.userTime)
+        actions.getSchedule()
+    }
+    function deleteDate(event) {
+        event.preventDefault();
+        actions.deleteSchedule(event.target.name)
+        actions.getSchedule()
+    }
+    function showcreatedates(event) {
+        event.preventDefault();
+        setShowCreate(!showcreate)
     }
 
     function handleChange(event) {
@@ -94,19 +88,22 @@ export const CalendarCogif_custom = () => {
                                 <div className="row">
                                     <div className="col-12 col-md-12 col-lg-8 order-2 order-md-1">
                                         <div className="row">
+
                                             {transition((style, item) =>
                                                 item ? <animated.div style={style} className="col-12 col-sm-4" ><div className="info-box bg-light">
                                                     <div className="info-box-content">
                                                         {/* <span className="info-bozx-text text-center text-muted">Total amount spent</span> */}
-                                                        <span className="info-box-number text-center text-muted mb-0">{item.start_time + ' - ' + item.end_time}</span>
+                                                        <span className="info-box-number text-center text-muted mb-0">{item.start_time + 'am - ' + item.end_time + 'pm'}</span>
                                                     </div>
-                                                </div> </animated.div> : '')}
+                                                    <button type="button" onClick={deleteDate} name={item.id} className="close button_delete_date" aria-hidden="true">&times;</button>
+                                                </div>
+                                                </animated.div> : '')}
 
 
 
 
                                         </div>
-                                        <button type="submit" className="btn btn-primary" onClick={testbutton}>Agregar nuevo horario</button>
+                                        <button type="submit" className="btn btn-primary" onClick={showcreatedates}>Agregar nuevo horario</button>
                                         <br /><br />
 
                                         {transition_2((style, item) =>
@@ -122,7 +119,7 @@ export const CalendarCogif_custom = () => {
                                                         Hasta:<input onChange={handleChange} name='horafina' type="text" value={DatesCreate.horafina} className="form-control" placeholder="Hora de Fin" />
                                                     </div>
                                                     <div className="col-5">
-                                                        <button className="btn btn-primary button_create_date" onClick={onChangeCalendar}>Crear Horario</button>
+                                                        <button className="btn btn-primary button_create_date" onClick={onCreatetimework}>Crear Horario</button>
                                                     </div>
 
                                                 </div>
