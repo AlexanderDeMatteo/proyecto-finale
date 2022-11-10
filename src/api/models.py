@@ -227,6 +227,27 @@ class Schedule(db.Model):
             db.session.rollback()
             return error
 
+    def delete_schedule(self):
+        db.session.delete(self)
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            return False
+
+    def update_schedule(self, schedule):
+        if "start_time" in schedule:
+            self.start_time = schedule["start_time"]
+        if "end_time" in schedule:
+            self.end_time = schedule["end_time"]
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            return False
+
 
 class Session(db.Model):
     id = db.Column(db.Integer, primary_key=True)
