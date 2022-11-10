@@ -46,7 +46,66 @@ const getState = ({ getStore, getActions, setStore }) => {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${localStorage.getItem("token")}`,
 					},
+
 				});
+				let data = await response.json();
+
+			},
+
+			getSchedule: async () => {
+				const store = getStore()
+				let response = await fetch(`${API_URL}/api/schedule`, {
+					method: 'GET',
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${localStorage.getItem("token")}`
+					},
+				});
+				if (response.ok) {
+					let body = await response.json()
+					setStore({
+						...store,
+						userTime: body
+					})
+					// sessionStorage.setItem("psicos", JSON.stringify(store.userPsicologos))
+				}
+			},
+
+			// getSchedule: async () => {
+			// 	const store = getStore()
+			// 	let response = await fetch(`${API_URL}/api/schedule`, {
+			// 		method: "GET",
+			// 		headers: {
+			// 			"Content-Type": "application/json",
+			// 			Authorization: `Bearer ${localStorage.getItem("token")}`,
+			// 		},
+
+			// 	});
+
+			// 	if (response.ok) {
+			// 		let body = await response.json()
+
+			// 		setStore({
+			// 			...store,
+			// 			userTime: body
+			// 		})
+			// 		// setStore({ 'serDataD': body })
+			// 	} else return false;
+			// 	let data = await response.json();
+
+			// },
+			createSchedule: async () => {
+				let response = await fetch(`${API_URL}/api/schedule`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${localStorage.getItem("token")}`,
+					},
+					body: JSON.stringify({ 'start_time': 10, "end_time": 14 })
+				});
+				if (response.ok) {
+					console.log(response.statusText)
+				} else return false;
 				let data = await response.json();
 
 			},
@@ -63,7 +122,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				if (response.ok) {
 					let body = await response.json()
-					console.log(body)
 					setStore({ userData: body })
 
 				}
