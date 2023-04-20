@@ -1,7 +1,7 @@
-.filtros{
+.filtros {
   border: solid #2e3e57;
   border-radius: 15px;
-  position: absolute;
+  position: fixed;
   padding: 10px;
   top: 105px;
   left: 441px;
@@ -11,7 +11,7 @@
   /* box-shadow: 10px 5px 5px #2e3e57 */
 }
 
-.dropdowns{
+.dropdowns {
   color: black;
   background-color: white;
   width: 100%;
@@ -20,10 +20,10 @@
   justify-content: space-between;
 }
 
-.form-control{
-  border: 1px solid #385bfc ;
+.form-control {
+  border: 1px solid #385bfc;
 }
-.rango{
+.rango {
   position: absolute;
   left: 10px;
 }

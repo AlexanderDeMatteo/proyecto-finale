@@ -73,7 +73,7 @@ export const BuscadorDePsicologos = () => {
 
                     <div className="boxBuscador">
                         <PsicologoCards filtros={filtros} />
-                        {showFiltros ?
+                        {showFiltros &&
                             <div className="filtros">
                                 <form>
                                     <button className="dropdowns btn btn-secondary mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEspecialidad" aria-expanded="false" aria-controls="collapseExample">
@@ -216,8 +216,7 @@ export const BuscadorDePsicologos = () => {
                                     </div>
                                 </form>
                             </div>
-                            :
-                            null}
+                        }
                     </div>
                 </div>
             </div>
