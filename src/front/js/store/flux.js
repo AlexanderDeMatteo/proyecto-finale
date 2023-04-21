@@ -166,13 +166,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			picture_profile: async (data) => {
-				let response = await fetch(`${API_URL}/api/user-profile-picture`, {
+				let response = await fetch(`${API_URL}/api/update_profile_picture`, {
 					method: 'PUT',
 					headers: {
 						"Content-Type": "application/json",
 						Authorization: `Bearer ${localStorage.getItem("token")}`
 					},
-					body: JSON.stringify(data)
+					body: JSON.stringify({ "profile_picture": data })
 				});
 				if (response.ok) {
 					getActions().handle_user_data()
