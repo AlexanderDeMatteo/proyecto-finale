@@ -35,9 +35,12 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
                     id={vistaPsicologo.id}
                     area_de_especialidad={vistaPsicologo.area_de_especialidad}
                     name={vistaPsicologo.name}
-                    last_name={vistaPsicologo.last_name}
                     precio_consulta={vistaPsicologo.monto}
                     profile_picture={vistaPsicologo.profile_picture}
+                    state={vistaPsicologo.state}
+                    city={vistaPsicologo.city}
+                    numberFpv={vistaPsicologo.fpv_number}
+                    phoneNumber={vistaPsicologo.phone_number}
                     colSpacing="col-4"
                   />
                 );
@@ -47,11 +50,15 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
                 return (
                   <Card
                     key={index}
+                    id={vistaPsicologo.id}
                     area_de_especialidad={vistaPsicologo.area_de_especialidad}
                     name={vistaPsicologo.name}
-                    last_name={vistaPsicologo.last_name}
                     precio_consulta={vistaPsicologo.monto}
                     profile_picture={vistaPsicologo.profile_picture}
+                    state={vistaPsicologo.state}
+                    city={vistaPsicologo.city}
+                    phoneNumber={vistaPsicologo.phone_number}
+                    numberFpv={vistaPsicologo.fpv_number}
                     colSpacing="col-4"
                   />
                 );

@@ -7,17 +7,18 @@ import { Link } from "react-router-dom";
 export const Card = ({
     id,
     name,
-    last_name,
     profile_picture,
     area_de_especialidad,
     precio_consulta,
+    state,
+    city,
+    numberFpv,
+    phoneNumber,
     colSpacing = "col-3",
 }) => {
 
     return (
         <>
-
-
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                 <div className="container-fluid">
                     <div className="card" style={{ border: "1px solid #fff", borderRadius: "15px", transition: "all 0.35s ease", background: "#fff", width: "15rem", height: "20rem" }}>
@@ -25,28 +26,44 @@ export const Card = ({
                             <figure><img src={profile_picture ? profile_picture : default_profile_picture} alt="" /> </figure>
                             <div className="card--social">
                                 <ul>
-                                    <li className="instagram"><Link to={`/profile/${id ? id : 0}`}><i className="fa-regular fa-user"></i></Link></li>
-                                    <li className="codepen"><Link><i className="fa fa-codepen"></i></Link></li>
+                                    <li className="instagram">
+                                        <Link to={`/profile/${id ? id : 0}`}>
+                                            <i className="fa-regular fa-user"></i>
+                                        </Link>
+                                    </li>
+                                    <li className="codepen">
+                                        <Link to={`/calendar`}>
+                                            <i className="fa-regular fa-calendar-days"></i>
+                                        </Link>
+                                    </li>
                                 </ul>
                             </div>
                             <div className="card--title">
-                                <h3>{name}{" "}{last_name ? last_name : "Pestana"}</h3>
+                                <h3>{name}</h3>
                                 <p>{area_de_especialidad ? area_de_especialidad : "Psicologo Deportivo"}</p>
                             </div>
                             <div className="card--desc">
                                 <div className="row">
-                                    <div className="col-6">
-                                        1
+                                    <div className="col-6 mt-2">
+                                        {`${precio_consulta ? `$${precio_consulta}` : "$00"}`}
                                     </div>
-                                    <div className="col-6">
-                                        2
+                                    <div className="col-6 mt-2">
+                                        {phoneNumber}
+                                    </div><div className="col-6 mt-1">
+                                        {`Horario`}
+                                    </div>
+                                    <div className="col-6 mt-1">
+                                        {numberFpv}
+                                    </div>
+                                    <div className="col-12 mt-1">
+                                        {`${city}, ${state}`}
                                     </div>
                                 </div>
                             </div>
                             <div className="card--btn">
                                 <a href="#" style={{ padding: "0" }}>
                                     <span className="moreinfo">More Info</span>
-                                    <Link className="fullprof card-link">Profile</Link>
+                                    <Link to={`/profile/${id ? id : 0}`} className="fullprof card-link">Profile</Link>
                                 </a>
                             </div>
                         </div>
