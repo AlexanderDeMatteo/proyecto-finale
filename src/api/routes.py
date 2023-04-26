@@ -129,20 +129,22 @@ def handle_user_data():
             # Se actualiza el usuario si existe
             return jsonify({"message": "actualizalo", "ok": updated}), 200
 
-
-@api.route("/user-profile-picture", methods=['PUT'])
+#Route to update profile picture and load it directly from cloudinary.
+@api.route("/update_profile_picture", methods=['PUT'])
 @jwt_required()
 def handle_user_picture():
     current_user = get_jwt_identity()
-    data = request.data
-    data_decode = json.loads(data)
-    updateUser = User.query.get(current_user)
-    print(data_decode)
-    updateUser.profile_picture = data_decode
-    db.session.commit()
-    response_body = {
-        "message": "Usuario actualizo foto con exito", }
-    return jsonify(response_body), 200
+    user = UserProfileInfo.query.filter_by(id=current_user).one_or_none()
+    data = request.json
+    if data is not None:
+        updated = user.update_profile_picture(data)
+        print(updated)
+        if updated is False:
+            return jsonify({"message": "error"}), 404
+        else:
+            return jsonify({"message": "profile picture updated"}), 200
+    else:
+        return jsonify({"message": "image didnt load"}), 500
 
 
 @api.route("/protected")

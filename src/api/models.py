@@ -198,6 +198,17 @@ class UserProfileInfo(db.Model):
             db.session.rollback()
             return False
 
+#Method to update profile picture
+    def update_profile_picture(self, data):
+        if "profile_picture" in data:
+            self.profile_picture = data["profile_picture"]
+        try:
+            db.session.commit()
+            return True
+        except Exception as error:
+            db.session.rollback()
+            return False
+
 
 class Schedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
