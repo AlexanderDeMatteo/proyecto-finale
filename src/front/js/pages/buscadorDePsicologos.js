@@ -22,18 +22,6 @@ export const BuscadorDePsicologos = () => {
         setFiltros({ ...filtros, [e.target.name]: e.target.value.toLowerCase() })
     }
 
-    // const handleCheck = (e) => {                 // verifica si las especialidades ya han sido marcadas para saber si las agrega o las quita
-    //     if (filtros.especialidades.find(especialidad => especialidad == e.target.value) == undefined) {
-    //         setFiltros({ ...filtros, especialidades: [...filtros.especialidades, e.target.value] })
-    //         return
-    //     } else {
-    //         setFiltros({
-    //             ...filtros,
-    //             especialidades: filtros.especialidades.filter(especialidad => especialidad !== e.target.value)
-    //         })
-    //     }
-    // }
-
     let especialidades = ["Psicología Cognitiva", "Psicología Clínica",   // array de las especialidades
         "Neuro Psicología", "Psicólogia Biológica",
         "Psicología Comparativa o Etiología", "Psicología Educativa",
