@@ -21,7 +21,7 @@ export const Card = ({
         <>
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                 <div className="container-fluid">
-                    <div className="card" style={{ border: "1px solid #fff", borderRadius: "15px", transition: "all 0.35s ease", background: "#fff", width: "15rem", height: "20rem" }}>
+                    <div className="card" style={{ border: "1px solid #fff", borderRadius: "15px", transition: "all 0.35s ease", background: "#fff", width: "17.1rem", height: "20.5rem" }}>
                         <div className="card-liner">
                             <figure><img src={profile_picture ? profile_picture : default_profile_picture} alt="" /> </figure>
                             <div className="card--social">
@@ -40,23 +40,26 @@ export const Card = ({
                             </div>
                             <div className="card--title">
                                 <h3>{name}</h3>
-                                <p>{area_de_especialidad ? area_de_especialidad : "Psicologo Deportivo"}</p>
+                                <p>{area_de_especialidad ? area_de_especialidad : "Psicologo Deportivo"}<br />
+                                    {`${city}, ${state}`}
+                                </p>
                             </div>
                             <div className="card--desc">
                                 <div className="row">
-                                    <div className="col-6 mt-2">
-                                        {`${precio_consulta ? `$${precio_consulta}` : "$00"}`}
+                                    <div className="col-6 mt-3">
+                                        Consulta:
+                                        <br />
+                                        {`00$`}
                                     </div>
-                                    <div className="col-6 mt-2">
-                                        {phoneNumber}
-                                    </div><div className="col-6 mt-1">
-                                        {`Horario`}
+                                    <div className="col-6 mt-3">
+                                        {`Contacto: ${phoneNumber}`}
                                     </div>
-                                    <div className="col-6 mt-1">
-                                        {numberFpv}
+                                    <div className="col-6">
+                                        {`Horario: 08:00-16:00`}
                                     </div>
-                                    <div className="col-12 mt-1">
-                                        {`${city}, ${state}`}
+                                    <div className="col-6">
+                                        Nro° FPV: <br />
+                                        {`${numberFpv}`}
                                     </div>
                                 </div>
                             </div>
