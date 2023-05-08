@@ -15,11 +15,13 @@ export const PsicologoCards = ({ filtros }) => {             // recibe por props
       || psico.city == filtros?.ciudad
       || psico.dni == filtros?.ci
       || psico.gender == filtros?.sexo
-      || (psico.dob >= filtros?.edadMin && psico.dob <= filtros?.edadMax)
+      // || (psico.dob >= filtros?.edadMin && psico.dob <= filtros?.edadMax)
       || psico.specialty_area == filtros?.especialidades
     )
     return filtrados
   }
+
+  console.log(filtrado())
 
   return (
     <div style={{ margin: "inherit" }}>
