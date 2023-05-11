@@ -15,10 +15,12 @@ export const AboutMe = (data) => {
       </div>
 
       <div class="card-body">
-        <strong><i class="fas fa-book mr-1"></i> Educacion</strong>
-        <p class="text-muted">
-          B.S. in Computer Science from the University of Tennessee at Knoxville
-        </p>
+        {data.user_data.education ? <>
+          <strong><i class="fas fa-book mr-1"></i> Educacion</strong>
+          <p class="text-muted">
+            {data.user_data.education}
+          </p>
+        </> : ""}
         <hr />
         <strong><i class="fas fa-map-marker-alt mr-1"></i> Locacion</strong>
         <p class="text-muted">{data.user_data.state}, {data.user_data.city}</p>
