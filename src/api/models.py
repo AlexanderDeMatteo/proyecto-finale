@@ -20,11 +20,8 @@ class User(db.Model):
     user_info = db.relationship(
         'UserProfileInfo', backref='user', uselist=False)
     session_ids = db.relationship(
-        "Session",
-        primaryjoin="and_(User.id==Session.psychologist_id, " "Session.client_id)",
-    )
-    schedule_id = db.relationship(
-        'Schedule', backref='user', uselist=False)
+        "Session", primaryjoin="and_(User.id==Session.psychologist_id, " "Session.client_id)",)
+    schedule_id = db.relationship('Schedule', backref='user', uselist=False)
 
     # def __init__(self, name, email, password, is_psicologo):
     # self.name = name
@@ -129,6 +126,7 @@ class UserProfileInfo(db.Model):
     twitter = db.Column(db.String(25), unique=True, nullable=True)
     facebook = db.Column(db.String(25), unique=True, nullable=True)
     instagram = db.Column(db.String(25), unique=True, nullable=True)
+    education = db.Column(db.String(140), unique=False, nullable=True)
     academic_info = db.relationship(
         'PsychAcademicInfo', backref='userprofileinfo', uselist=True)
     experience = db.relationship(
@@ -156,6 +154,7 @@ class UserProfileInfo(db.Model):
             "twitter": self.twitter,
             "facebook": self.facebook,
             "instagram": self.instagram,
+            "education": self.education,
             "academic_info": [academic_info.serialize() for info in self.academic_info],
             "psych_strategies": self.psych_strategies
         }
@@ -173,24 +172,15 @@ class UserProfileInfo(db.Model):
             return False
 
     def update(self, ref_user):
-        if "profile_picture" in ref_user:
-            self.profile_picture = ref_user["profile_picture"]
-        if "phone_number" in ref_user:
-            self.phone_number = ref_user["phone_number"]
-        if "fpv_number" in ref_user:
-            self.fpv_number = ref_user["fpv_number"]
-        if "specialty_area" in ref_user:
-            self.specialty_area = ref_user["specialty_area"]
-        if "twitter" in ref_user:
-            self.twitter = ref_user["twitter"]
-        if "facebook" in ref_user:
-            self.facebook = ref_user["facebook"]
-        if "instagram" in ref_user:
-            self.instagram = ref_user["instagram"]
-        if "state" in ref_user:
-            self.state = ref_user["state"]
-        if "city" in ref_user:
-            self.city = ref_user["city"]
+        attributes = [
+            "profile_picture", "phone_number", "fpv_number", "specialty_area",
+            "twitter", "facebook", "instagram", "state", "city", "education"
+        ]
+
+        for attribute in attributes:
+            if attribute in ref_user:
+                setattr(self, attribute, ref_user[attribute])
+
         try:
             db.session.commit()
             return True
@@ -198,7 +188,7 @@ class UserProfileInfo(db.Model):
             db.session.rollback()
             return False
 
-#Method to update profile picture
+# Method to update profile picture
     def update_profile_picture(self, data):
         if "profile_picture" in data:
             self.profile_picture = data["profile_picture"]
