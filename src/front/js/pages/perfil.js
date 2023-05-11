@@ -775,15 +775,15 @@ export const Perfil = () => {
                                   {!show ? (
                                     <input
                                       onChange={handleChange}
-                                      type="email"
+                                      type="text"
                                       className="form-control"
-                                      name="name"
+                                      name="education"
                                       placeholder="Nombre"
                                       value={store.userData.education}
                                     />
                                   ) : (
                                     <p className="text-muted mb-0">
-                                      {store.userData.name}
+                                      {store.userData.education}
                                     </p>
                                   )}
                                 </div>

@@ -6,7 +6,7 @@ from cmath import inf
 from distutils.log import error
 from http.client import OK
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import Schedule, Session, UserProfileInfo, db, User
+from api.models import PsychAcademicInfo, PsychExperiences, PsychTherapeuticStrategies, Schedule, Session, UserProfileInfo, db, User
 from api.utils import generate_sitemap, APIException
 import json
 from flask_cors import CORS, cross_origin
@@ -100,7 +100,7 @@ def handle_user_data():
     if request.method == 'PUT':
         data = request.json
         print(data)
-        #data_decode = json.loads(data)
+        # data_decode = json.loads(data)
         user.update(data)
         email = data["email"]
         fpv = data["fpv_number"]
@@ -127,9 +127,11 @@ def handle_user_data():
         else:
             updated = user_profile_info.update(data)
             # Se actualiza el usuario si existe
-            return jsonify({"message": "actualizalo", "ok": updated}), 200
+            return jsonify({"message": "Datos actualizados.", "ok": updated}), 200
 
-#Route to update profile picture and load it directly from cloudinary.
+# Route to update profile picture and load it directly from cloudinary.
+
+
 @api.route("/update_profile_picture", methods=['PUT'])
 @jwt_required()
 def handle_user_picture():
