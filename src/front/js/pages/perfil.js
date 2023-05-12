@@ -296,10 +296,11 @@ export const Perfil = () => {
 
                           {!show ? (
                             <textarea
+                              readOnly
                               className="form-control"
                               id="inputEstrategia"
                               placeholder="Estrategia"
-                              value=" Lorem ipsum represents a long-held tradition htmlFor designers,
+                              defaultValue=" Lorem ipsum represents a long-held tradition htmlFor designers,
                             typographers and the like. Some people hate it and argue htmlFor
                             its demise, but others ignore the hate as they create awesome
                             tools to help create filler text htmlFor everyone from bacon lovers
@@ -357,10 +358,11 @@ export const Perfil = () => {
 
                           {!show ? (
                             <textarea
+                              readOnly
                               className="form-control"
                               id="inputEstrategia"
                               placeholder="Estrategia"
-                              value=" Lorem ipsum represents a long-held tradition htmlFor designers,
+                              defaultValue=" Lorem ipsum represents a long-held tradition htmlFor designers,
                             typographers and the like. Some people hate it and argue htmlFor
                             its demise, but others ignore the hate as they create awesome
                             tools to help create filler text htmlFor everyone from bacon lovers
@@ -814,7 +816,7 @@ export const Perfil = () => {
                                   {!show ? (
                                     <input
                                       onChange={handleChange}
-                                      type="email"
+                                      type="text"
                                       className="form-control"
                                       name="instagram"
                                       placeholder="Instagram"
@@ -841,7 +843,7 @@ export const Perfil = () => {
                                   {!show ? (
                                     <input
                                       onChange={handleChange}
-                                      type="email"
+                                      type="text"
                                       className="form-control"
                                       name="facebook"
                                       placeholder="Facebook"
@@ -867,7 +869,7 @@ export const Perfil = () => {
                                   {!show ? (
                                     <input
                                       onChange={handleChange}
-                                      type="email"
+                                      type="text"
                                       className="form-control"
                                       name="twitter"
                                       placeholder="Twitter"
@@ -914,7 +916,7 @@ export const Perfil = () => {
                             <div className="form-group row">
                               <div className="offset-sm-2 col-sm-10">
                                 <button
-                                  type="submit"
+                                  type="button"
                                   onClick={Editar}
                                   className="btn btn-danger"
                                 >
