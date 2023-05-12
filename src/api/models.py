@@ -123,9 +123,9 @@ class UserProfileInfo(db.Model):
     specialty_area = db.Column(db.String(120), unique=False, nullable=True)
     city = db.Column(db.String(25), unique=False, nullable=True)
     state = db.Column(db.String(25), unique=False, nullable=True)
-    twitter = db.Column(db.String(25), unique=True, nullable=True)
-    facebook = db.Column(db.String(25), unique=True, nullable=True)
-    instagram = db.Column(db.String(25), unique=True, nullable=True)
+    twitter = db.Column(db.String(25), unique=False, nullable=True)
+    facebook = db.Column(db.String(25), unique=False, nullable=True)
+    instagram = db.Column(db.String(25), unique=False, nullable=True)
     education = db.Column(db.String(140), unique=False, nullable=True)
     academic_info = db.relationship(
         'PsychAcademicInfo', backref='userprofileinfo', uselist=True)
@@ -185,6 +185,7 @@ class UserProfileInfo(db.Model):
             db.session.commit()
             return True
         except Exception as error:
+            print(error)
             db.session.rollback()
             return False
 
