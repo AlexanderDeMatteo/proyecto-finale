@@ -74,10 +74,10 @@ export const Navbar = () => {
           </li>
 
           <li className="nav-item dropdown">
-            <a className="nav-link" data-toggle="dropdown" href="#">
+            {hasValidToken() ? <a className="nav-link" data-toggle="dropdown" href="#">
               <i className="far fa-comments"></i>
               <span className="badge badge-danger navbar-badge">3</span>
-            </a>
+            </a> : ""}
             <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <a href="#" className="dropdown-item">
 
@@ -133,10 +133,10 @@ export const Navbar = () => {
           </li>
 
           <li className="nav-item dropdown">
-            <a className="nav-link" data-toggle="dropdown" href="#">
+            {hasValidToken() && <a className="nav-link" data-toggle="dropdown" href="#">
               <i className="far fa-bell"></i>
               <span className="badge badge-warning navbar-badge">15</span>
-            </a>
+            </a>}
             <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <span className="dropdown-item dropdown-header">15 Notifications</span>
               <div className="dropdown-divider"></div>
