@@ -456,10 +456,18 @@ export const Perfil = () => {
                             <div className="col-sm-10">
                               <div>
                                 {!show ? (
-                                  <input type="text" class="form-control" placeholder="mm/dd/yyyy" data-inputmask-alias="datetime" data-inputmask-inputformat="mm/dd/yyyy" data-mask />
+                                  <input type="text"
+                                    name="dob"
+                                    onChange={handleChange}
+                                    value={store.userData.dob || ""}
+                                    className="form-control"
+                                    placeholder="mm/dd/yyyy"
+                                    data-inputmask-alias="datetime"
+                                    data-inputmask-inputformat="mm/dd/yyyy"
+                                    data-mask />
                                 ) : (
                                   <p className="text-muted mb-0">
-                                    {store.userData.birht_date}
+                                    {store.userData.dob}
                                   </p>
                                 )}
                               </div>
@@ -502,14 +510,19 @@ export const Perfil = () => {
                             <div className="col-sm-10">
                               <div>
                                 {!show ? (
-                                  <select class="custom-select form-control-border" id="exampleSelectBorder">
+                                  <select
+                                    value={store.userData.gender || ""}
+                                    className="custom-select form-control-border"
+                                    onChange={handleChange}
+                                    name="gender"
+                                    id="exampleSelectBorder">
                                     <option>M</option>
                                     <option>F</option>
                                     <option>Otro</option>
                                   </select>
                                 ) : (
                                   <p className="text-muted mb-0">
-                                    {store.userData.sex}
+                                    {store.userData.gender}
                                   </p>
                                 )}
                               </div>
