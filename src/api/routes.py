@@ -99,7 +99,7 @@ def handle_user_data():
             return jsonify(full_info), 200
     if request.method == 'PUT':
         data = request.json
-        print(data)
+        # print(data)
         # data_decode = json.loads(data)
         user.update(data)
         email = data["email"]
@@ -125,6 +125,7 @@ def handle_user_data():
                 print(error)
                 return jsonify(error), 500
         else:
+            print(data)
             updated = user_profile_info.update(data)
             # Se actualiza el usuario si existe
             return jsonify({"message": "Datos actualizados.", "ok": updated}), 200
@@ -189,30 +190,46 @@ def handle_specialty_area():
     return jsonify({"ok": True, "result": specialty_areas}), 200
 
 
-# Endpoint to delete, update and get a academic info by id
 # Preguntar en reunion, como se hará para actualizar la información academica del psicologo
-@api.route('/psych-academic-info/<int:id>', methods=['DELETE', 'PUT', 'GET'])
-def handle_one_academic_info(id):
-    academic_info = PsychAcademicInfo.query.filter_by(id=id).one_or_none()
-    if request.method == 'DELETE':
-        if academic_info is None:
-            return jsonify({"message": "Academic information not found"}), 404
-        deleted = academic_info.delete()
-        if deleted == False:
-            return jsonify({"message": "Something happen try again!"}), 500
-        return jsonify({"message": "Academic information deleted."}), 204
-    elif request.method == 'GET':
-        if academic_info is None:
-            return jsonify({"message": "Academic information not found"}), 404
-        return jsonify(academic_info.serialize()), 200
-    elif request.method == 'PUT':
-        if academic_info is not None:
-            updated = academic_info.update(request.json)
-            if updated:
-                return jsonify({"message": "Academic information updated"}), 200
-            else:
-                return jsonify({"message": "Something went wrong!"}), 500
-        return jsonify({"message": "This academic information does not exist"}), 404
+# Get and create academic information for a psycologist
+@api.route('/academic', methods=['GET', 'POST'])
+@jwt_required()
+def get_and_create_academic_data():
+    user_id = get_jwt_identity()
+    if request.method == "GET":
+        academic_data = PsychAcademicInfo.query.filter_by(
+            user_id=user_id).all()
+        return jsonify([academic.serialize() for academic in academic_data])
+    elif request.method == "POST":
+        academic_info = request.json
+        academic_info["user_id"] = user_id
+        new_academic = PsychAcademicInfo.create(academic_info)
+        if new_academic:
+            return jsonify({'message': 'Academic data successfully added', 'academic_data': new_academic.serialize()}), 201
+        return jsonify({'message': 'Error adding academic data'}), 500
+
+
+# Obtener y actualizar datos académicos por ID
+@api.route('/academic/<int:academic_id>', methods=['GET', 'PUT', 'DELETE'])
+@jwt_required()
+def get_and_update_academic_data_by_id(academic_id):
+    user_id = get_jwt_identity()
+    academic = PsychAcademicInfo.query.filter_by(
+        id=academic_id, user_id=user_id).first()
+    print(academic)
+    if academic:
+        if request.method == "GET":
+            return jsonify(academic.serialize())
+        elif request.method == "PUT":
+            academic_info = request.json
+            if academic.update(academic_info):
+                return jsonify({'message': 'Academic data successfully updated'})
+            return jsonify({'message': 'Error updating academic data'}), 500
+        elif request.method == "DELETE":
+            if academic.delete():
+                return jsonify({'message': 'Academic data successfully removed'})
+            return jsonify({'message': 'Error deleting academic data'}), 500
+    return jsonify({'message': 'Academic data not found'}), 404
 
 
 # Endpoint to delete, update and get a experience by id
