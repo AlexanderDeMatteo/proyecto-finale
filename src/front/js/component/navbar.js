@@ -2,13 +2,19 @@ import React, { useState, useContext, useEffect } from "react";
 import { Redirect, useHistory, NavLink } from "react-router-dom";
 import "../../styles/navbar.css";
 import { Context } from "../store/appContext";
-
+import {
+  setAuthToken,
+  getAuthToken,
+  removeAuthToken,
+  hasValidToken
+} from '../utils/authTokenUtils';
 export const Navbar = () => {
   const [isLogOut, setIsLogOut] = useState(false);
   const { actions, store } = useContext(Context);
+
   useEffect(() => {
-    if (localStorage.getItem("token") && isLogOut) setIsLogOut(false);
-  }, [localStorage.getItem("token"), isLogOut]);
+    if (getAuthToken("token") && isLogOut) setIsLogOut(false);
+  }, [getAuthToken("token"), isLogOut]);
 
   useEffect(() => {
     // actions.privateData()
@@ -30,10 +36,10 @@ export const Navbar = () => {
           <li className="nav-item d-none d-sm-inline-block">
             <a href="#" className="nav-link">sobre nosotros</a>
           </li>
-          {!localStorage.getItem("token") ? <li className="nav-item d-none d-sm-inline-block">
+          {!hasValidToken() ? <li className="nav-item d-none d-sm-inline-block">
             <a href="/signup" className="nav-link">Registro</a>
           </li> : ""}
-          {!localStorage.getItem("token") ? <li className="nav-item d-none d-sm-inline-block">
+          {!hasValidToken() ? <li className="nav-item d-none d-sm-inline-block">
             <a href="/signin" className="nav-link">Login</a>
           </li> : ""}
           {store.userData.is_psicologo ? <li className="nav-item d-none d-sm-inline-block">
@@ -152,7 +158,7 @@ export const Navbar = () => {
               <a href="#" className="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
           </li>
-          {localStorage.getItem("token") ?
+          {hasValidToken() ?
             <li className="nav-item dropdown" id="hola">
               <a className="nav-link dropdown-toggle arrow-avatar" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                 {store.userData.profile_picture ? <img id="avatar"
@@ -169,7 +175,7 @@ export const Navbar = () => {
                 <li className="dropdown-item"><NavLink to="/status">Status</NavLink></li>
                 <li className="dropdown-item"><NavLink to="/facturacion">Facturacion</NavLink></li>
                 <li onClick={(e) => {
-                  localStorage.removeItem("token");
+                  removeAuthToken("token");
                   setIsLogOut(true)
                 }} className="dropdown-item">Log Out</li>
               </ul>
@@ -186,13 +192,13 @@ export const Navbar = () => {
 // 	<NavLink className="nav-link" id="nav-item" to="/">Home</NavLink>
 // 	<NavLink className="nav-link" id="nav-item" to="/servicios">Servicios</NavLink>
 // 	<NavLink className="nav-link" id="nav-item" to="/about_us">About Us</NavLink>
-// 	{!localStorage.getItem("token") ? <NavLink className="nav-link" id="nav-item"
+// 	{!hasValidToken() ? <NavLink className="nav-link" id="nav-item"
 // 		to="/signup">registro</NavLink> : ""}
-// 	{!localStorage.getItem("token") ? <NavLink className="nav-link" id="nav-item" to="/signin">Login</NavLink> : ""}
-// 	{/* {!localStorage.getItem("token") && store.userData.is_psicologo ? <NavLink className="nav-link" to="/market_place">Mercado</NavLink> : ""} */}
+// 	{!hasValidToken() ? <NavLink className="nav-link" id="nav-item" to="/signin">Login</NavLink> : ""}
+// 	{/* {!hasValidToken() && store.userData.is_psicologo ? <NavLink className="nav-link" to="/market_place">Mercado</NavLink> : ""} */}
 // 	<NavLink className="nav-link" id="nav-item" to="/noticias">Noticias</NavLink>
 
-// 	{localStorage.getItem("token") ?
+// 	{hasValidToken() ?
 // 		<li className="nav-item dropdown" id="hola">
 // 			<a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
 // 				{store.userData.profile_picture ? <img id="avatar"
