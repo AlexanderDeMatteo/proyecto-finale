@@ -1,3 +1,9 @@
+import {
+	setAuthToken,
+	getAuthToken,
+	removeAuthToken,
+	hasValidToken
+} from '../utils/authTokenUtils';
 const getState = ({ getStore, getActions, setStore }) => {
 	const API_URL = process.env.BACKEND_URL;
 	return {
@@ -17,7 +23,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 				if (response.ok) {
 					let data = await response.json();
-					localStorage.setItem("token", data.token);
+					setAuthToken(data.token)
 					return true;
 				} else return false;
 			},
@@ -30,7 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 				if (response.status == 200) {
 					let data = await response.json();
-					localStorage.setItem("token", data.token);
+					setAuthToken(data.token)
 					// setTimeout(function () {
 					// 	localStorage.remove("token");
 					// }, 1000 * 60 * 60); //Ejecutar despues de una hora
@@ -44,7 +50,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`,
+						Authorization: `Bearer ${getAuthToken("token")}`,
 					},
 
 				});
@@ -58,7 +64,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: 'GET',
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`
+						Authorization: `Bearer ${getAuthToken("token")}`
 					},
 				});
 				if (response.ok) {
@@ -77,7 +83,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: 'DELETE',
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`
+						Authorization: `Bearer ${getAuthToken("token")}`
 					},
 				});
 
@@ -89,7 +95,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`,
+						Authorization: `Bearer ${getAuthToken("token")}`,
 					},
 					body: JSON.stringify({ 'start_time': start, "end_time": end })
 				});
@@ -105,7 +111,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: 'GET',
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`
+						Authorization: `Bearer ${getAuthToken("token")}`
 					},
 					// body: JSON.stringify([])
 				});
@@ -122,7 +128,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: 'GET',
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`
+						Authorization: `Bearer ${getAuthToken("token")}`
 					},
 
 				});
@@ -143,7 +149,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: 'GET',
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`
+						Authorization: `Bearer ${getAuthToken("token")}`
 					},
 				});
 				if (response.ok) {
@@ -170,7 +176,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: 'PUT',
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`
+						Authorization: `Bearer ${getAuthToken("token")}`
 					},
 					body: JSON.stringify({ "profile_picture": data })
 				});
@@ -185,7 +191,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					method: 'PUT',
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${localStorage.getItem("token")}`
+						Authorization: `Bearer ${getAuthToken("token")}`
 					},
 					body: JSON.stringify([])
 				});
