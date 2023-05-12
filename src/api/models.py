@@ -174,7 +174,7 @@ class UserProfileInfo(db.Model):
     def update(self, ref_user):
         attributes = [
             "profile_picture", "phone_number", "fpv_number", "specialty_area",
-            "twitter", "facebook", "instagram", "state", "city", "education"
+            "twitter", "facebook", "instagram", "state", "city", "education", "dob", "gender"
         ]
 
         for attribute in attributes:
