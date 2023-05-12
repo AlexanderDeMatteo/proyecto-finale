@@ -155,7 +155,7 @@ class UserProfileInfo(db.Model):
             "facebook": self.facebook,
             "instagram": self.instagram,
             "education": self.education,
-            "academic_info": [academic_info.serialize() for info in self.academic_info],
+            "academic_info": [info.serialize() for info in self.academic_info],
             "psych_strategies": self.psych_strategies
         }
 
